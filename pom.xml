@@ -59,6 +59,12 @@
 			<artifactId>jstl</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.pi4j</groupId>
+			<artifactId>pi4j-gpio-extension</artifactId>
+			<version>1.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -66,6 +72,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.ten31f.mission.SpringBootWebApplication</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

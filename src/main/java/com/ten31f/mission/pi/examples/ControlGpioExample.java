@@ -1,4 +1,4 @@
-package com.ten31f.mission.pi;
+package com.ten31f.mission.pi.examples;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;

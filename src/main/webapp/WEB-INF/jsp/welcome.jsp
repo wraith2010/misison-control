@@ -15,10 +15,30 @@
 
 	<div class="container">
 
+
+
 		<div class="starter-template">
 			<h1>Mission Control</h1>
 			<h2>Message: ${message}</h2>
 		</div>
+
+		<table>
+			<tr>
+				<td><h1>${pin00}</h1></td>
+				<td><h1>${pin01}</h1></td>
+				<td><h1>${pin02}</h1></td>
+			</tr>
+			<tr>
+				<td><h1>${pin10}</h1></td>
+				<td><h1>${pin11}</h1></td>
+				<td><h1>${pin12}</h1></td>
+			</tr>
+			<tr>
+				<td><h1>${pin20}</h1></td>
+				<td><h1>${pin21}</h1></td>
+				<td><h1>${pin22}</h1></td>
+			</tr>
+		</table>
 
 	</div>
 
