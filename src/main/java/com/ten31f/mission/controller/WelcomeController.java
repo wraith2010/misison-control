@@ -1,21 +1,18 @@
-package com.ten31f.mission;
+package com.ten31f.mission.controller;
 
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.ten31f.mission.pi.examples.PINController;
 
 @Controller
 public class WelcomeController {
-
-	// inject via application.properties
-	@Value("${welcome.message:test}")
-	private String message = "Hello World";
 
 	@Autowired
 	private PINController pingController = null;
@@ -31,7 +28,23 @@ public class WelcomeController {
 
 		}
 
-		model.put("message", this.message);
+		return "welcome";
+	}
+
+	@GetMapping("/{pinName}")
+	public String flipPin(@PathVariable String pinName, Map<String, Object> model) {
+		GpioPinDigitalOutput[] simionPins = getPingController().getSimonOut();
+
+		for (GpioPinDigitalOutput gpioPinDigitalOutput : simionPins) {
+
+			if (gpioPinDigitalOutput.getName().equals(pinName)) {
+				gpioPinDigitalOutput.toggle();
+			}
+
+			model.put(gpioPinDigitalOutput.getName(), gpioPinDigitalOutput.getState());
+
+		}
+
 		return "welcome";
 	}
 

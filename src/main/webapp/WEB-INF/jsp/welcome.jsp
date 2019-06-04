@@ -24,19 +24,19 @@
 
 		<table>
 			<tr>
-				<td><h1>${pin00}</h1></td>
-				<td><h1>${pin01}</h1></td>
-				<td><h1>${pin02}</h1></td>
+				<td><a href="/pin00"><h1>${pin00}</h1></a></td>
+				<td><a href="/pin01"><h1>${pin01}</h1></a></td>
+				<td><a href="/pin02"><h1>${pin02}</h1></a></td>
 			</tr>
 			<tr>
-				<td><h1>${pin10}</h1></td>
-				<td><h1>${pin11}</h1></td>
-				<td><h1>${pin12}</h1></td>
+				<td><a href="/pin10"><h1>${pin10}</h1></a></td>
+				<td><a href="/pin11"><h1>${pin11}</h1></a></td>
+				<td><a href="/pin12"><h1>${pin12}</h1></a></td>
 			</tr>
 			<tr>
-				<td><h1>${pin20}</h1></td>
-				<td><h1>${pin21}</h1></td>
-				<td><h1>${pin22}</h1></td>
+				<td><a href="/pin20"><h1>${pin20}</h1></a></td>
+				<td><a href="/pin21"><h1>${pin21}</h1></a></td>
+				<td><a href="/pin22"><h1>${pin22}</h1></a></td>
 			</tr>
 		</table>
 
