@@ -15,28 +15,34 @@
 
 	<div class="container">
 
-
-
 		<div class="starter-template">
 			<h1>Mission Control</h1>
-			<h2>Message: ${message}</h2>
 		</div>
 
 		<table>
 			<tr>
-				<td><a href="/pin00"><h1>${pin00}</h1></a></td>
-				<td><a href="/pin01"><h1>${pin01}</h1></a></td>
-				<td><a href="/pin02"><h1>${pin02}</h1></a></td>
+				<td><button class="button button-blue"
+						onclick="window.location.href = '/pin00';">${pin00}</button></td>
+				<td><button class="button button-yellow"
+						onclick="window.location.href = '/pin01';">${pin01}</button></td>
+				<td><button class="button button-blue"
+						onclick="window.location.href = '/pin02';">${pin02}</button></td>
 			</tr>
 			<tr>
-				<td><a href="/pin10"><h1>${pin10}</h1></a></td>
-				<td><a href="/pin11"><h1>${pin11}</h1></a></td>
-				<td><a href="/pin12"><h1>${pin12}</h1></a></td>
+				<td><button class="button button-green"
+						onclick="window.location.href = '/pin10';">${pin10}</button></td>
+				<td><button class="button button-white"
+						onclick="window.location.href = '/pin11';">${pin11}</button></td>
+				<td><button class="button button-green"
+						onclick="window.location.href = '/pin12';">${pin12}</button></td>
 			</tr>
 			<tr>
-				<td><a href="/pin20"><h1>${pin20}</h1></a></td>
-				<td><a href="/pin21"><h1>${pin21}</h1></a></td>
-				<td><a href="/pin22"><h1>${pin22}</h1></a></td>
+				<td><button class="button button-red"
+						onclick="window.location.href = '/pin20';">${pin20}</button></td>
+				<td><button class="button button-yellow"
+						onclick="window.location.href = '/pin21';">${pin21}</button></td>
+				<td><button class="button button-red"
+						onclick="window.location.href = '/pin22';">${pin22}</button></td>
 			</tr>
 		</table>
 
