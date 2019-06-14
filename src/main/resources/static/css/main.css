@@ -11,9 +11,14 @@
   height: 100px;
 }
 
-.button-white {background-color: white;}
-.button-blue {background-color: blue;}
-.button-green {background-color: green;}
-.button-red {background-color: red;}
-.button-yellow {background-color: yellow;}
+.button-white-HIGH {background-color: white;}
+.button-white-LOW {background-color: gainsboro;}
+.button-blue-HIGH {background-color: DeepSkyBlue;}
+.button-blue-LOW {background-color: MidnightBlue;}
+.button-green-HIGH {background-color: lime;}
+.button-green-LOW {background-color: darkgreen;}
+.button-red-HIGH {background-color: red;}
+.button-red-LOW {background-color: darkred;}
+.button-yellow-HIGH {background-color: yellow;}
+.button-yellow-LOW {background-color: darkkhaki;}
 
