@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /mission-control/.settings
 /mission-control/*.classpath
 /mission-control/*.project
@@ -5,3 +6,6 @@
 /rocket-relay/.settings
 /rocket-relay/*.classpath
 /rocket-relay/*.project
+=======
+/target
+>>>>>>> fbbd0231255ac9592ba22807d875b79bf4a9bfbe
