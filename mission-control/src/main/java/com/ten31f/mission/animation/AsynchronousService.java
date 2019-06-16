@@ -1,4 +1,4 @@
-package com.ten31f.mission.pi.animation;
+package com.ten31f.mission.animation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import com.ten31f.mission.pi.animation.AsynchronousService;
+import com.ten31f.mission.animation.AsynchronousService;
 
 @SpringBootApplication
 @EnableAsync

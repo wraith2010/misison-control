@@ -1,0 +1,7 @@
+/mission-control/.settings
+/mission-control/*.classpath
+/mission-control/*.project
+/rocket-relay/target
+/rocket-relay/.settings
+/rocket-relay/*.classpath
+/rocket-relay/*.project

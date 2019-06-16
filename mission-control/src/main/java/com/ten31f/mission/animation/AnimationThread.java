@@ -1,4 +1,4 @@
-package com.ten31f.mission.pi.animation;
+package com.ten31f.mission.animation;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,9 +7,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinState;
-import com.ten31f.mission.pi.examples.PINController;
+import com.ten31f.mission.pi.IPINController;
 
 public class AnimationThread implements Runnable {
 
@@ -19,7 +18,7 @@ public class AnimationThread implements Runnable {
 
 	private Date lastInput = null;
 
-	private PINController pinController = null;
+	private IPINController pinController = null;
 
 	private List<AnimationStep> currentAnimation = null;
 
@@ -27,7 +26,7 @@ public class AnimationThread implements Runnable {
 
 	private List<AnimationStep> spinAnimation = null;
 
-	public AnimationThread(PINController pinController) {
+	public AnimationThread(IPINController pinController) {
 
 		setPinController(pinController);
 		initilizeSpinAnimation();
@@ -36,28 +35,34 @@ public class AnimationThread implements Runnable {
 
 	private void initilizeSpinAnimation() {
 
-		GpioPinDigitalOutput[] simonOut = getPinController().getSimonOut();
-
 		List<AnimationStep> spinAnimation = new ArrayList<>();
 
-		spinAnimation
-				.add(new AnimationStep(new GpioPinDigitalOutput[] { simonOut[0], simonOut[8] }, PinState.HIGH, 500));
-		spinAnimation
-				.add(new AnimationStep(new GpioPinDigitalOutput[] { simonOut[0], simonOut[8] }, PinState.LOW, 500));
-		spinAnimation
-				.add(new AnimationStep(new GpioPinDigitalOutput[] { simonOut[1], simonOut[7] }, PinState.HIGH, 500));
-		spinAnimation
-				.add(new AnimationStep(new GpioPinDigitalOutput[] { simonOut[1], simonOut[7] }, PinState.LOW, 500));
-		spinAnimation
-				.add(new AnimationStep(new GpioPinDigitalOutput[] { simonOut[2], simonOut[6] }, PinState.HIGH, 500));
-		spinAnimation
-				.add(new AnimationStep(new GpioPinDigitalOutput[] { simonOut[2], simonOut[6] }, PinState.LOW, 500));
-		spinAnimation
-				.add(new AnimationStep(new GpioPinDigitalOutput[] { simonOut[3], simonOut[5] }, PinState.HIGH, 500));
-		spinAnimation
-				.add(new AnimationStep(new GpioPinDigitalOutput[] { simonOut[3], simonOut[5] }, PinState.LOW, 500));
-		spinAnimation.add(new AnimationStep(new GpioPinDigitalOutput[] { simonOut[4] }, PinState.HIGH, 500));
-		spinAnimation.add(new AnimationStep(new GpioPinDigitalOutput[] { simonOut[4] }, PinState.LOW, 500));
+		spinAnimation.add(
+				new AnimationStep(new String[] { IPINController.PIN_NAME_PIN00_OUT, IPINController.PIN_NAME_PIN22_OUT },
+						PinState.HIGH, 500));
+		spinAnimation.add(
+				new AnimationStep(new String[] { IPINController.PIN_NAME_PIN00_OUT, IPINController.PIN_NAME_PIN22_OUT },
+						PinState.LOW, 500));
+		spinAnimation.add(
+				new AnimationStep(new String[] { IPINController.PIN_NAME_PIN01_OUT, IPINController.PIN_NAME_PIN21_OUT },
+						PinState.HIGH, 500));
+		spinAnimation.add(
+				new AnimationStep(new String[] { IPINController.PIN_NAME_PIN01_OUT, IPINController.PIN_NAME_PIN21_OUT },
+						PinState.LOW, 500));
+		spinAnimation.add(
+				new AnimationStep(new String[] { IPINController.PIN_NAME_PIN02_OUT, IPINController.PIN_NAME_PIN20_OUT },
+						PinState.HIGH, 500));
+		spinAnimation.add(
+				new AnimationStep(new String[] { IPINController.PIN_NAME_PIN02_OUT, IPINController.PIN_NAME_PIN20_OUT },
+						PinState.LOW, 500));
+		spinAnimation.add(
+				new AnimationStep(new String[] { IPINController.PIN_NAME_PIN10_OUT, IPINController.PIN_NAME_PIN12_OUT },
+						PinState.HIGH, 500));
+		spinAnimation.add(
+				new AnimationStep(new String[] { IPINController.PIN_NAME_PIN10_OUT, IPINController.PIN_NAME_PIN12_OUT },
+						PinState.LOW, 500));
+		spinAnimation.add(new AnimationStep(new String[] { IPINController.PIN_NAME_PIN11_OUT }, PinState.HIGH, 500));
+		spinAnimation.add(new AnimationStep(new String[] { IPINController.PIN_NAME_PIN11_OUT }, PinState.LOW, 500));
 
 		setSpinAnimation(spinAnimation);
 
@@ -88,11 +93,10 @@ public class AnimationThread implements Runnable {
 
 			if (getCurrentAnimation() != null) {
 
-				AnimationStep animationStep = getCurrentAnimation().get(0);
+				AnimationStep animationStep = getCurrentAnimation().remove(0);
 
-				for (GpioPinDigitalOutput pinDigitalOutput : animationStep.getPins()) {
-					pinDigitalOutput.setState(animationStep.getPinState());
-				}
+				animationStep.getPinNames()
+						.forEach(pinName -> getPinController().setStateForPin(pinName, animationStep.getPinState()));
 
 				if (isRepeat())
 					getCurrentAnimation().add(animationStep);
@@ -131,11 +135,11 @@ public class AnimationThread implements Runnable {
 		setRepeat(false);
 	}
 
-	public PINController getPinController() {
+	public IPINController getPinController() {
 		return pinController;
 	}
 
-	public void setPinController(PINController pinController) {
+	public void setPinController(IPINController pinController) {
 		this.pinController = pinController;
 	}
 

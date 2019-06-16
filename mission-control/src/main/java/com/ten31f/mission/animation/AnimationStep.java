@@ -1,32 +1,31 @@
-package com.ten31f.mission.pi.animation;
+package com.ten31f.mission.animation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinState;
 
 public class AnimationStep {
 
-	private List<GpioPinDigitalOutput> pins = new ArrayList<>();
+	private List<String> pinNames = null;
 
 	private PinState pinState = null;
 
 	private int duration = 0;
 
-	public AnimationStep(GpioPinDigitalOutput[] pins, PinState pinState, int duration) {
-		setPins(new ArrayList<GpioPinDigitalOutput>(Arrays.asList(pins)));
+	public AnimationStep(String[] pins, PinState pinState, int duration) {
+		setPinNames(new ArrayList<String>(Arrays.asList(pins)));
 		setPinState(pinState);
 		setDuration(duration);
 	}
 
-	public List<GpioPinDigitalOutput> getPins() {
-		return pins;
+	public List<String> getPinNames() {
+		return pinNames;
 	}
 
-	public void setPins(List<GpioPinDigitalOutput> pins) {
-		this.pins = pins;
+	public void setPinNames(List<String> pinNames) {
+		this.pinNames = pinNames;
 	}
 
 	public PinState getPinState() {
