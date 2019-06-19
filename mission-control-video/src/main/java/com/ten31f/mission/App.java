@@ -1,13 +1,10 @@
 package com.ten31f.mission;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+import com.ten31f.mission.display.Screen;
+
+public class App {
+	public static void main(String[] args) {
+		Screen screen = new Screen();
+		screen.start();
+	}
 }
