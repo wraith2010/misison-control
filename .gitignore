@@ -10,3 +10,15 @@
 /target
 >>>>>>> fbbd0231255ac9592ba22807d875b79bf4a9bfbe
 /mission-control/target
+/mission-control-main/.settings
+/mission-control-main/target
+/mission-control-main/.classpath
+/mission-control-main/.project
+/mission-control-rocket-relay/.settings
+/mission-control-rocket-relay/target
+/mission-control-rocket-relay/*.project
+/mission-control-rocket-relay/*.classpath
+/mission-control-video/.settings
+/mission-control-video/*.classpath
+/mission-control-video/*.gitignore
+/mission-control-video/*.project

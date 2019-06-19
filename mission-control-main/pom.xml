@@ -4,11 +4,11 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ten31f.mission</groupId>
-	<artifactId>mission-control</artifactId>
+	<artifactId>mission-control-main</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
 
-	<name>mission-control</name>
+	<name>mission-control-main</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
