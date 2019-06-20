@@ -22,3 +22,4 @@
 /mission-control-video/*.classpath
 /mission-control-video/*.gitignore
 /mission-control-video/*.project
+/mission-control-video/target
