@@ -13,8 +13,8 @@ public class Screen {
 	public int xOffset = 0;
 	public int yOffset = 0;
 
-	public int width;
-	public int height;
+	private int width;
+	private int height;
 
 	public SpriteSheet sheet;
 
@@ -52,12 +52,13 @@ public class Screen {
 				int col = (colour >> (sheet.pixels[xSheet + ySheet * sheet.getWidth() + tileOffset] * 8)) & 255;
 				if (col < 255) {
 					for (int yScale = 0; yScale < scale; yScale++) {
-						if (yPixel + yScale < 0 || yPixel + yScale >= height)
+						if (yPixel + yScale < 0 || yPixel + yScale >= getHeight())
 							continue;
 						for (int xScale = 0; xScale < scale; xScale++) {
-							if (xPixel + xScale < 0 || xPixel + xScale >= width)
+							if (xPixel + xScale < 0 || xPixel + xScale >= getWidth())
 								continue;
-							pixels[(xPixel + xScale) + (yPixel + yScale) * width] = col;
+							pixels[(xPixel + xScale) + (yPixel + yScale) * getWidth()] = col;
+
 						}
 					}
 				}
@@ -68,5 +69,21 @@ public class Screen {
 	public void setOffset(int xOffset, int yOffset) {
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
 	}
 }

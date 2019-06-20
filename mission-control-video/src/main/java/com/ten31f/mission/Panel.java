@@ -3,12 +3,14 @@ package com.ten31f.mission;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import com.ten31f.mission.entities.Button;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.gfx.Screen;
 import com.ten31f.mission.gfx.SpriteSheet;
@@ -17,11 +19,9 @@ public class Panel extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int WIDTH = 160;
-	public static final int HEIGHT = WIDTH / 12 * 9;
 	public static final int SCALE = 3;
 	public static final String NAME = "Game";
-	public static final Dimension DIMENSIONS = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
+	public static final Dimension DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
 	public static Panel panel;
 
 	private JFrame jFrame;
@@ -31,7 +31,8 @@ public class Panel extends Canvas implements Runnable {
 	public boolean running = false;
 	public int tickCount = 0;
 
-	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	private BufferedImage image = new BufferedImage((int) DIMENSION.getWidth(), (int) DIMENSION.getHeight(),
+			BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	private int[] colours = new int[6 * 6 * 6];
 
@@ -57,8 +58,12 @@ public class Panel extends Canvas implements Runnable {
 				}
 			}
 		}
-		setScreen(new Screen(WIDTH, HEIGHT, new SpriteSheet("/sprite_sheet.png")));
+		setScreen(new Screen((int) DIMENSION.getWidth(), (int) DIMENSION.getHeight(),
+				new SpriteSheet("/sprite_sheet.png")));
 		setEntityCollection(new EntityCollection());
+
+		getEntityCollection().addEntity(
+				new Button(getEntityCollection(), (int) DIMENSION.getWidth() / 2, (int) DIMENSION.getHeight() / 2));
 	}
 
 	public synchronized void start() {
@@ -96,7 +101,7 @@ public class Panel extends Canvas implements Runnable {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / nsPerTick;
 			lastTime = now;
-			boolean shouldRender = true;
+			boolean shouldRender = false;
 
 			while (delta >= 1) {
 				ticks++;
@@ -139,11 +144,11 @@ public class Panel extends Canvas implements Runnable {
 
 		getEntityCollection().renderEntities(screen);
 
-		for (int y = 0; y < screen.height; y++) {
-			for (int x = 0; x < screen.width; x++) {
-				int colourCode = screen.pixels[x + y * screen.width];
+		for (int y = 0; y < screen.getHeight(); y++) {
+			for (int x = 0; x < screen.getWidth(); x++) {
+				int colourCode = screen.pixels[x + y * screen.getWidth()];
 				if (colourCode < 255)
-					pixels[x + y * WIDTH] = colours[colourCode];
+					pixels[x + y * screen.getWidth()] = colours[colourCode];
 			}
 		}
 

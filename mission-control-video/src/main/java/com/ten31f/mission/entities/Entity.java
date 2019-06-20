@@ -4,7 +4,7 @@ import com.ten31f.mission.gfx.Screen;
 
 public abstract class Entity {
 
-	public int x, y;
+	private int x, y;
 	private EntityCollection entityCollection;
 
 	public Entity(EntityCollection entityCollection) {
@@ -21,6 +21,22 @@ public abstract class Entity {
 
 	public void setEntityCollection(EntityCollection entityCollection) {
 		this.entityCollection = entityCollection;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getY() {
+		return y;
 	}
 
 	public abstract void tick();

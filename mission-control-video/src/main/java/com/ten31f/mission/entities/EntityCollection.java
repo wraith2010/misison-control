@@ -33,4 +33,8 @@ public class EntityCollection {
 		return entities;
 	}
 
+	public void addEntity(Entity entity) {
+		getEntities().add(entity);
+	}
+
 }

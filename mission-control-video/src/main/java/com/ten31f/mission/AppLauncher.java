@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-@SuppressWarnings({ "serial", "deprecation" })
+@SuppressWarnings({ "serial" })
 public class AppLauncher extends Applet {
 
 	private static Panel panel = new Panel();
@@ -31,9 +31,9 @@ public class AppLauncher extends Applet {
 	}
 
 	public static void main(String[] args) {
-		panel.setMinimumSize(panel.DIMENSIONS);
-		panel.setMaximumSize(panel.DIMENSIONS);
-		panel.setPreferredSize(panel.DIMENSIONS);
+		panel.setMinimumSize(panel.DIMENSION);
+		panel.setMaximumSize(panel.DIMENSION);
+		panel.setPreferredSize(panel.DIMENSION);
 
 		panel.setjFrame(new JFrame(panel.NAME));
 

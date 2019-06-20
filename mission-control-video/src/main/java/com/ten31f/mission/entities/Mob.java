@@ -12,8 +12,8 @@ public abstract class Mob extends Entity {
 	public Mob(EntityCollection entityCollection, String name, int x, int y, int speed) {
 		super(entityCollection);
 		this.name = name;
-		this.x = x;
-		this.y = y;
+		setX(x);
+		setY(y);
 		this.speed = speed;
 	}
 
@@ -34,8 +34,8 @@ public abstract class Mob extends Entity {
 				movingDir = 2;
 			if (xa > 0)
 				movingDir = 3;
-			x += xa * speed;
-			y += ya * speed;
+			setX(getX() + (xa * speed));
+			setY(getY() + (ya * speed));
 		}
 	}
 
