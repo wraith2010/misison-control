@@ -10,8 +10,10 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-import com.ten31f.mission.entities.Button;
+import com.ten31f.mission.entities.RoundButton;
+import com.ten31f.mission.entities.SquareButton;
 import com.ten31f.mission.entities.EntityCollection;
+import com.ten31f.mission.entities.LargeRoundButton;
 import com.ten31f.mission.gfx.Colours;
 import com.ten31f.mission.gfx.Screen;
 import com.ten31f.mission.gfx.SpriteSheet;
@@ -28,6 +30,9 @@ public class Panel extends Canvas implements Runnable {
 	private int greenOFF = Colours.get(-1, 111, 20, 20);
 	private int whiteON = Colours.get(-1, 111, 222, 555);
 	private int whiteOFF = Colours.get(-1, 111, 222, 555);
+
+	private int whiteSquareOFF = Colours.get(-1, 111, 111, 2222);
+	private int whiteSquareON = Colours.get(-1, 111, 111, 555);
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,27 +81,70 @@ public class Panel extends Canvas implements Runnable {
 
 		int buttonShift = 100;
 
-		int xposition = (int) (DIMENSION.getWidth() / 2);
-		int yposition = (int) (DIMENSION.getHeight() / 2);
+		int xcenter = (int) (DIMENSION.getWidth() / 2);
+		int ycenter = (int) (DIMENSION.getHeight() / 2);
+
+		int width = (int) (DIMENSION.getWidth() * 0.8);
+		int height = (int) (DIMENSION.getWidth() * 0.8);
+
+		// Sub Panel 1 Security
+		int subPanel1XCenter = (int) (xcenter - (width / 4 * 1.5));
+		int subPanel1yCenter = (int) (ycenter + (height / 4 * 0.5));
+
+		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter - buttonShift,
+				subPanel1yCenter - buttonShift, blueON, blueOFF));
+		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter,
+				subPanel1yCenter - buttonShift, yellowON, yellowOFF));
+		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter + buttonShift,
+				subPanel1yCenter - buttonShift, blueON, blueOFF));
+		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter - buttonShift,
+				subPanel1yCenter, greenON, greenOFF));
+		getEntityCollection().addEntity(
+				new RoundButton(getEntityCollection(), subPanel1XCenter, subPanel1yCenter, whiteON, whiteOFF));
+		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter + buttonShift,
+				subPanel1yCenter, greenON, greenOFF));
+		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter - buttonShift,
+				subPanel1yCenter + buttonShift, redON, redOFF));
+		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter,
+				subPanel1yCenter + buttonShift, yellowON, yellowOFF));
+		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter + buttonShift,
+				subPanel1yCenter + buttonShift, redON, redOFF));
+
+		// sub panel 2 primers
+		int subPanel2XCenter = (int) (xcenter - ((width / 4 * 0.5)));
+		int subPanel2yCenter = (int) (ycenter + (height / 4 * 0.5));
+
+		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel2XCenter - buttonShift,
+				subPanel2yCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel2XCenter,
+				subPanel2yCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel2XCenter + buttonShift,
+				subPanel2yCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+
+		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel2XCenter - buttonShift,
+				subPanel2yCenter + (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel2XCenter,
+				subPanel2yCenter + (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel2XCenter + buttonShift,
+				subPanel2yCenter + (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+
+		// sub panel 3 pyro
+		int subPanel3XCenter = (int) (xcenter + ((width / 4 * 0.5)));
+		int subPanel3yCenter = (int) (ycenter + (height / 4 * 0.5));
+
+		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel3XCenter - buttonShift,
+				subPanel3yCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel3XCenter,
+				subPanel3yCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel3XCenter + buttonShift,
+				subPanel3yCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+
+		// sub panel 4 big button
+		int subPanel4XCenter = (int) (xcenter + ((width / 4 * 1.5)));
+		int subPanel4yCenter = (int) (ycenter + (height / 4 * 0.5));
 
 		getEntityCollection().addEntity(
-				new Button(getEntityCollection(), xposition - buttonShift, yposition - buttonShift, blueON, blueOFF));
-		getEntityCollection()
-				.addEntity(new Button(getEntityCollection(), xposition, yposition - buttonShift, yellowON, yellowOFF));
-		getEntityCollection().addEntity(
-				new Button(getEntityCollection(), xposition + buttonShift, yposition - buttonShift, blueON, blueOFF));
-		getEntityCollection()
-				.addEntity(new Button(getEntityCollection(), xposition - buttonShift, yposition, greenON, greenOFF));
-		getEntityCollection().addEntity(new Button(getEntityCollection(), xposition, yposition, whiteON, whiteOFF));
-		getEntityCollection()
-				.addEntity(new Button(getEntityCollection(), xposition + buttonShift, yposition, greenON, greenOFF));
-		getEntityCollection().addEntity(
-				new Button(getEntityCollection(), xposition - buttonShift, yposition + buttonShift, redON, redOFF));
-		getEntityCollection()
-				.addEntity(new Button(getEntityCollection(), xposition, yposition + buttonShift, yellowON, yellowOFF));
-		getEntityCollection().addEntity(
-				new Button(getEntityCollection(), xposition + buttonShift, yposition + buttonShift, redON, redOFF));
-
+				new LargeRoundButton(getEntityCollection(), subPanel4XCenter, subPanel4yCenter, redON, redOFF));
 	}
 
 	public synchronized void start() {
@@ -173,6 +221,12 @@ public class Panel extends Canvas implements Runnable {
 		if (bs == null) {
 			createBufferStrategy(3);
 			return;
+		}
+
+		for (int y = 0; y < screen.getHeight(); y++) {
+			for (int x = 0; x < screen.getWidth(); x++) {
+				screen.pixels[x + y * screen.getWidth()] = 0;
+			}
 		}
 
 		getEntityCollection().renderEntities(screen);
