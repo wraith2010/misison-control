@@ -7,8 +7,10 @@ public abstract class Entity {
 	private int x, y;
 	private EntityCollection entityCollection;
 
-	public Entity(EntityCollection entityCollection) {
+	public Entity(EntityCollection entityCollection, int x, int y) {
 		init(entityCollection);
+		setX(x);
+		setY(y);
 	}
 
 	public final void init(EntityCollection entityCollection) {

@@ -1,40 +1,62 @@
 package com.ten31f.mission.entities;
 
-import com.ten31f.mission.gfx.Colours;
+import java.util.Random;
+
 import com.ten31f.mission.gfx.Screen;
 
-public class Button extends Entity {
+public class Button extends Illuminated {
 
-	private static final int Y_TILE = 25;
-	private static final int X_TILE = 0;
+	private static Random random = new Random(System.currentTimeMillis());
 
-	public Button(EntityCollection entityCollection, int x, int y) {
-		super(entityCollection);
-		setX(x);
-		setY(y);
+	public Button(EntityCollection entityCollection, int x, int y, int ledON, int ledOFF) {
+		super(entityCollection, x, y, ledON, ledOFF);
 	}
+
+	int tickCount = 0;
 
 	@Override
 	public void tick() {
+
+		tickCount++;
+
+		if (tickCount > 100) {
+			tickCount = 0;
+			setLedState((getRandom().nextBoolean()) ? LEDState.HIGH : LEDState.LOW);
+		}
 
 	}
 
 	@Override
 	public void render(Screen screen) {
 
-		int scale = 2;
-		int buttonColor = Colours.get(-1, 111, 145, 500);
-		int tile1 = X_TILE + Y_TILE * 32;
-		int tile2 = (X_TILE + 1) + Y_TILE * 32;
-		int tile3 = X_TILE + (Y_TILE + 1) * 32;
-		int tile4 = (X_TILE + 1) + (Y_TILE + 1) * 32;
+		int scale = 1;
+		int buttonColor = -1;
+
+		switch (getLedState()) {
+		case HIGH:
+			buttonColor = getLedON();
+			break;
+		case LOW:
+			buttonColor = getLedOFF();
+			break;
+		default:
+			break;
+		}
 
 		int offset = (8 * scale);
 
-		screen.render(getX(), getY(), tile1, buttonColor, 0x00, scale);
-		screen.render(getX() + offset, getY(), tile2, buttonColor, 0x00, scale);
-		screen.render(getX(), getY() + offset, tile3, buttonColor, 0x00, scale);
-		screen.render(getX() + offset, getY() + offset, tile4, buttonColor, 0x00, scale);
+		for (int xtile = 0; xtile < 10; xtile++) {
+			for (int ytile = 0; ytile < 7; ytile++) {
+				int tile = xtile + (ytile * 32);
+
+				screen.render(getX() + (offset * xtile), getY() + (offset * ytile), tile, buttonColor, 0x00, scale);
+			}
+		}
+
+	}
+
+	private Random getRandom() {
+		return random;
 	}
 
 }

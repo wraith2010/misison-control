@@ -12,10 +12,22 @@ import javax.swing.JFrame;
 
 import com.ten31f.mission.entities.Button;
 import com.ten31f.mission.entities.EntityCollection;
+import com.ten31f.mission.gfx.Colours;
 import com.ten31f.mission.gfx.Screen;
 import com.ten31f.mission.gfx.SpriteSheet;
 
 public class Panel extends Canvas implements Runnable {
+
+	private int redON = Colours.get(-1, 111, 200, 500);
+	private int redOFF = Colours.get(-1, 111, 200, 200);
+	private int blueON = Colours.get(-1, 111, 2, 5);
+	private int blueOFF = Colours.get(-1, 111, 2, 2);
+	private int yellowON = Colours.get(-1, 111, 220, 550);
+	private int yellowOFF = Colours.get(-1, 111, 220, 220);
+	private int greenON = Colours.get(-1, 111, 20, 50);
+	private int greenOFF = Colours.get(-1, 111, 20, 20);
+	private int whiteON = Colours.get(-1, 111, 222, 555);
+	private int whiteOFF = Colours.get(-1, 111, 222, 555);
 
 	private static final long serialVersionUID = 1L;
 
@@ -62,8 +74,29 @@ public class Panel extends Canvas implements Runnable {
 				new SpriteSheet("/sprite_sheet.png")));
 		setEntityCollection(new EntityCollection());
 
+		int buttonShift = 100;
+
+		int xposition = (int) (DIMENSION.getWidth() / 2);
+		int yposition = (int) (DIMENSION.getHeight() / 2);
+
 		getEntityCollection().addEntity(
-				new Button(getEntityCollection(), (int) DIMENSION.getWidth() / 2, (int) DIMENSION.getHeight() / 2));
+				new Button(getEntityCollection(), xposition - buttonShift, yposition - buttonShift, blueON, blueOFF));
+		getEntityCollection()
+				.addEntity(new Button(getEntityCollection(), xposition, yposition - buttonShift, yellowON, yellowOFF));
+		getEntityCollection().addEntity(
+				new Button(getEntityCollection(), xposition + buttonShift, yposition - buttonShift, blueON, blueOFF));
+		getEntityCollection()
+				.addEntity(new Button(getEntityCollection(), xposition - buttonShift, yposition, greenON, greenOFF));
+		getEntityCollection().addEntity(new Button(getEntityCollection(), xposition, yposition, whiteON, whiteOFF));
+		getEntityCollection()
+				.addEntity(new Button(getEntityCollection(), xposition + buttonShift, yposition, greenON, greenOFF));
+		getEntityCollection().addEntity(
+				new Button(getEntityCollection(), xposition - buttonShift, yposition + buttonShift, redON, redOFF));
+		getEntityCollection()
+				.addEntity(new Button(getEntityCollection(), xposition, yposition + buttonShift, yellowON, yellowOFF));
+		getEntityCollection().addEntity(
+				new Button(getEntityCollection(), xposition + buttonShift, yposition + buttonShift, redON, redOFF));
+
 	}
 
 	public synchronized void start() {
