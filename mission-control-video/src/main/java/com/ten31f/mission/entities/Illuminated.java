@@ -9,8 +9,8 @@ public abstract class Illuminated extends Entity {
 	private int ledON = -1;
 	private int ledOFF = -1;
 
-	public Illuminated(EntityCollection entityCollection, int x, int y, int ledON, int ledOFF) {
-		super(entityCollection, x, y);
+	public Illuminated(int x, int y, int ledON, int ledOFF) {
+		super(x, y);
 		setLedON(ledON);
 		setLedOFF(ledOFF);
 	}

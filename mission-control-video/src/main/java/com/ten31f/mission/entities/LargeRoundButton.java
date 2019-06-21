@@ -11,8 +11,8 @@ public class LargeRoundButton extends Button {
 
 	private static Random random = new Random(System.currentTimeMillis());
 
-	public LargeRoundButton(EntityCollection entityCollection, int x, int y, int ledON, int ledOFF) {
-		super(entityCollection, x, y, ledON, ledOFF);
+	public LargeRoundButton(int x, int y, int ledON, int ledOFF) {
+		super(x, y, ledON, ledOFF);
 	}
 
 	int tickCount = 0;

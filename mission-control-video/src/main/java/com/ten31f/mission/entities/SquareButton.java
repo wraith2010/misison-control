@@ -11,8 +11,8 @@ public class SquareButton extends Button {
 
 	private static Random random = new Random(System.currentTimeMillis());
 
-	public SquareButton(EntityCollection entityCollection, int x, int y, int ledON, int ledOFF) {
-		super(entityCollection, x, y, ledON, ledOFF);
+	public SquareButton(int x, int y, int ledON, int ledOFF) {
+		super(x, y, ledON, ledOFF);
 	}
 
 	int tickCount = 0;

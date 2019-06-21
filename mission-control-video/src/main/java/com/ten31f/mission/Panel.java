@@ -10,10 +10,11 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-import com.ten31f.mission.entities.RoundButton;
-import com.ten31f.mission.entities.SquareButton;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.LargeRoundButton;
+import com.ten31f.mission.entities.RoundButton;
+import com.ten31f.mission.entities.SquareButton;
+import com.ten31f.mission.entities.SubPanel;
 import com.ten31f.mission.gfx.Colours;
 import com.ten31f.mission.gfx.Screen;
 import com.ten31f.mission.gfx.SpriteSheet;
@@ -91,60 +92,66 @@ public class Panel extends Canvas implements Runnable {
 		int subPanel1XCenter = (int) (xcenter - (width / 4 * 1.5));
 		int subPanel1yCenter = (int) (ycenter + (height / 4 * 0.5));
 
-		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter - buttonShift,
-				subPanel1yCenter - buttonShift, blueON, blueOFF));
-		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter,
-				subPanel1yCenter - buttonShift, yellowON, yellowOFF));
-		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter + buttonShift,
-				subPanel1yCenter - buttonShift, blueON, blueOFF));
-		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter - buttonShift,
-				subPanel1yCenter, greenON, greenOFF));
+		getEntityCollection().addEntity(new SubPanel(subPanel1XCenter, subPanel1yCenter, "SECURITY"));
+
 		getEntityCollection().addEntity(
-				new RoundButton(getEntityCollection(), subPanel1XCenter, subPanel1yCenter, whiteON, whiteOFF));
-		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter + buttonShift,
-				subPanel1yCenter, greenON, greenOFF));
-		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter - buttonShift,
-				subPanel1yCenter + buttonShift, redON, redOFF));
-		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter,
-				subPanel1yCenter + buttonShift, yellowON, yellowOFF));
-		getEntityCollection().addEntity(new RoundButton(getEntityCollection(), subPanel1XCenter + buttonShift,
-				subPanel1yCenter + buttonShift, redON, redOFF));
+				new RoundButton(subPanel1XCenter - buttonShift, subPanel1yCenter - buttonShift, blueON, blueOFF));
+		getEntityCollection()
+				.addEntity(new RoundButton(subPanel1XCenter, subPanel1yCenter - buttonShift, yellowON, yellowOFF));
+		getEntityCollection().addEntity(
+				new RoundButton(subPanel1XCenter + buttonShift, subPanel1yCenter - buttonShift, blueON, blueOFF));
+		getEntityCollection()
+				.addEntity(new RoundButton(subPanel1XCenter - buttonShift, subPanel1yCenter, greenON, greenOFF));
+		getEntityCollection().addEntity(new RoundButton(subPanel1XCenter, subPanel1yCenter, whiteON, whiteOFF));
+		getEntityCollection()
+				.addEntity(new RoundButton(subPanel1XCenter + buttonShift, subPanel1yCenter, greenON, greenOFF));
+		getEntityCollection().addEntity(
+				new RoundButton(subPanel1XCenter - buttonShift, subPanel1yCenter + buttonShift, redON, redOFF));
+		getEntityCollection()
+				.addEntity(new RoundButton(subPanel1XCenter, subPanel1yCenter + buttonShift, yellowON, yellowOFF));
+		getEntityCollection().addEntity(
+				new RoundButton(subPanel1XCenter + buttonShift, subPanel1yCenter + buttonShift, redON, redOFF));
 
 		// sub panel 2 primers
 		int subPanel2XCenter = (int) (xcenter - ((width / 4 * 0.5)));
-		int subPanel2yCenter = (int) (ycenter + (height / 4 * 0.5));
+		int subPanel2YCenter = (int) (ycenter + (height / 4 * 0.5));
 
-		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel2XCenter - buttonShift,
-				subPanel2yCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
-		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel2XCenter,
-				subPanel2yCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
-		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel2XCenter + buttonShift,
-				subPanel2yCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SubPanel(subPanel2XCenter, subPanel2YCenter, "SUB SYSTEMS"));
 
-		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel2XCenter - buttonShift,
-				subPanel2yCenter + (buttonShift / 2), whiteSquareON, whiteSquareOFF));
-		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel2XCenter,
-				subPanel2yCenter + (buttonShift / 2), whiteSquareON, whiteSquareOFF));
-		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel2XCenter + buttonShift,
-				subPanel2yCenter + (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(subPanel2XCenter - buttonShift,
+				subPanel2YCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(subPanel2XCenter, subPanel2YCenter - (buttonShift / 2),
+				whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(subPanel2XCenter + buttonShift,
+				subPanel2YCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+
+		getEntityCollection().addEntity(new SquareButton(subPanel2XCenter - buttonShift,
+				subPanel2YCenter + (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(subPanel2XCenter, subPanel2YCenter + (buttonShift / 2),
+				whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(subPanel2XCenter + buttonShift,
+				subPanel2YCenter + (buttonShift / 2), whiteSquareON, whiteSquareOFF));
 
 		// sub panel 3 pyro
 		int subPanel3XCenter = (int) (xcenter + ((width / 4 * 0.5)));
-		int subPanel3yCenter = (int) (ycenter + (height / 4 * 0.5));
+		int subPanel3YCenter = (int) (ycenter + (height / 4 * 0.5));
 
-		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel3XCenter - buttonShift,
-				subPanel3yCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
-		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel3XCenter,
-				subPanel3yCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
-		getEntityCollection().addEntity(new SquareButton(getEntityCollection(), subPanel3XCenter + buttonShift,
-				subPanel3yCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SubPanel(subPanel3XCenter, subPanel3YCenter, "PYROTECHNICS"));
+
+		getEntityCollection().addEntity(new SquareButton(subPanel3XCenter - buttonShift,
+				subPanel3YCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(subPanel3XCenter, subPanel3YCenter - (buttonShift / 2),
+				whiteSquareON, whiteSquareOFF));
+		getEntityCollection().addEntity(new SquareButton(subPanel3XCenter + buttonShift,
+				subPanel3YCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
 
 		// sub panel 4 big button
 		int subPanel4XCenter = (int) (xcenter + ((width / 4 * 1.5)));
-		int subPanel4yCenter = (int) (ycenter + (height / 4 * 0.5));
+		int subPanel4YCenter = (int) (ycenter + (height / 4 * 0.5));
 
-		getEntityCollection().addEntity(
-				new LargeRoundButton(getEntityCollection(), subPanel4XCenter, subPanel4yCenter, redON, redOFF));
+		getEntityCollection().addEntity(new SubPanel(subPanel4XCenter, subPanel4YCenter, "LAUNCH"));
+
+		getEntityCollection().addEntity(new LargeRoundButton(subPanel4XCenter, subPanel4YCenter, redON, redOFF));
 	}
 
 	public synchronized void start() {
@@ -223,19 +230,19 @@ public class Panel extends Canvas implements Runnable {
 			return;
 		}
 
-		for (int y = 0; y < screen.getHeight(); y++) {
-			for (int x = 0; x < screen.getWidth(); x++) {
-				screen.pixels[x + y * screen.getWidth()] = 0;
+		for (int y = 0; y < getScreen().getHeight(); y++) {
+			for (int x = 0; x < getScreen().getWidth(); x++) {
+				getScreen().pixels[x + y * getScreen().getWidth()] = 0;
 			}
 		}
 
 		getEntityCollection().renderEntities(screen);
 
-		for (int y = 0; y < screen.getHeight(); y++) {
-			for (int x = 0; x < screen.getWidth(); x++) {
-				int colourCode = screen.pixels[x + y * screen.getWidth()];
+		for (int y = 0; y < getScreen().getHeight(); y++) {
+			for (int x = 0; x < getScreen().getWidth(); x++) {
+				int colourCode = getScreen().pixels[x + y * getScreen().getWidth()];
 				if (colourCode < 255)
-					pixels[x + y * screen.getWidth()] = colours[colourCode];
+					pixels[x + y * getScreen().getWidth()] = colours[colourCode];
 			}
 		}
 

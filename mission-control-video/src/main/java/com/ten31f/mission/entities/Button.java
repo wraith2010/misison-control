@@ -2,8 +2,8 @@ package com.ten31f.mission.entities;
 
 public abstract class Button extends Illuminated {	
 	
-	public Button(EntityCollection entityCollection, int x, int y, int ledON, int ledOFF) {
-		super(entityCollection, x, y, ledON, ledOFF);
+	public Button(int x, int y, int ledON, int ledOFF) {
+		super(x, y, ledON, ledOFF);
 	}
 
 	public static enum ButtonState {

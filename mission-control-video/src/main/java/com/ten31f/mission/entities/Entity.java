@@ -5,24 +5,11 @@ import com.ten31f.mission.gfx.Screen;
 public abstract class Entity {
 
 	private int x, y;
-	private EntityCollection entityCollection;
 
-	public Entity(EntityCollection entityCollection, int x, int y) {
-		init(entityCollection);
+	public Entity(int x, int y) {
+
 		setX(x);
 		setY(y);
-	}
-
-	public final void init(EntityCollection entityCollection) {
-		this.entityCollection = entityCollection;
-	}
-
-	public EntityCollection getEntityCollection() {
-		return entityCollection;
-	}
-
-	public void setEntityCollection(EntityCollection entityCollection) {
-		this.entityCollection = entityCollection;
 	}
 
 	public void setX(int x) {
