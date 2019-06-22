@@ -59,12 +59,12 @@ public class SquareButton extends Button {
 			}
 			break;
 		case DEPRESSED:
-			for (int xtile = 10; xtile < 20; xtile++) {
-				for (int ytile = 7; ytile < 14; ytile++) {
-					int tile = xtile + (ytile * 32);
+			for (int xtile = 0; xtile < 10; xtile++) {
+				for (int ytile = 0; ytile < 7; ytile++) {
+					int tile = xtile + 10 + ((ytile + 7) * 32);
 
-					int xpositon = getX() + (8 * (xtile - 10)) - (BUTTON_WIDTH / 2);
-					int yposition = getY() + (8 * (ytile - 7)) - (BUTTON_HEIGHT / 2);
+					int xpositon = getX() + (8 * xtile) - (BUTTON_WIDTH / 2);
+					int yposition = getY() + (8 * ytile) - (BUTTON_HEIGHT / 2);
 
 					screen.render(xpositon, yposition, tile, buttonColor, 0x00, 1);
 				}

@@ -28,6 +28,11 @@ public abstract class Entity {
 		return y;
 	}
 
+	public int tileOffset(int index, int scale) {
+
+		return index * 8 * scale;
+	}
+
 	public abstract void tick();
 
 	public abstract void render(Screen screen);

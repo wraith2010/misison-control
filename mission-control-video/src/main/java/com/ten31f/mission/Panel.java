@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.LargeRoundButton;
+import com.ten31f.mission.entities.Professor;
 import com.ten31f.mission.entities.RoundButton;
 import com.ten31f.mission.entities.SquareButton;
 import com.ten31f.mission.entities.SubPanel;
@@ -152,6 +153,8 @@ public class Panel extends Canvas implements Runnable {
 		getEntityCollection().addEntity(new SubPanel(subPanel4XCenter, subPanel4YCenter, "LAUNCH"));
 
 		getEntityCollection().addEntity(new LargeRoundButton(subPanel4XCenter, subPanel4YCenter, redON, redOFF));
+		
+		getEntityCollection().addEntity(new Professor(xcenter, ycenter - 300));
 	}
 
 	public synchronized void start() {

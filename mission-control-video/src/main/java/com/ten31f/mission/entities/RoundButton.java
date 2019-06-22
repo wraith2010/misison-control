@@ -49,31 +49,26 @@ public class RoundButton extends Button {
 
 		switch (getButtonState()) {
 		case NOTDEPRESSED:
-			for (int xtile = 0; xtile < 10; xtile++) {
-				for (int ytile = 0; ytile < 7; ytile++) {
-					int tile = xtile + (ytile * 32);
-
-					int xpositon = getX() + (8 * (xtile)) - (BUTTON_WIDTH / 2);
-					int yposition = getY() + (8 * ytile) - (BUTTON_HEIGHT / 2);
-
-					screen.render(xpositon, yposition, tile, buttonColor, 0x00, 1);
-				}
-			}
+			renderButton(0, buttonColor, scale, screen);
 			break;
-		case DEPRESSED:
-			for (int xtile = 10; xtile < 20; xtile++) {
-				for (int ytile = 0; ytile < 7; ytile++) {
-					int tile = xtile + (ytile * 32);
-
-					int xpositon = getX() + (8 * (xtile - 10)) - (BUTTON_WIDTH / 2);
-					int yposition = getY() + (8 * ytile) - (BUTTON_HEIGHT / 2);
-
-					screen.render(xpositon, yposition, tile, buttonColor, 0x00, scale);
-				}
-			}
+		case DEPRESSED:			
+			renderButton(10, buttonColor, scale, screen); 
 			break;
 		}
 
+	}
+	
+	private void renderButton(int xTileOff, int buttonColor, int scale, Screen screen) {
+		for (int xtile = 0; xtile < 10; xtile++) {
+			for (int ytile = 0; ytile < 7; ytile++) {
+				int tile = xtile + xTileOff + (ytile * 32);
+
+				int xpositon = getX() + (8 * (xtile)) - (BUTTON_WIDTH / 2);
+				int yposition = getY() + (8 * ytile) - (BUTTON_HEIGHT / 2);
+
+				screen.render(xpositon, yposition, tile, buttonColor, 0x00, scale);
+			}
+		}
 	}
 
 	private Random getRandom() {
