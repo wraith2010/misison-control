@@ -13,9 +13,11 @@ import javax.swing.JFrame;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.LargeRoundButton;
 import com.ten31f.mission.entities.Professor;
+import com.ten31f.mission.entities.Rocket;
 import com.ten31f.mission.entities.RoundButton;
 import com.ten31f.mission.entities.SquareButton;
 import com.ten31f.mission.entities.SubPanel;
+import com.ten31f.mission.entities.Toggle;
 import com.ten31f.mission.gfx.Colours;
 import com.ten31f.mission.gfx.Screen;
 import com.ten31f.mission.gfx.SpriteSheet;
@@ -35,6 +37,12 @@ public class Panel extends Canvas implements Runnable {
 
 	private int whiteSquareOFF = Colours.get(-1, 111, 111, 2222);
 	private int whiteSquareON = Colours.get(-1, 111, 111, 555);
+	
+	private int togleON = Colours.get(-1, 111, 222, 500);
+	private int togleOFF = Colours.get(-1, 111, 222, 200);
+	
+	private int largeRedON = Colours.get(-1, 111, 000, 500);
+	private int largeRedOFF = Colours.get(-1, 111, 000, 500);
 
 	private static final long serialVersionUID = 1L;
 
@@ -146,15 +154,24 @@ public class Panel extends Canvas implements Runnable {
 		getEntityCollection().addEntity(new SquareButton(subPanel3XCenter + buttonShift,
 				subPanel3YCenter - (buttonShift / 2), whiteSquareON, whiteSquareOFF));
 
+		getEntityCollection().addEntity(
+				new Toggle(subPanel3XCenter - buttonShift, subPanel3YCenter + (buttonShift / 2), togleON, togleOFF));
+		getEntityCollection()
+				.addEntity(new Toggle(subPanel3XCenter, subPanel3YCenter + (buttonShift / 2), togleON, togleOFF));
+		getEntityCollection().addEntity(
+				new Toggle(subPanel3XCenter + buttonShift, subPanel3YCenter + (buttonShift / 2), togleON, togleOFF));
+
 		// sub panel 4 big button
 		int subPanel4XCenter = (int) (xcenter + ((width / 4 * 1.5)));
 		int subPanel4YCenter = (int) (ycenter + (height / 4 * 0.5));
 
 		getEntityCollection().addEntity(new SubPanel(subPanel4XCenter, subPanel4YCenter, "LAUNCH"));
 
-		getEntityCollection().addEntity(new LargeRoundButton(subPanel4XCenter, subPanel4YCenter, redON, redOFF));
-		
+		getEntityCollection().addEntity(new LargeRoundButton(subPanel4XCenter, subPanel4YCenter, largeRedON, largeRedOFF));
+
 		getEntityCollection().addEntity(new Professor(xcenter, ycenter - 300));
+		getEntityCollection().addEntity(new Rocket(xcenter+600, ycenter-300));
+		
 	}
 
 	public synchronized void start() {

@@ -25,11 +25,10 @@ public class SubPanel extends Entity {
 		int scale = 3;
 		int fontColor = Colours.get(-1, -1, -1, 555);
 
-		int yPosition = getY() - 200;
+		int yPosition = getY() - 180;
 		int xPosition = getX() - (((getTitle().length()) / 2) * (8 * scale));
 
-		Font.render(getTitle(), screen, xPosition, yPosition, fontColor,
-				scale);
+		Font.render(getTitle(), screen, xPosition, yPosition, fontColor, scale);
 
 	}
 
@@ -39,5 +38,17 @@ public class SubPanel extends Entity {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	@Override
+	public int getHeight(int scale) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public int getWidth(int scale) {
+
+		throw new UnsupportedOperationException();
+
 	}
 }

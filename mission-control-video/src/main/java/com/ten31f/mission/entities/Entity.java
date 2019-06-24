@@ -29,11 +29,13 @@ public abstract class Entity {
 	}
 
 	public int tileOffset(int index, int scale) {
-
 		return index * 8 * scale;
 	}
 
 	public abstract void tick();
 
 	public abstract void render(Screen screen);
+	
+	public abstract int getWidth(int scale);
+	public abstract int getHeight(int scale);
 }

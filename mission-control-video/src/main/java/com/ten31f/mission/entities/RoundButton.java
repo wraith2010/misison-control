@@ -1,15 +1,11 @@
 package com.ten31f.mission.entities;
 
-import java.util.Random;
-
 import com.ten31f.mission.gfx.Screen;
 
 public class RoundButton extends Button {
 
-	private static final int BUTTON_WIDTH = 80;
-	private static final int BUTTON_HEIGHT = 70;
-
-	private static Random random = new Random(System.currentTimeMillis());
+	private static final int SPRITE_WIDTH = 80;
+	private static final int SPRITE_HEIGHT = 56;
 
 	public RoundButton(int x, int y, int ledON, int ledOFF) {
 		super(x, y, ledON, ledOFF);
@@ -24,8 +20,8 @@ public class RoundButton extends Button {
 
 		if (tickCount > 100) {
 			tickCount = 0;
-			setLedState((getRandom().nextBoolean()) ? LEDState.HIGH : LEDState.LOW);
-			setButtonState((getRandom().nextBoolean()) ? ButtonState.NOTDEPRESSED : ButtonState.DEPRESSED);
+			setLedState((Button.random.nextBoolean()) ? LEDState.HIGH : LEDState.LOW);
+			setButtonState((Button.random.nextBoolean()) ? ButtonState.NOTDEPRESSED : ButtonState.DEPRESSED);
 		}
 
 	}
@@ -51,28 +47,36 @@ public class RoundButton extends Button {
 		case NOTDEPRESSED:
 			renderButton(0, buttonColor, scale, screen);
 			break;
-		case DEPRESSED:			
-			renderButton(10, buttonColor, scale, screen); 
+		case DEPRESSED:
+			renderButton(10, buttonColor, scale, screen);
 			break;
 		}
 
 	}
-	
+
 	private void renderButton(int xTileOff, int buttonColor, int scale, Screen screen) {
 		for (int xtile = 0; xtile < 10; xtile++) {
 			for (int ytile = 0; ytile < 7; ytile++) {
 				int tile = xtile + xTileOff + (ytile * 32);
 
-				int xpositon = getX() + (8 * (xtile)) - (BUTTON_WIDTH / 2);
-				int yposition = getY() + (8 * ytile) - (BUTTON_HEIGHT / 2);
+				int tilesize = 8 * scale;
+
+				int xpositon = getX() + (tilesize * (xtile)) - (getWidth(scale) / 2);
+				int yposition = getY() + (tilesize * ytile) - (getHeight(scale) / 2);
 
 				screen.render(xpositon, yposition, tile, buttonColor, 0x00, scale);
 			}
 		}
 	}
 
-	private Random getRandom() {
-		return random;
+	@Override
+	public int getWidth(int scale) {
+		return SPRITE_WIDTH * scale;
+	}
+
+	@Override
+	public int getHeight(int scale) {
+		return SPRITE_HEIGHT * scale;
 	}
 
 }
