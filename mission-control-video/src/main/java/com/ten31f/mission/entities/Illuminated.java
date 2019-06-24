@@ -1,7 +1,30 @@
 package com.ten31f.mission.entities;
 
+import com.ten31f.mission.gfx.Colours;
+
 public abstract class Illuminated extends Entity {
 
+	public static final int RED_ON = Colours.get(-1, 111, 200, 500);
+	public static final int RED_OFF = Colours.get(-1, 111, 200, 200);
+	public static final int BLUE_ON = Colours.get(-1, 111, 2, 5);
+	public static final int BLUE_OFF = Colours.get(-1, 111, 2, 2);
+	public static final int YELLOW_ON = Colours.get(-1, 111, 220, 550);
+	public static final int YELLOW_OFF = Colours.get(-1, 111, 220, 220);
+	public static final int GREEN_ON = Colours.get(-1, 111, 20, 50);
+	public static final int GREEN_OFF = Colours.get(-1, 111, 20, 20);
+	public static final int WHITE_ON = Colours.get(-1, 111, 222, 555);
+	public static final int WHITE_OFF = Colours.get(-1, 111, 222, 555);
+
+	public static final int WHITE_SUQARE_OFF = Colours.get(-1, 111, 111, 2222);
+	public static final int WHITE_SUQARE_ON = Colours.get(-1, 111, 111, 555);
+
+	public static final int TOGLE_ON = Colours.get(-1, 111, 222, 500);
+	public static final int TOGLE_OFF = Colours.get(-1, 111, 222, 200);
+
+	public static final int LARGE_RED_ON = Colours.get(-1, 111, 000, 500);
+	public static final int LARGE_RED_OFF = Colours.get(-1, 111, 000, 500);
+
+	
 	public static enum LEDState {
 		HIGH, LOW;
 	}

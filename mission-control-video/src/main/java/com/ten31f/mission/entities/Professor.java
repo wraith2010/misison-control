@@ -8,16 +8,14 @@ import com.ten31f.mission.gfx.Screen;
 
 public class Professor extends Entity {
 
-	public static final String INSTRUCTION_SECURITY = "Repeat the secuirty sequences to unlock the console";
-
 	private int SPRITE_WIDTH = 24;
 	private int SPRITE_HEIGHT = 21;
 
-	public static enum Animation {
+	public enum Animation {
 		IDLE, WALKING_LEFT, WALKING_RIGHT;
 	}
 
-	private String dialog = INSTRUCTION_SECURITY;
+	private String dialog = null;
 	private String visiableDialog = null;
 
 	private Animation animation = Animation.IDLE;
@@ -53,32 +51,35 @@ public class Professor extends Entity {
 
 	private void tickAdvanceDialog() {
 
-		// animate text
-		if (tickCount % 5 == 0 && getDialog() != null) {
+		if (tickCount % 5 != 0)
+			return;
+		if (getDialog() == null)
+			return;
+		if (!Animation.IDLE.equals(getAnimation()))
+			return;
 
-			if (getVisiableDialog() == null) {
-				setVisiableDialog(getDialog().substring(0, 1));
-			} else if (getDialog().length() > getVisiableDialog().length()) {
+		if (getVisiableDialog() == null) {
+			setVisiableDialog(getDialog().substring(0, 1));
+		} else if (getDialog().length() > getVisiableDialog().length()) {
 
-				setVisiableDialog(getDialog().substring(0, getVisiableDialog().length() + 1));
-			} else {
-				textTickCount++;
-				if (textTickCount > 50) {
-					textTickCount = 0;
-					setVisiableDialog(null);
-				}
+			setVisiableDialog(getDialog().substring(0, getVisiableDialog().length() + 1));
+		} else {
+			textTickCount++;
+			if (textTickCount > 50) {
+				textTickCount = 0;
+				setVisiableDialog(null);
 			}
-
 		}
 
 	}
 
 	private void tickMoveToTarget() {
 
-		int speed = 5;
+		int speed = 10;
 
 		if (getTargetX() == getX() && getTargetY() == getY()) {
 			setAnimation(Animation.IDLE);
+
 			return;
 		}
 
@@ -92,12 +93,10 @@ public class Professor extends Entity {
 		}
 
 		if (Math.abs(getX() - getTargetX()) < speed) {
-			System.out.println("Arrived X!");
 			setX(getTargetX());
 		}
 
 		if (Math.abs(getY() - getTargetY()) < speed) {
-			System.out.println("Arrived Y!");
 			setY(getTargetY());
 		}
 
@@ -180,6 +179,9 @@ public class Professor extends Entity {
 	private void renderDialog(Screen screen) {
 
 		if (getVisiableDialog() == null)
+			return;
+
+		if (!Animation.IDLE.equals(getAnimation()))
 			return;
 
 		int scale = 2;
