@@ -396,11 +396,11 @@ public class Panel extends Canvas implements Runnable {
 
 	@Override
 	public int getWidth() {
-		return (int) (DIMENSION.getWidth() * 0.8);
+		return (int) (DIMENSION.getWidth());
 	}
 
 	@Override
 	public int getHeight() {
-		return (int) (DIMENSION.getHeight() * 0.8);
+		return (int) (DIMENSION.getHeight());
 	}
 }
