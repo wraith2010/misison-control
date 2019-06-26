@@ -97,8 +97,8 @@ public class Panel extends Canvas implements Runnable {
 		int buttonShift = 100;
 
 		// Sub Panel 1 Security
-		int subPanel1XCenter = (int) (getXCenter() - (getWidth() / 4 * 1.5));
-		int subPanel1yCenter = (int) (getYCenter() + (getHeight() / 4 * 0.5));
+		int subPanel1XCenter = (int) (getXCenter() - (getWidth() / 4d * 1.5));
+		int subPanel1yCenter = (int) (getYCenter() + (getHeight() / 4d * 0.5));
 
 		getEntityCollection().addEntity(new SubPanel(subPanel1XCenter, subPanel1yCenter, "SECURITY"));
 
@@ -139,28 +139,38 @@ public class Panel extends Canvas implements Runnable {
 		getEntityCollection().addEntity(securityButton09);
 
 		// sub panel 2 primers
-		int subPanel2XCenter = (int) (getXCenter() - ((getWidth() / 4) * 0.5));
-		int subPanel2YCenter = (int) (getYCenter() + ((getHeight() / 4) * 0.5));
+		int subPanel2XCenter = (int) (getXCenter() - ((getWidth() / 4d) * 0.5));
+		int subPanel2YCenter = (int) (getYCenter() + ((getHeight() / 4d) * 0.5));
 
 		getEntityCollection().addEntity(new SubPanel(subPanel2XCenter, subPanel2YCenter, "SUB SYSTEMS"));
 
-		getEntityCollection().addEntity(new SquareButton(BUTTON_NAME_BUTTON01, subPanel2XCenter - buttonShift,
-				subPanel2YCenter - (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF));
-		getEntityCollection().addEntity(new SquareButton(BUTTON_NAME_BUTTON02, subPanel2XCenter,
-				subPanel2YCenter - (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF));
-		getEntityCollection().addEntity(new SquareButton(BUTTON_NAME_BUTTON03, subPanel2XCenter + buttonShift,
-				subPanel2YCenter - (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF));
+		SquareButton squareButton01 = new SquareButton(BUTTON_NAME_BUTTON01, subPanel2XCenter - buttonShift,
+				subPanel2YCenter - (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF);
+		getEntityCollection().addEntity(squareButton01);
 
-		getEntityCollection().addEntity(new SquareButton(BUTTON_NAME_BUTTON04, subPanel2XCenter - buttonShift,
-				subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF));
-		getEntityCollection().addEntity(new SquareButton(BUTTON_NAME_BUTTON05, subPanel2XCenter,
-				subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF));
-		getEntityCollection().addEntity(new SquareButton(BUTTON_NAME_BUTTON06, subPanel2XCenter + buttonShift,
-				subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF));
+		SquareButton squareButton02 = new SquareButton(BUTTON_NAME_BUTTON02, subPanel2XCenter,
+				subPanel2YCenter - (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF);
+		getEntityCollection().addEntity(squareButton02);
+
+		SquareButton squareButton03 = new SquareButton(BUTTON_NAME_BUTTON03, subPanel2XCenter + buttonShift,
+				subPanel2YCenter - (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF);
+		getEntityCollection().addEntity(squareButton03);
+
+		SquareButton squareButton04 = new SquareButton(BUTTON_NAME_BUTTON04, subPanel2XCenter - buttonShift,
+				subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF);
+		getEntityCollection().addEntity(squareButton03);
+
+		SquareButton squareButton05 = new SquareButton(BUTTON_NAME_BUTTON05, subPanel2XCenter,
+				subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF);
+		getEntityCollection().addEntity(squareButton05);
+
+		SquareButton squareButton06 = new SquareButton(BUTTON_NAME_BUTTON06, subPanel2XCenter + buttonShift,
+				subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF);
+		getEntityCollection().addEntity(squareButton06);
 
 		// sub panel 3 pyro
-		int subPanel3XCenter = (int) (getXCenter() + (getWidth() / 4 * 0.5));
-		int subPanel3YCenter = (int) (getYCenter() + (getHeight() / 4 * 0.5));
+		int subPanel3XCenter = (int) (getXCenter() + (getWidth() / 4d * 0.5));
+		int subPanel3YCenter = (int) (getYCenter() + (getHeight() / 4d * 0.5));
 
 		getEntityCollection().addEntity(new SubPanel(subPanel3XCenter, subPanel3YCenter, "PYROTECHNICS"));
 
@@ -179,8 +189,8 @@ public class Panel extends Canvas implements Runnable {
 				subPanel3YCenter + (buttonShift / 2), Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF));
 
 		// sub panel 4 big button
-		int subPanel4XCenter = (int) (getXCenter() + (getWidth() / 4 * 1.5));
-		int subPanel4YCenter = (int) (getYCenter() + (getHeight() / 4 * 0.5));
+		int subPanel4XCenter = (int) (getXCenter() + (getWidth() / 4d * 1.5));
+		int subPanel4YCenter = (int) (getYCenter() + (getHeight() / 4d * 0.5));
 
 		getEntityCollection().addEntity(new SubPanel(subPanel4XCenter, subPanel4YCenter, "LAUNCH"));
 
@@ -208,15 +218,21 @@ public class Panel extends Canvas implements Runnable {
 
 		securityStage.setNextStage(subSystemStage);
 		subSystemStage.setProfessor(professor);
+		subSystemStage.addButton(SubSystemStage.BUTTON_SUBSYSTEM_01, squareButton01);
+		subSystemStage.addButton(SubSystemStage.BUTTON_SUBSYSTEM_02, squareButton02);
+		subSystemStage.addButton(SubSystemStage.BUTTON_SUBSYSTEM_03, squareButton03);
+		subSystemStage.addButton(SubSystemStage.BUTTON_SUBSYSTEM_04, squareButton04);
+		subSystemStage.addButton(SubSystemStage.BUTTON_SUBSYSTEM_05, squareButton05);
+		subSystemStage.addButton(SubSystemStage.BUTTON_SUBSYSTEM_06, squareButton06);
 
 		PyroStage pyroStage = new PyroStage(this);
 		subSystemStage.setNextStage(pyroStage);
-		
+
 		pyroStage.setProfessor(professor);
-		
+
 		LaunchStage launchStage = new LaunchStage(this);
 		pyroStage.setNextStage(launchStage);
-		
+
 		launchStage.setProfessor(professor);
 
 		setActiveStage(securityStage);

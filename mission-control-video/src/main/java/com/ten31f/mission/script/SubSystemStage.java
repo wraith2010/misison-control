@@ -6,6 +6,16 @@ public class SubSystemStage extends Stage {
 
 	private static final String INSTRUCTIONS = "Now we need to boot the various systems on the Ship";
 
+	public static final String BUTTON_SUBSYSTEM_01 = "SECUIRITY01";
+	public static final String BUTTON_SUBSYSTEM_02 = "SECUIRITY02";
+	public static final String BUTTON_SUBSYSTEM_03 = "SECUIRITY03";
+	public static final String BUTTON_SUBSYSTEM_04 = "SECUIRITY04";
+	public static final String BUTTON_SUBSYSTEM_05 = "SECUIRITY05";
+	public static final String BUTTON_SUBSYSTEM_06 = "SECUIRITY06";
+
+	private static final String[] BUTTON_KEYS = { BUTTON_SUBSYSTEM_01, BUTTON_SUBSYSTEM_02, BUTTON_SUBSYSTEM_03,
+			BUTTON_SUBSYSTEM_04, BUTTON_SUBSYSTEM_05, BUTTON_SUBSYSTEM_06 };
+
 	public SubSystemStage(Panel panel) {
 		super(panel);
 	}

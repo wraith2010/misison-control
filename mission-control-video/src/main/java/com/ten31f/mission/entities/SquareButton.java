@@ -1,7 +1,5 @@
 package com.ten31f.mission.entities;
 
-import org.apache.commons.lang3.text.WordUtils;
-
 import com.ten31f.mission.gfx.Colours;
 import com.ten31f.mission.gfx.Font;
 import com.ten31f.mission.gfx.Screen;
@@ -20,18 +18,9 @@ public class SquareButton extends Button {
 	}
 
 	private String name = null;
-	private int tickCount = 0;
 
 	@Override
 	public void tick() {
-		tickCount++;
-
-		if (tickCount > 100) {
-			tickCount = 0;
-			setLedState((Button.random.nextBoolean()) ? LEDState.HIGH : LEDState.LOW);
-			setButtonState((Button.random.nextBoolean()) ? ButtonState.NOTDEPRESSED : ButtonState.DEPRESSED);
-		}
-
 	}
 
 	@Override

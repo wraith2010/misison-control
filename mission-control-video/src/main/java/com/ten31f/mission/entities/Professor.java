@@ -1,6 +1,6 @@
 package com.ten31f.mission.entities;
 
-import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.text.WordUtils;
 
 import com.ten31f.mission.audio.SoundEffect;
 import com.ten31f.mission.gfx.Colours;
@@ -22,7 +22,6 @@ public class Professor extends Entity {
 	private Animation animation = Animation.IDLE;
 	private int step = 0;
 	private int tickCount = 0;
-	private int textTickCount = 0;
 
 	private int targetX = 0;
 	private int targetY = 0;
@@ -140,31 +139,10 @@ public class Professor extends Entity {
 
 		switch (getAnimation()) {
 		case IDLE:
-			for (int xtile = 0; xtile < 3; xtile++) {
-				for (int ytile = 14; ytile < 18; ytile++) {
-					int tile = xtile + (ytile * 32);
-
-					int xpositon = getX() + tileOffset(xtile - 1, scale);
-					int yposition = getY() + tileOffset(ytile - 14, scale);
-
-					screen.render(xpositon, yposition, tile, color, 0x00, scale);
-				}
-			}
-
+			renderTiles(screen, 3, 4, 0, 14, scale, color);
 			break;
 		case WALKING_RIGHT:
-
-			for (int xtile = 3; xtile < 6; xtile++) {
-				for (int ytile = 14; ytile < 18; ytile++) {
-					int tile = xtile + (step * 3) + (ytile * 32);
-
-					int xpositon = getX() + tileOffset(xtile - 4, scale);
-					int yposition = getY() + tileOffset(ytile - 14, scale);
-
-					screen.render(xpositon, yposition, tile, color, 0x00, scale);
-				}
-			}
-
+			renderTiles(screen, 3, 4, 3 + (step * 3), 14, scale, color);
 			break;
 		case WALKING_LEFT:
 
@@ -207,9 +185,9 @@ public class Professor extends Entity {
 
 		String[] lines = WordUtils.wrap(getVisiableDialog(), 15).split("\n");
 
-		int yshift = 0;
+		int yshift = -20;
 		for (String line : lines) {
-			Font.render(line, screen, getX() + 50, getY() + yshift, fontColor, scale);
+			Font.render(line, screen, getX() + 60, getY() + yshift, fontColor, scale);
 			yshift += 20;
 		}
 
