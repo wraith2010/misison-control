@@ -13,7 +13,7 @@ public abstract class Illuminated extends Entity {
 	public static final int GREEN_ON = Colours.get(-1, 111, 20, 50);
 	public static final int GREEN_OFF = Colours.get(-1, 111, 20, 20);
 	public static final int WHITE_ON = Colours.get(-1, 111, 222, 555);
-	public static final int WHITE_OFF = Colours.get(-1, 111, 222, 555);
+	public static final int WHITE_OFF = Colours.get(-1, 111, 222, 333);
 
 	public static final int WHITE_SUQARE_OFF = Colours.get(-1, 111, 111, 2222);
 	public static final int WHITE_SUQARE_ON = Colours.get(-1, 111, 111, 555);

@@ -2,6 +2,7 @@ package com.ten31f.mission.script;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import com.ten31f.mission.Panel;
 import com.ten31f.mission.entities.Button;
@@ -9,25 +10,17 @@ import com.ten31f.mission.entities.Professor;
 
 public abstract class Stage {
 
-	private String name;
 	private Stage nextStage;
 	private Professor professor = null;
 	private Panel panel = null;
-	
+
 	private Map<String, Button> buttons = null;
 
-	public Stage(String name, Panel panel) {
+	protected static Random RANDOM = new Random(System.nanoTime());
+
+	public Stage(Panel panel) {
 		setButtons(new HashMap<String, Button>());
-		setName(name);
 		setPanel(panel);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	protected Map<String, Button> getButtons() {
@@ -61,11 +54,11 @@ public abstract class Stage {
 	protected void setPanel(Panel panel) {
 		this.panel = panel;
 	}
-	
+
 	protected Panel getPanel() {
 		return panel;
 	}
-	
+
 	abstract public boolean isComplete();
 
 	abstract public void tick();

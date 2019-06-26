@@ -54,24 +54,38 @@ public class Professor extends Entity {
 
 		if (tickCount % 5 != 0)
 			return;
-		if (getDialog() == null)
+
+		if (!isIdle())
 			return;
-		if (!Animation.IDLE.equals(getAnimation()))
+
+		if (!isSpeaking())
 			return;
 
 		if (getVisiableDialog() == null) {
 			setVisiableDialog(getDialog().substring(0, 1));
 		} else if (getDialog().length() > getVisiableDialog().length()) {
-
 			setVisiableDialog(getDialog().substring(0, getVisiableDialog().length() + 1));
-		} else {
-			textTickCount++;
-			if (textTickCount > 50) {
-				textTickCount = 0;
-				setVisiableDialog(null);
-			}
 		}
 
+		if (tickCount % 15 == 0) {
+			SoundEffect.BLIP.play();
+		}
+
+	}
+
+	public boolean isSpeaking() {
+
+		if (getDialog() == null)
+			return false;
+
+		if (getDialog() != null && getVisiableDialog() == null)
+			return true;
+
+		return getDialog().length() > getVisiableDialog().length();
+	}
+
+	public boolean isIdle() {
+		return Animation.IDLE.equals(getAnimation());
 	}
 
 	private void tickMoveToTarget() {
@@ -87,7 +101,7 @@ public class Professor extends Entity {
 		if (tickCount % 5 != 0)
 			return;
 
-		if (tickCount % 15 == 0)
+		if (tickCount % 20 == 0)
 			SoundEffect.FOOTSTEP.play();
 
 		if (getX() - getTargetX() > 0) {
@@ -221,6 +235,7 @@ public class Professor extends Entity {
 
 	public void setDialog(String dialog) {
 		this.dialog = dialog;
+		setVisiableDialog(null);
 	}
 
 	public String getDialog() {

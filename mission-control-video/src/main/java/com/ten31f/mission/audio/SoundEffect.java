@@ -11,7 +11,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public enum SoundEffect {
 
-	FOOTSTEP("audio/footstep01.wav");
+	FOOTSTEP("audio/footstep01.wav"),
+	BLIP("audio/blip01.wav");
 
 	// Nested class for specifying volume
 	public static enum Volume {

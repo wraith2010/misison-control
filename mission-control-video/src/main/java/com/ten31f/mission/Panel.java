@@ -24,8 +24,11 @@ import com.ten31f.mission.entities.SubPanel;
 import com.ten31f.mission.entities.Toggle;
 import com.ten31f.mission.gfx.Screen;
 import com.ten31f.mission.gfx.SpriteSheet;
+import com.ten31f.mission.script.LaunchStage;
+import com.ten31f.mission.script.PyroStage;
 import com.ten31f.mission.script.SecurityStage;
 import com.ten31f.mission.script.Stage;
+import com.ten31f.mission.script.SubSystemStage;
 
 public class Panel extends Canvas implements Runnable {
 
@@ -200,6 +203,21 @@ public class Panel extends Canvas implements Runnable {
 		securityStage.addButton(SecurityStage.BUTTON_SECURITY_08, securityButton08);
 		securityStage.addButton(SecurityStage.BUTTON_SECURITY_09, securityButton09);
 		securityStage.setProfessor(professor);
+
+		SubSystemStage subSystemStage = new SubSystemStage(this);
+
+		securityStage.setNextStage(subSystemStage);
+		subSystemStage.setProfessor(professor);
+
+		PyroStage pyroStage = new PyroStage(this);
+		subSystemStage.setNextStage(pyroStage);
+		
+		pyroStage.setProfessor(professor);
+		
+		LaunchStage launchStage = new LaunchStage(this);
+		pyroStage.setNextStage(launchStage);
+		
+		launchStage.setProfessor(professor);
 
 		setActiveStage(securityStage);
 
