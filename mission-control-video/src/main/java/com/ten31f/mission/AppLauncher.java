@@ -39,7 +39,6 @@ public class AppLauncher extends Applet {
 
 		panel.getjFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
 		panel.getjFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		panel.getjFrame().setUndecorated(true);
 
 		panel.getjFrame().add(panel, BorderLayout.CENTER);
 		panel.getjFrame().pack();

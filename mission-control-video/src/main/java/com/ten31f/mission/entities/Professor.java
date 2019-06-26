@@ -2,6 +2,7 @@ package com.ten31f.mission.entities;
 
 import org.apache.commons.lang3.text.WordUtils;
 
+import com.ten31f.mission.audio.SoundEffect;
 import com.ten31f.mission.gfx.Colours;
 import com.ten31f.mission.gfx.Font;
 import com.ten31f.mission.gfx.Screen;
@@ -85,6 +86,9 @@ public class Professor extends Entity {
 
 		if (tickCount % 5 != 0)
 			return;
+
+		if (tickCount % 15 == 0)
+			SoundEffect.FOOTSTEP.play();
 
 		if (getX() - getTargetX() > 0) {
 			setAnimation(Animation.WALKING_LEFT);
