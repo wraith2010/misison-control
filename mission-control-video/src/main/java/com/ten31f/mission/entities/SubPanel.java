@@ -40,15 +40,4 @@ public class SubPanel extends Entity {
 		this.title = title;
 	}
 
-	@Override
-	public int getHeight(int scale) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public int getWidth(int scale) {
-
-		throw new UnsupportedOperationException();
-
-	}
 }

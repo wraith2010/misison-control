@@ -9,9 +9,6 @@ import com.ten31f.mission.gfx.Screen;
 
 public class Professor extends Entity {
 
-	private int SPRITE_WIDTH = 24;
-	private int SPRITE_HEIGHT = 21;
-
 	public enum Animation {
 		IDLE, WALKING_LEFT, WALKING_RIGHT;
 	}
@@ -143,7 +140,7 @@ public class Professor extends Entity {
 
 		switch (getAnimation()) {
 		case IDLE:
-			renderTiles(screen, 3, 4, getStep() * 3, 14, color, 0x00, scale);
+			renderTiles(screen, 3, 4, getSpeak() * 3, 14, color, 0x00, scale);
 			break;
 		case WALKING_RIGHT:
 			renderTiles(screen, 3, 4, getStep() * 3, 18, color, 0x00, scale);
@@ -187,16 +184,6 @@ public class Professor extends Entity {
 
 	private void setAnimation(Animation animation) {
 		this.animation = animation;
-	}
-
-	@Override
-	public int getWidth(int scale) {
-		return SPRITE_WIDTH * scale;
-	}
-
-	@Override
-	public int getHeight(int scale) {
-		return SPRITE_HEIGHT * scale;
 	}
 
 	public void setDialog(String dialog) {
