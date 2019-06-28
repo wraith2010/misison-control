@@ -158,7 +158,7 @@ public class Panel extends Canvas implements Runnable {
 
 		SquareButton squareButton04 = new SquareButton(BUTTON_NAME_BUTTON04, subPanel2XCenter - buttonShift,
 				subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF);
-		getEntityCollection().addEntity(squareButton03);
+		getEntityCollection().addEntity(squareButton04);
 
 		SquareButton squareButton05 = new SquareButton(BUTTON_NAME_BUTTON05, subPanel2XCenter,
 				subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SUQARE_ON, Illuminated.WHITE_SUQARE_OFF);

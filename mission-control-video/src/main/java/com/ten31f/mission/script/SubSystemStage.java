@@ -16,14 +16,15 @@ public class SubSystemStage extends Stage {
 	private static final String[] BUTTON_KEYS = { BUTTON_SUBSYSTEM_01, BUTTON_SUBSYSTEM_02, BUTTON_SUBSYSTEM_03,
 			BUTTON_SUBSYSTEM_04, BUTTON_SUBSYSTEM_05, BUTTON_SUBSYSTEM_06 };
 
+	private int buttonIndex = 0;
+
 	public SubSystemStage(Panel panel) {
 		super(panel);
 	}
 
 	@Override
 	public boolean isComplete() {
-		// TODO Auto-generated method stub
-		return false;
+		return getButtonIndex() > 5;
 	}
 
 	@Override
@@ -34,13 +35,21 @@ public class SubSystemStage extends Stage {
 
 	@Override
 	public void init() {
-		int x = (int) (getPanel().getXCenter() - (getPanel().getWidth() / 4 * 0.5));
+		int x = (int) (getPanel().getXCenter() - (getPanel().getWidth() / 4d * 0.5));
 		int y = getPanel().getYCenter() - 300;
 
 		getProfessor().moveToXY(x, y);
 
 		getProfessor().setDialog(INSTRUCTIONS);
 
+	}
+
+	private int getButtonIndex() {
+		return buttonIndex;
+	}
+
+	private void setButtonIndex(int buttonIndex) {
+		this.buttonIndex = buttonIndex;
 	}
 
 }

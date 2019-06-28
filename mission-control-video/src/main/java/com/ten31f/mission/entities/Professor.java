@@ -20,6 +20,7 @@ public class Professor extends Entity {
 	private String visiableDialog = null;
 
 	private Animation animation = Animation.IDLE;
+	private int speak = 0;
 	private int step = 0;
 	private int tickCount = 0;
 
@@ -38,11 +39,14 @@ public class Professor extends Entity {
 
 		// animate walking
 		if (tickCount % 15 == 0) {
-			step++;
+			setStep(getStep() + 1);
 
-			if (step > 2)
-				step = 0;
+			if (getStep() > 2)
+				setStep(0);
+
 		}
+
+		setSpeak(tickCount % 3);
 
 		tickAdvanceDialog();
 		tickMoveToTarget();
@@ -139,29 +143,13 @@ public class Professor extends Entity {
 
 		switch (getAnimation()) {
 		case IDLE:
-			renderTiles(screen, 3, 4, 0, 14, scale, color);
+			renderTiles(screen, 3, 4, getStep() * 3, 14, color, 0x00, scale);
 			break;
 		case WALKING_RIGHT:
-			renderTiles(screen, 3, 4, 3 + (step * 3), 14, scale, color);
+			renderTiles(screen, 3, 4, getStep() * 3, 18, color, 0x00, scale);
 			break;
 		case WALKING_LEFT:
-
-			int xflip = -2;
-			for (int xtile = 5; xtile > 2; xtile--) {
-
-				for (int ytile = 14; ytile < 18; ytile++) {
-					int tile = xtile + (step * 3) + (ytile * 32);
-
-					int xoffset = tileOffset((xtile - 4) + xflip, scale);
-					int xpositon = getX() + xoffset;
-					int yposition = getY() + tileOffset(ytile - 14, scale);
-
-					screen.render(xpositon, yposition, tile, color, 0x01, scale);
-
-				}
-				xflip += 2;
-			}
-
+			renderTiles(screen, 3, 4, getStep() * 3, 18, color, 0x01, scale);
 			break;
 		default:
 			break;
@@ -247,6 +235,22 @@ public class Professor extends Entity {
 
 	private void setTargetY(int targetY) {
 		this.targetY = targetY;
+	}
+
+	private int getSpeak() {
+		return speak;
+	}
+
+	private void setSpeak(int speak) {
+		this.speak = speak;
+	}
+
+	private int getStep() {
+		return step;
+	}
+
+	private void setStep(int step) {
+		this.step = step;
 	}
 
 }
