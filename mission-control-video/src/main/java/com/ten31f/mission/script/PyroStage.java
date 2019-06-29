@@ -1,32 +1,44 @@
 package com.ten31f.mission.script;
 
+import java.awt.event.MouseEvent;
+
 import com.ten31f.mission.Panel;
 
 public class PyroStage extends Stage {
 
-	public static final String NAME = "Security Stage";
-	
+	public static final String NAME = "Pyrotechics Stage";
+
+	private static final String INSTRUCTIONS = "Its time to initiate the boosters";
+
 	public PyroStage(Panel panel) {
 		super(panel);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public boolean isComplete() {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		
+		int x = (int) (getPanel().getXCenter() + (getPanel().getWidth() / 4d * 0.5));
+		int y = getPanel().getYCenter() - 300;
+
+		getProfessor().moveToXY(x, y);
+
+		getProfessor().setDialog(INSTRUCTIONS);
+
+	}
+
+	@Override
+	public void mouseClick(MouseEvent mouseEvent) {
+
 	}
 
 }

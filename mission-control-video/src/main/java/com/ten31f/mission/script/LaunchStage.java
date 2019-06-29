@@ -1,5 +1,7 @@
 package com.ten31f.mission.script;
 
+import java.awt.event.MouseEvent;
+
 import com.ten31f.mission.Panel;
 
 public class LaunchStage extends Stage {
@@ -26,4 +28,9 @@ public class LaunchStage extends Stage {
 
 	}
 
+	@Override
+	public void mouseClick(MouseEvent mouseEvent) {
+		
+
+	}
 }

@@ -1,5 +1,6 @@
 package com.ten31f.mission.script;
 
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -64,4 +65,6 @@ public abstract class Stage {
 	abstract public void tick();
 
 	abstract public void init();
+	
+	abstract public void mouseClick(MouseEvent mouseEvent);
 }

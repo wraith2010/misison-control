@@ -1,6 +1,11 @@
 package com.ten31f.mission.script;
 
+import java.awt.event.MouseEvent;
+import java.util.Map.Entry;
+
 import com.ten31f.mission.Panel;
+import com.ten31f.mission.entities.Button;
+import com.ten31f.mission.entities.Illuminated.LEDState;
 
 public class SubSystemStage extends Stage {
 
@@ -24,7 +29,12 @@ public class SubSystemStage extends Stage {
 
 	@Override
 	public boolean isComplete() {
-		return getButtonIndex() > 5;
+		for (Button button : getButtons().values()) {
+			if (LEDState.LOW.equals(button.getLedState()))
+				return false;
+		}
+
+		return true;
 	}
 
 	@Override
@@ -42,6 +52,17 @@ public class SubSystemStage extends Stage {
 
 		getProfessor().setDialog(INSTRUCTIONS);
 
+	}
+
+	@Override
+	public void mouseClick(MouseEvent mouseEvent) {
+
+		for (Entry<String, Button> entry : getButtons().entrySet()) {
+			if (entry.getValue().withIN(mouseEvent.getX(), mouseEvent.getY())) {
+
+				entry.getValue().toggle();
+			}
+		}
 	}
 
 	private int getButtonIndex() {

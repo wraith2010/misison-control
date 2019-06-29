@@ -12,7 +12,6 @@ public class Rocket extends Entity {
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -22,5 +21,11 @@ public class Rocket extends Entity {
 		int color = Colours.get(-1, 555, 500, 530);
 
 		renderTiles(screen, 3, 4, 20, 7, color, 0x00, 4);
+	}
+
+	@Override
+	public boolean withIN(int x, int y) {
+
+		return false;
 	}
 }

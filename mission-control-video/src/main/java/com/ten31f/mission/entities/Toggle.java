@@ -6,6 +6,9 @@ import com.ten31f.mission.gfx.Screen;
 
 public class Toggle extends Button {
 
+	private static int WIDTH_IN_TILES = 4;
+	private static int HEIGHT_IN_TILES = 7;
+
 	private String name = null;
 
 	public Toggle(String name, int x, int y, int ledON, int ledOFF) {
@@ -32,7 +35,7 @@ public class Toggle extends Button {
 		int buttonColor = LEDState.HIGH.equals(getLedState()) ? getLedON() : getLedOFF();
 		int xShift = (getButtonState().equals(ButtonState.NOTDEPRESSED)) ? 20 : 24;
 
-		renderTiles(screen, 4, 7, xShift, 0, buttonColor, 0x00, 2);
+		renderTiles(screen, WIDTH_IN_TILES, 7, xShift, 0, buttonColor, 0x00, 2);
 
 		renderText(screen);
 
@@ -54,6 +57,27 @@ public class Toggle extends Button {
 			yshift += 10;
 		}
 
+	}
+
+	@Override
+	public boolean withIN(int x, int y) {
+
+		if (Math.abs(getX() - x) < (WIDTH_IN_TILES * 8 / 2) && Math.abs(getY() - y) < (HEIGHT_IN_TILES * 8 / 2)) {
+			switch (getButtonState()) {
+			case DEPRESSED:
+				setButtonState(ButtonState.NOTDEPRESSED);
+				break;
+			case NOTDEPRESSED:
+				setButtonState(ButtonState.DEPRESSED);
+				break;
+			default:
+				break;
+
+			}
+			return true;
+		}
+
+		return false;
 	}
 
 	public String getName() {

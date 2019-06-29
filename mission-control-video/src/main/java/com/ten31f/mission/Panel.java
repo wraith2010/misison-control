@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -30,7 +32,7 @@ import com.ten31f.mission.script.SecurityStage;
 import com.ten31f.mission.script.Stage;
 import com.ten31f.mission.script.SubSystemStage;
 
-public class Panel extends Canvas implements Runnable {
+public class Panel extends Canvas implements Runnable, MouseListener {
 
 	public static final Dimension DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final String NAME = "Misison Control";
@@ -235,8 +237,9 @@ public class Panel extends Canvas implements Runnable {
 
 		launchStage.setProfessor(professor);
 
-		setActiveStage(securityStage);
+		setActiveStage(subSystemStage);
 
+		addMouseListener(this);
 	}
 
 	public synchronized void start() {
@@ -436,5 +439,30 @@ public class Panel extends Canvas implements Runnable {
 	@Override
 	public int getHeight() {
 		return (int) (DIMENSION.getHeight());
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent mouseEvent) {
+		getActiveStage().mouseClick(mouseEvent);
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
 	}
 }

@@ -1,10 +1,12 @@
 package com.ten31f.mission.script;
 
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.ten31f.mission.Panel;
-import com.ten31f.mission.entities.Button.ButtonState;
+import com.ten31f.mission.entities.Button;
 import com.ten31f.mission.entities.Illuminated.LEDState;
 
 public class SecurityStage extends Stage {
@@ -49,7 +51,7 @@ public class SecurityStage extends Stage {
 	}
 
 	private int pause = 0;
-	private int tickCount = 0;
+	// private int tickCount = 0;
 
 	@Override
 	public void tick() {
@@ -57,7 +59,7 @@ public class SecurityStage extends Stage {
 		if (!getProfessor().isIdle() || getProfessor().isSpeaking())
 			return;
 
-		tickCount++;
+		// tickCount++;
 
 		switch (getCurrentPhase()) {
 		case ADDBUTTON:
@@ -84,16 +86,21 @@ public class SecurityStage extends Stage {
 
 	private void addNextButton() {
 		do {
-			// TODO: no duplicate sequential steps
-			int buttonIndex = RANDOM.nextInt(getButtons().entrySet().size());
-			getSequence().add(BUTTON_KEYS[buttonIndex]);
+
+			String lastSelection = null;
+			String nextSelection = null;
+
+			if (!getSequence().isEmpty())
+				lastSelection = getSequence().get(getSequence().size() - 1);
+
+			do {
+				nextSelection = BUTTON_KEYS[RANDOM.nextInt(getButtons().entrySet().size())];
+			} while (nextSelection.equals(lastSelection));
+
+			getSequence().add(nextSelection);
 		} while (getSequence().size() < initialSequenceLenght);
 
-		if (getSequence().size() > maxSequenceLenght) {
-			setCurrentPhase(Phase.CELEBRATE);
-		} else {
-			setCurrentPhase(Phase.DISPLAYSEQUENCE);
-		}
+		setCurrentPhase((getSequence().size() > maxSequenceLenght) ? Phase.CELEBRATE : Phase.DISPLAYSEQUENCE);
 	}
 
 	private void displaySequence() {
@@ -106,8 +113,7 @@ public class SecurityStage extends Stage {
 		if (getSquenceIndex() >= getSequence().size()) {
 			setCurrentPhase(Phase.LISTEN);
 			allButtonsLEDOFF();
-			setPause(60);
-			setSquenceIndex(-1);
+			setSquenceIndex(0);
 			return;
 		}
 
@@ -119,32 +125,14 @@ public class SecurityStage extends Stage {
 	}
 
 	private void listen() {
-		if (getPause() != 0) {
-			setPause(getPause() - 1);
-			return;
-		}
 
-		setSquenceIndex(getSquenceIndex() + 1);
 		if (getSquenceIndex() >= getSequence().size()) {
 			setCurrentPhase(Phase.RESULT);
-			allButtonsLEDOFF();
-			allButtonsUP();
-			setPause(300);
+			setPause(30);
 			setSquenceIndex(-1);
-			return;
+
 		}
 
-		allButtonsLEDOFF();
-		allButtonsUP();
-		getButtons().get(getSequence().get(getSquenceIndex())).setButtonState(ButtonState.DEPRESSED);
-		getButtons().get(getSequence().get(getSquenceIndex())).setLedState(LEDState.HIGH);
-
-		setPause(30);
-
-	}
-
-	private void allButtonsUP() {
-		getButtons().entrySet().forEach(entry -> entry.getValue().setButtonState(ButtonState.NOTDEPRESSED));
 	}
 
 	private void allButtonsLEDOFF() {
@@ -152,6 +140,7 @@ public class SecurityStage extends Stage {
 	}
 
 	private void result() {
+		getProfessor().setDialog("Good Job! Next Sequence");
 		setCurrentPhase(Phase.ADDBUTTON);
 	}
 
@@ -164,7 +153,7 @@ public class SecurityStage extends Stage {
 	public void init() {
 		setComplete(false);
 
-		int x = (int) (getPanel().getXCenter() - (getPanel().getWidth() / 4 * 1.5));
+		int x = (int) (getPanel().getXCenter() - (getPanel().getWidth() / 4d * 1.5));
 		int y = getPanel().getYCenter() - 300;
 
 		getProfessor().moveToXY(x, y);
@@ -173,6 +162,28 @@ public class SecurityStage extends Stage {
 
 		setSequence(new ArrayList<>());
 		setCurrentPhase(Phase.ADDBUTTON);
+	}
+
+	@Override
+	public void mouseClick(MouseEvent mouseEvent) {
+
+		if (!Phase.LISTEN.equals(getCurrentPhase()))
+			return;
+
+		for (Entry<String, Button> entry : getButtons().entrySet()) {
+			if (entry.getValue().withIN(mouseEvent.getX(), mouseEvent.getY())) {
+				if (getSequence().get(getSquenceIndex()).equals(entry.getKey())) {
+					getProfessor().setDialog("Correct");
+
+					setSquenceIndex(getSquenceIndex() + 1);
+				} else {
+					getProfessor().setDialog("Watch Again");
+					setSquenceIndex(-1);
+					setCurrentPhase(Phase.DISPLAYSEQUENCE);
+				}
+			}
+		}
+
 	}
 
 	private void setSequence(List<String> sequence) {
@@ -210,4 +221,5 @@ public class SecurityStage extends Stage {
 	private void setPause(int pause) {
 		this.pause = pause;
 	}
+
 }

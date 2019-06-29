@@ -54,8 +54,8 @@ public abstract class Entity {
 				for (int yTile = 0; yTile < 4; yTile++) {
 					int tile = xTile + xShift + ((yTile + yShift) * 32);
 
-					int xpositon = getX() - tileOffset(xTile, scale) - ((initialX * 8) / 2);
-					int yposition = getY() + tileOffset(yTile, scale) - ((yHeight * 8) / 2);
+					int xpositon = getX() - tileOffset(xTile, scale) - ((initialX * 8 * scale) / 2);
+					int yposition = getY() + tileOffset(yTile, scale) - ((yHeight * 8 * scale) / 2);
 
 					screen.render(xpositon, yposition, tile, color, mirror, scale);
 
@@ -64,8 +64,10 @@ public abstract class Entity {
 		}
 
 	}
-
+	
 	public abstract void tick();
 
 	public abstract void render(Screen screen);
+	
+	public abstract boolean withIN(int x, int y);
 }

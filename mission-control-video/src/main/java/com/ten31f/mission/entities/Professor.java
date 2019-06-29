@@ -157,6 +157,12 @@ public class Professor extends Entity {
 
 	}
 
+	@Override
+	public boolean withIN(int x, int y) {
+
+		return false;
+	}
+
 	private void renderDialog(Screen screen) {
 
 		if (getVisiableDialog() == null)
@@ -170,7 +176,7 @@ public class Professor extends Entity {
 
 		String[] lines = WordUtils.wrap(getVisiableDialog(), 15).split("\n");
 
-		int yshift = -20;
+		int yshift = -40;
 		for (String line : lines) {
 			Font.render(line, screen, getX() + 60, getY() + yshift, fontColor, scale);
 			yshift += 20;
