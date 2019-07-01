@@ -1,39 +1,24 @@
 package com.ten31f.mission.script;
 
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
 import com.ten31f.mission.Panel;
-import com.ten31f.mission.entities.Button;
+import com.ten31f.mission.entities.EntityCollection;
+import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Professor;
 
 public abstract class Stage {
 
 	private Stage nextStage;
-	private Professor professor = null;
 	private Panel panel = null;
 
-	private Map<String, Button> buttons = null;
+	private EntityCollection visibleEntityCollection = null;
+	private EntityCollection hiddenEntityCollection = null;
 
-	protected static Random RANDOM = new Random(System.nanoTime());
-
-	public Stage(Panel panel) {
-		setButtons(new HashMap<String, Button>());
+	public Stage(Panel panel, EntityCollection visibleEntityCollection, EntityCollection hiddenEntityCollection) {
 		setPanel(panel);
-	}
-
-	protected Map<String, Button> getButtons() {
-		return buttons;
-	}
-
-	private void setButtons(Map<String, Button> buttons) {
-		this.buttons = buttons;
-	}
-
-	public void addButton(String name, Button button) {
-		getButtons().put(name, button);
+		setVisibleEntityCollection(visibleEntityCollection);
+		setHiddenEntityCollection(hiddenEntityCollection);
 	}
 
 	public Stage getNextStage() {
@@ -44,12 +29,8 @@ public abstract class Stage {
 		this.nextStage = nextStage;
 	}
 
-	public Professor getProfessor() {
-		return professor;
-	}
-
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
+	protected Professor getProfessor() {
+		return (Professor) getVisibleEntityCollection().getEntity(EntityNames.PROFESSOR);
 	}
 
 	protected void setPanel(Panel panel) {
@@ -60,11 +41,27 @@ public abstract class Stage {
 		return panel;
 	}
 
+	protected EntityCollection getVisibleEntityCollection() {
+		return visibleEntityCollection;
+	}
+
+	protected void setVisibleEntityCollection(EntityCollection visibleEntityCollection) {
+		this.visibleEntityCollection = visibleEntityCollection;
+	}
+
+	protected EntityCollection getHiddenEntityCollection() {
+		return hiddenEntityCollection;
+	}
+
+	protected void setHiddenEntityCollection(EntityCollection hiddenEntityCollection) {
+		this.hiddenEntityCollection = hiddenEntityCollection;
+	}
+
 	abstract public boolean isComplete();
 
 	abstract public void tick();
 
 	abstract public void init();
-	
+
 	abstract public void mouseClick(MouseEvent mouseEvent);
 }

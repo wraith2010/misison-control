@@ -31,4 +31,9 @@ public class EntityNames {
 	public static final String TOGGLE_PYRO_03 = "PYRO06";
 
 	public static final String LAUNCH_BUTTON = "LAUNCH";
+
+	public static final String SUB_PANEL_01 = "SUBPANEL01";
+	public static final String SUB_PANEL_02 = "SUBPANEL02";
+	public static final String SUB_PANEL_03 = "SUBPANEL03";
+	public static final String SUB_PANEL_04 = "SUBPANEL04";
 }

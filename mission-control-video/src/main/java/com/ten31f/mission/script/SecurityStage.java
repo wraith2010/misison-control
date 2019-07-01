@@ -3,11 +3,12 @@ package com.ten31f.mission.script;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.Random;
 
 import com.ten31f.mission.Panel;
-import com.ten31f.mission.entities.Button;
+import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
+import com.ten31f.mission.entities.Illuminated;
 import com.ten31f.mission.entities.Illuminated.LEDState;
 
 public class SecurityStage extends Stage {
@@ -33,8 +34,11 @@ public class SecurityStage extends Stage {
 
 	private Phase currentPhase = null;
 
-	public SecurityStage(Panel panel) {
-		super(panel);
+	private Random random = new Random(System.nanoTime());
+
+	public SecurityStage(Panel panel, EntityCollection visibleEntityCollection,
+			EntityCollection hiddenEntityCollection) {
+		super(panel, visibleEntityCollection, hiddenEntityCollection);
 	}
 
 	@Override
@@ -43,15 +47,12 @@ public class SecurityStage extends Stage {
 	}
 
 	private int pause = 0;
-	// private int tickCount = 0;
 
 	@Override
 	public void tick() {
 
 		if (!getProfessor().isIdle() || getProfessor().isSpeaking())
 			return;
-
-		// tickCount++;
 
 		switch (getCurrentPhase()) {
 		case ADDBUTTON:
@@ -86,7 +87,7 @@ public class SecurityStage extends Stage {
 				lastSelection = getSequence().get(getSequence().size() - 1);
 
 			do {
-				nextSelection = BUTTON_KEYS[RANDOM.nextInt(getButtons().entrySet().size())];
+				nextSelection = BUTTON_KEYS[random.nextInt(BUTTON_KEYS.length)];
 			} while (nextSelection.equals(lastSelection));
 
 			getSequence().add(nextSelection);
@@ -110,10 +111,11 @@ public class SecurityStage extends Stage {
 		}
 
 		allButtonsLEDOFF();
-		getButtons().get(getSequence().get(getSquenceIndex())).setLedState(LEDState.HIGH);
+		Illuminated illuminated = (Illuminated) getVisibleEntityCollection()
+				.getEntity(getSequence().get(getSquenceIndex()));
+		illuminated.setLedState(LEDState.HIGH);
 
 		setPause(60);
-
 	}
 
 	private void listen() {
@@ -128,7 +130,9 @@ public class SecurityStage extends Stage {
 	}
 
 	private void allButtonsLEDOFF() {
-		getButtons().entrySet().forEach(entry -> entry.getValue().setLedState(LEDState.LOW));
+		for (String key : BUTTON_KEYS) {
+			((Illuminated) getVisibleEntityCollection().getEntity(key)).setLedState(LEDState.LOW);
+		}
 	}
 
 	private void result() {
@@ -162,11 +166,10 @@ public class SecurityStage extends Stage {
 		if (!Phase.LISTEN.equals(getCurrentPhase()))
 			return;
 
-		for (Entry<String, Button> entry : getButtons().entrySet()) {
-			if (entry.getValue().withIN(mouseEvent.getX(), mouseEvent.getY())) {
-				if (getSequence().get(getSquenceIndex()).equals(entry.getKey())) {
+		for (String key : BUTTON_KEYS) {
+			if (getVisibleEntityCollection().getEntity(key).withIN(mouseEvent.getX(), mouseEvent.getY())) {
+				if (getSequence().get(getSquenceIndex()).equals(key)) {
 					getProfessor().setDialog("Correct");
-
 					setSquenceIndex(getSquenceIndex() + 1);
 				} else {
 					getProfessor().setDialog("Watch Again");
@@ -175,7 +178,6 @@ public class SecurityStage extends Stage {
 				}
 			}
 		}
-
 	}
 
 	private void setSequence(List<String> sequence) {
