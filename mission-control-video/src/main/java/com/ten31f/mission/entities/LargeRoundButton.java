@@ -8,18 +8,8 @@ public class LargeRoundButton extends Button {
 		super(x, y, ledON, ledOFF);
 	}
 
-	int tickCount = 0;
-
 	@Override
 	public void tick() {
-
-		tickCount++;
-
-		if (tickCount > 100) {
-			tickCount = 0;
-			setLedState((Button.random.nextBoolean()) ? LEDState.HIGH : LEDState.LOW);
-			setButtonState((Button.random.nextBoolean()) ? ButtonState.NOTDEPRESSED : ButtonState.DEPRESSED);
-		}
 
 	}
 

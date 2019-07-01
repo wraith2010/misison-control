@@ -16,6 +16,8 @@ public class SquareButton extends Button {
 
 	private String name = null;
 	private int buttonPressTick = 0;
+	private int promptTickCout = 0;
+	private boolean prompt = false;
 
 	@Override
 	public void tick() {
@@ -26,18 +28,36 @@ public class SquareButton extends Button {
 			setButtonPressTick(getButtonPressTick() - 1);
 		}
 
+		setPromptTickCout(getPromptTickCout() + 1);
+
+		if (getPromptTickCout() >= 20) {
+			setPrompt(!isPrompt());
+			setPromptTickCout(0);
+		}
 	}
 
 	@Override
 	public void render(Screen screen) {
 
-		int buttonColor = getLedState().equals(LEDState.HIGH) ? getLedON() : getLedOFF();
-		buttonColor = getButtonState().equals(ButtonState.DEPRESSED) ? getLedON() : buttonColor;
 		int xShift = getButtonState().equals(ButtonState.NOTDEPRESSED) ? 0 : 10;
 
-		renderTiles(screen, 10, 7, xShift, 7, buttonColor, 0x00, 1);
+		renderTiles(screen, WIDTH, HEIGHT, xShift, 7, getButtonColor(), 0x00, 1);
 
 		renderText(screen);
+	}
+
+	private int getButtonColor() {
+
+		switch (getLedState()) {
+		case HIGH:
+			return getLedON();
+		case LOW:
+			return getLedOFF();
+		case PROMPT:
+			return isPrompt() ? getLedON() : getLedOFF();
+		default:
+			return getLedOFF();
+		}
 	}
 
 	private void renderText(Screen screen) {
@@ -84,4 +104,21 @@ public class SquareButton extends Button {
 	private int getButtonPressTick() {
 		return buttonPressTick;
 	}
+
+	private boolean isPrompt() {
+		return prompt;
+	}
+
+	private void setPrompt(boolean prompt) {
+		this.prompt = prompt;
+	}
+
+	private int getPromptTickCout() {
+		return promptTickCout;
+	}
+
+	private void setPromptTickCout(int promptTickCout) {
+		this.promptTickCout = promptTickCout;
+	}
+
 }

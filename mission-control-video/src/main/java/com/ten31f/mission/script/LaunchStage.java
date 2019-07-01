@@ -3,8 +3,13 @@ package com.ten31f.mission.script;
 import java.awt.event.MouseEvent;
 
 import com.ten31f.mission.Panel;
+import com.ten31f.mission.entities.Illuminated.LEDState;
 
 public class LaunchStage extends Stage {
+
+	public static final String BUTTON = "LAUNCH";
+
+	private static final String INSTRUCTIONS = "Mission is GO!";
 
 	public LaunchStage(Panel panel) {
 		super(panel);
@@ -12,25 +17,28 @@ public class LaunchStage extends Stage {
 
 	@Override
 	public boolean isComplete() {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
+		int x = (int) (getPanel().getXCenter() + (getPanel().getWidth() / 4d * 1.5));
+		int y = getPanel().getYCenter() - 300;
 
+		getProfessor().moveToXY(x, y);
+
+		getProfessor().setDialog(INSTRUCTIONS);
+		getButtons().get(BUTTON).setLedState(LEDState.PROMPT);
 	}
 
 	@Override
 	public void mouseClick(MouseEvent mouseEvent) {
-		
 
 	}
 }

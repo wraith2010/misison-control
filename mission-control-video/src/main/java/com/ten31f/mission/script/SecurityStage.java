@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import com.ten31f.mission.Panel;
 import com.ten31f.mission.entities.Button;
+import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated.LEDState;
 
 public class SecurityStage extends Stage {
@@ -15,19 +16,10 @@ public class SecurityStage extends Stage {
 		ADDBUTTON, DISPLAYSEQUENCE, LISTEN, RESULT, CELEBRATE;
 	}
 
-	public static final String BUTTON_SECURITY_01 = "SECUIRITY01";
-	public static final String BUTTON_SECURITY_02 = "SECUIRITY02";
-	public static final String BUTTON_SECURITY_03 = "SECUIRITY03";
-	public static final String BUTTON_SECURITY_04 = "SECUIRITY04";
-	public static final String BUTTON_SECURITY_05 = "SECUIRITY05";
-	public static final String BUTTON_SECURITY_06 = "SECUIRITY06";
-	public static final String BUTTON_SECURITY_07 = "SECUIRITY07";
-	public static final String BUTTON_SECURITY_08 = "SECUIRITY08";
-	public static final String BUTTON_SECURITY_09 = "SECUIRITY09";
-
-	private static final String[] BUTTON_KEYS = { BUTTON_SECURITY_01, BUTTON_SECURITY_02, BUTTON_SECURITY_03,
-			BUTTON_SECURITY_04, BUTTON_SECURITY_05, BUTTON_SECURITY_06, BUTTON_SECURITY_07, BUTTON_SECURITY_08,
-			BUTTON_SECURITY_09 };
+	private static final String[] BUTTON_KEYS = { EntityNames.BUTTON_SECURITY_01, EntityNames.BUTTON_SECURITY_02,
+			EntityNames.BUTTON_SECURITY_03, EntityNames.BUTTON_SECURITY_04, EntityNames.BUTTON_SECURITY_05,
+			EntityNames.BUTTON_SECURITY_06, EntityNames.BUTTON_SECURITY_07, EntityNames.BUTTON_SECURITY_08,
+			EntityNames.BUTTON_SECURITY_09 };
 
 	private static final String INSTRUCTIONS = "Repeat the security sequences to unlock the console";
 

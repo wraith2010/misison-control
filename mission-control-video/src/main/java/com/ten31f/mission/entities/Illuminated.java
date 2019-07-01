@@ -24,8 +24,8 @@ public abstract class Illuminated extends Entity {
 	public static final int LARGE_RED_ON = Colours.get(-1, 111, 000, 500);
 	public static final int LARGE_RED_OFF = Colours.get(-1, 111, 000, 500);
 
-	public static enum LEDState {
-		HIGH, LOW;
+	public enum LEDState {
+		HIGH, LOW, PROMPT;
 	}
 
 	private int ledON = -1;
