@@ -7,7 +7,7 @@ public class Rocket extends Entity {
 
 	public Rocket(int x, int y) {
 		super(x, y);
-
+		setScale(4);
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class Rocket extends Entity {
 
 		int color = Colours.get(-1, 555, 500, 530);
 
-		renderTiles(screen, 3, 4, 20, 7, color, 0x00, 4);
+		renderTiles(screen, 3, 4, 20, 7, color, 0x00);
 	}
 
 	@Override

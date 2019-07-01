@@ -30,4 +30,5 @@ public class EntityNames {
 	public static final String TOGGLE_PYRO_02 = "PYRO05";
 	public static final String TOGGLE_PYRO_03 = "PYRO06";
 
+	public static final String LAUNCH_BUTTON = "LAUNCH";
 }

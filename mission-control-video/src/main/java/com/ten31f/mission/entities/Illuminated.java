@@ -22,7 +22,7 @@ public abstract class Illuminated extends Entity {
 	public static final int TOGLE_OFF = Colours.get(-1, 111, 222, 200);
 
 	public static final int LARGE_RED_ON = Colours.get(-1, 111, 000, 500);
-	public static final int LARGE_RED_OFF = Colours.get(-1, 111, 000, 500);
+	public static final int LARGE_RED_OFF = Colours.get(-1, 111, 000, 200);
 
 	public enum LEDState {
 		HIGH, LOW, PROMPT;
@@ -38,6 +38,8 @@ public abstract class Illuminated extends Entity {
 	}
 
 	private LEDState ledState = LEDState.LOW;
+	private int promptTickCout = 0;
+	private boolean prompt = false;
 
 	public int getLedON() {
 		return ledON;
@@ -65,6 +67,22 @@ public abstract class Illuminated extends Entity {
 
 	public void toggle() {
 		setLedState(getLedState().equals(LEDState.HIGH) ? LEDState.LOW : LEDState.HIGH);
+	}
+
+	protected boolean isPrompt() {
+		return prompt;
+	}
+
+	protected void setPrompt(boolean prompt) {
+		this.prompt = prompt;
+	}
+
+	protected int getPromptTickCout() {
+		return promptTickCout;
+	}
+
+	protected void setPromptTickCout(int promptTickCout) {
+		this.promptTickCout = promptTickCout;
 	}
 
 }

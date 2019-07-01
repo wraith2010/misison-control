@@ -16,8 +16,6 @@ public class SubSystemStage extends Stage {
 			EntityNames.BUTTON_SUBSYSTEM_03, EntityNames.BUTTON_SUBSYSTEM_04, EntityNames.BUTTON_SUBSYSTEM_05,
 			EntityNames.BUTTON_SUBSYSTEM_06 };
 
-	private int buttonIndex = 0;
-
 	public SubSystemStage(Panel panel) {
 		super(panel);
 	}
@@ -50,7 +48,6 @@ public class SubSystemStage extends Stage {
 
 	@Override
 	public void mouseClick(MouseEvent mouseEvent) {
-
 		for (Entry<String, Button> entry : getButtons().entrySet()) {
 			if (entry.getValue().withIN(mouseEvent.getX(), mouseEvent.getY())) {
 				entry.getValue().toggle();

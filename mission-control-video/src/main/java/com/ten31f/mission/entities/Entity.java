@@ -4,7 +4,7 @@ import com.ten31f.mission.gfx.Screen;
 
 public abstract class Entity {
 
-	private int x, y;
+	private int x, y, scale;
 
 	public Entity(int x, int y) {
 
@@ -28,12 +28,11 @@ public abstract class Entity {
 		return y;
 	}
 
-	public int tileOffset(int index, int scale) {
-		return index * 8 * scale;
+	public int tileOffset(int index) {
+		return index * 8 * getScale();
 	}
 
-	protected void renderTiles(Screen screen, int xWidth, int yHeight, int xShift, int yShift, int color, int mirror,
-			int scale) {
+	protected void renderTiles(Screen screen, int xWidth, int yHeight, int xShift, int yShift, int color, int mirror) {
 
 		if (mirror == 0x00) {
 
@@ -41,10 +40,10 @@ public abstract class Entity {
 				for (int yTile = 0; yTile < yHeight; yTile++) {
 					int tile = (xTile + xShift) + ((yTile + yShift) * 32);
 
-					int xpositon = getX() + tileOffset(xTile, scale) - ((xWidth * 8 * scale) / 2);
-					int yposition = getY() + tileOffset(yTile, scale) - ((yHeight * 8 * scale) / 2);
+					int xpositon = getX() + tileOffset(xTile) - ((xWidth * 8 * getScale()) / 2);
+					int yposition = getY() + tileOffset(yTile) - ((yHeight * 8 * getScale()) / 2);
 
-					screen.render(xpositon, yposition, tile, color, mirror, scale);
+					screen.render(xpositon, yposition, tile, color, mirror, getScale());
 				}
 			}
 		} else if (mirror == 0x01) {
@@ -54,20 +53,27 @@ public abstract class Entity {
 				for (int yTile = 0; yTile < 4; yTile++) {
 					int tile = xTile + xShift + ((yTile + yShift) * 32);
 
-					int xpositon = getX() - tileOffset(xTile, scale) - ((initialX * 8 * scale) / 2);
-					int yposition = getY() + tileOffset(yTile, scale) - ((yHeight * 8 * scale) / 2);
+					int xpositon = getX() - tileOffset(xTile) - ((initialX * 8 * getScale()) / 2);
+					int yposition = getY() + tileOffset(yTile) - ((yHeight * 8 * getScale()) / 2);
 
-					screen.render(xpositon, yposition, tile, color, mirror, scale);
+					screen.render(xpositon, yposition, tile, color, mirror, getScale());
 
 				}
 			}
 		}
-
 	}
-	
+
+	public int getScale() {
+		return scale;
+	}
+
+	public void setScale(int scale) {
+		this.scale = scale;
+	}
+
 	public abstract void tick();
 
 	public abstract void render(Screen screen);
-	
+
 	public abstract boolean withIN(int x, int y);
 }

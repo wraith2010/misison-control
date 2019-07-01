@@ -18,7 +18,6 @@ import com.ten31f.mission.entities.Button;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated;
-import com.ten31f.mission.entities.LargeRoundButton;
 import com.ten31f.mission.entities.Professor;
 import com.ten31f.mission.entities.Rocket;
 import com.ten31f.mission.entities.RoundButton;
@@ -27,6 +26,7 @@ import com.ten31f.mission.entities.SubPanel;
 import com.ten31f.mission.entities.Toggle;
 import com.ten31f.mission.gfx.Screen;
 import com.ten31f.mission.gfx.SpriteSheet;
+import com.ten31f.mission.script.AnimateLaunch;
 import com.ten31f.mission.script.LaunchStage;
 import com.ten31f.mission.script.PyroStage;
 import com.ten31f.mission.script.SecurityStage;
@@ -105,7 +105,6 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 		int subPanel1XCenter = (int) (getXCenter() - (getWidth() / 4d * 1.5));
 		int subPanel1yCenter = (int) (getYCenter() + (getHeight() / 4d * 0.5));
 
-		
 		getVisiableEntityCollection().addEntity(new SubPanel(subPanel1XCenter, subPanel1yCenter, "SECURITY"));
 
 		Button securityButton01 = new RoundButton(subPanel1XCenter - buttonShift, subPanel1yCenter - buttonShift,
@@ -210,9 +209,10 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 
 		getVisiableEntityCollection().addEntity(new SubPanel(subPanel4XCenter, subPanel4YCenter, "LAUNCH"));
 
-		LargeRoundButton largeRoundButton = new LargeRoundButton(subPanel4XCenter, subPanel4YCenter,
-				Illuminated.LARGE_RED_ON, Illuminated.LARGE_RED_OFF);
-		getVisiableEntityCollection().addEntity(largeRoundButton);
+		RoundButton roundButton10 = new RoundButton(subPanel4XCenter, subPanel4YCenter, Illuminated.LARGE_RED_ON,
+				Illuminated.LARGE_RED_OFF);
+		roundButton10.setScale(3);
+		getVisiableEntityCollection().addEntity(roundButton10);
 
 		Professor professor = new Professor(getXCenter(), getYCenter() - 300);
 
@@ -257,9 +257,12 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 		pyroStage.setNextStage(launchStage);
 
 		launchStage.setProfessor(professor);
-		launchStage.addButton(LaunchStage.BUTTON, largeRoundButton);
+		launchStage.addButton(EntityNames.LAUNCH_BUTTON, roundButton10);
 
-		setActiveStage(subSystemStage);
+		AnimateLaunch animateLaunch =  new AnimateLaunch(this);
+		launchStage.setNextStage(animateLaunch);
+		
+		setActiveStage(launchStage);
 
 		addMouseListener(this);
 	}

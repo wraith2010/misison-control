@@ -1,13 +1,14 @@
 package com.ten31f.mission.script;
 
 import java.awt.event.MouseEvent;
+import java.util.Map.Entry;
 
 import com.ten31f.mission.Panel;
+import com.ten31f.mission.entities.Button;
+import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated.LEDState;
 
 public class LaunchStage extends Stage {
-
-	public static final String BUTTON = "LAUNCH";
 
 	private static final String INSTRUCTIONS = "Mission is GO!";
 
@@ -17,8 +18,8 @@ public class LaunchStage extends Stage {
 
 	@Override
 	public boolean isComplete() {
-		
-		return false;
+
+		return LEDState.HIGH.equals(getButtons().get(EntityNames.LAUNCH_BUTTON).getLedState());
 	}
 
 	@Override
@@ -34,11 +35,15 @@ public class LaunchStage extends Stage {
 		getProfessor().moveToXY(x, y);
 
 		getProfessor().setDialog(INSTRUCTIONS);
-		getButtons().get(BUTTON).setLedState(LEDState.PROMPT);
+		getButtons().get(EntityNames.LAUNCH_BUTTON).setLedState(LEDState.PROMPT);
 	}
 
 	@Override
 	public void mouseClick(MouseEvent mouseEvent) {
-
+		for (Entry<String, Button> entry : getButtons().entrySet()) {
+			if (entry.getValue().withIN(mouseEvent.getX(), mouseEvent.getY())) {
+				entry.getValue().toggle();
+			}
+		}
 	}
 }

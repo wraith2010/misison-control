@@ -11,12 +11,10 @@ public class Toggle extends Button {
 
 	private String name = null;
 
-	private int promptTickCout = 0;
-	private boolean prompt = false;
-
 	public Toggle(String name, int x, int y, int ledON, int ledOFF) {
 		super(x, y, ledON, ledOFF);
 		setName(name);
+		setScale(2);
 	}
 
 	@Override
@@ -34,7 +32,7 @@ public class Toggle extends Button {
 
 		int xShift = (getButtonState().equals(ButtonState.NOTDEPRESSED)) ? 20 : 24;
 
-		renderTiles(screen, WIDTH, HEIGHT, xShift, 0, getButtonColor(), 0x00, 2);
+		renderTiles(screen, WIDTH, HEIGHT, xShift, 0, getButtonColor(), 0x00);
 		renderText(screen);
 	}
 
@@ -101,19 +99,4 @@ public class Toggle extends Button {
 		this.name = name;
 	}
 
-	private boolean isPrompt() {
-		return prompt;
-	}
-
-	private void setPrompt(boolean prompt) {
-		this.prompt = prompt;
-	}
-
-	private int getPromptTickCout() {
-		return promptTickCout;
-	}
-
-	private void setPromptTickCout(int promptTickCout) {
-		this.promptTickCout = promptTickCout;
-	}
 }

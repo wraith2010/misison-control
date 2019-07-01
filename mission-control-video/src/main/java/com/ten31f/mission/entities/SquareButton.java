@@ -12,12 +12,11 @@ public class SquareButton extends Button {
 	public SquareButton(String name, int x, int y, int ledON, int ledOFF) {
 		super(x, y, ledON, ledOFF);
 		setName(name);
+		setScale(1);
 	}
 
 	private String name = null;
 	private int buttonPressTick = 0;
-	private int promptTickCout = 0;
-	private boolean prompt = false;
 
 	@Override
 	public void tick() {
@@ -41,7 +40,7 @@ public class SquareButton extends Button {
 
 		int xShift = getButtonState().equals(ButtonState.NOTDEPRESSED) ? 0 : 10;
 
-		renderTiles(screen, WIDTH, HEIGHT, xShift, 7, getButtonColor(), 0x00, 1);
+		renderTiles(screen, WIDTH, HEIGHT, xShift, 7, getButtonColor(), 0x00);
 
 		renderText(screen);
 	}
@@ -104,21 +103,4 @@ public class SquareButton extends Button {
 	private int getButtonPressTick() {
 		return buttonPressTick;
 	}
-
-	private boolean isPrompt() {
-		return prompt;
-	}
-
-	private void setPrompt(boolean prompt) {
-		this.prompt = prompt;
-	}
-
-	private int getPromptTickCout() {
-		return promptTickCout;
-	}
-
-	private void setPromptTickCout(int promptTickCout) {
-		this.promptTickCout = promptTickCout;
-	}
-
 }

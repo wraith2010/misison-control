@@ -28,6 +28,7 @@ public class Professor extends Entity {
 		super(x, y);
 		setTargetX(x);
 		setTargetY(y);
+		setScale(3);
 	}
 
 	@Override
@@ -140,13 +141,13 @@ public class Professor extends Entity {
 
 		switch (getAnimation()) {
 		case IDLE:
-			renderTiles(screen, 3, 4, getSpeak() * 3, 14, color, 0x00, scale);
+			renderTiles(screen, 3, 4, getSpeak() * 3, 14, color, 0x00);
 			break;
 		case WALKING_RIGHT:
-			renderTiles(screen, 3, 4, getStep() * 3, 18, color, 0x00, scale);
+			renderTiles(screen, 3, 4, getStep() * 3, 18, color, 0x00);
 			break;
 		case WALKING_LEFT:
-			renderTiles(screen, 3, 4, getStep() * 3, 18, color, 0x01, scale);
+			renderTiles(screen, 3, 4, getStep() * 3, 18, color, 0x01);
 			break;
 		default:
 			break;
