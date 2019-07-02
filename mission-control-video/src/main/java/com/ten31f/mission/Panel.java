@@ -203,10 +203,10 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 		getVisiableEntityCollection().addEntity(EntityNames.ROCKET, new Rocket(getXCenter(), getYCenter() - 150));
 
 		SecurityStage securityStage = new SecurityStage(this, visiableEntityCollection, hiddenEntityCollection);
-		SubSystemStage subSystemStage = new SubSystemStage(this);
-		PyroStage pyroStage = new PyroStage(this);
-		LaunchStage launchStage = new LaunchStage(this);
-		AnimateLaunch animateLaunch = new AnimateLaunch(this);
+		SubSystemStage subSystemStage = new SubSystemStage(this, visiableEntityCollection, hiddenEntityCollection);
+		PyroStage pyroStage = new PyroStage(this, visiableEntityCollection, hiddenEntityCollection);
+		LaunchStage launchStage = new LaunchStage(this, visiableEntityCollection, hiddenEntityCollection);
+		AnimateLaunch animateLaunch = new AnimateLaunch(this, visiableEntityCollection, hiddenEntityCollection);
 
 		securityStage.setNextStage(subSystemStage);
 		pyroStage.setNextStage(launchStage);

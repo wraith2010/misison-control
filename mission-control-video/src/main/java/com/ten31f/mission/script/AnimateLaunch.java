@@ -3,14 +3,15 @@ package com.ten31f.mission.script;
 import java.awt.event.MouseEvent;
 
 import com.ten31f.mission.Panel;
+import com.ten31f.mission.entities.EntityCollection;
 
 public class AnimateLaunch extends Stage {
 
 	private boolean complete = false;
 
-	public AnimateLaunch(Panel panel) {
-		super(panel);
-
+	public AnimateLaunch(Panel panel, EntityCollection visibleEntityCollection,
+			EntityCollection hiddenEntityCollection) {
+		super(panel, visibleEntityCollection, hiddenEntityCollection);
 	}
 
 	@Override
@@ -20,19 +21,16 @@ public class AnimateLaunch extends Stage {
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseClick(MouseEvent mouseEvent) {
-		
 
 	}
 
