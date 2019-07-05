@@ -62,6 +62,11 @@ public class SubSystemStage extends Stage {
 		}
 	}
 
+	@Override
+	public void pack() {
+
+	}
+
 	private void promptNextButton() {
 
 		for (String key : BUTTON_KEYS) {

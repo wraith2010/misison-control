@@ -137,7 +137,7 @@ public class Professor extends Entity {
 	public void render(Screen screen) {
 
 		int color = Colours.get(-1, 112, 145, 543);
-		int scale = 3;
+
 
 		switch (getAnimation()) {
 		case IDLE:

@@ -36,4 +36,8 @@ public class EntityNames {
 	public static final String SUB_PANEL_02 = "SUBPANEL02";
 	public static final String SUB_PANEL_03 = "SUBPANEL03";
 	public static final String SUB_PANEL_04 = "SUBPANEL04";
+
+	public static final String MPC_LOGO = "MPCLOGO";
+
+	public static final String STARFIELD = "STARFIELD";
 }

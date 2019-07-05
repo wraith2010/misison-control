@@ -50,4 +50,9 @@ public class LaunchStage extends Stage {
 		}
 
 	}
+
+	@Override
+	public void pack() {
+
+	}
 }

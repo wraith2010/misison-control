@@ -64,4 +64,6 @@ public abstract class Stage {
 	abstract public void init();
 
 	abstract public void mouseClick(MouseEvent mouseEvent);
+	
+	abstract public void pack();
 }

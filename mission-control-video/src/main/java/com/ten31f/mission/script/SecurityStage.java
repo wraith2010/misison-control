@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.ten31f.mission.Panel;
+import com.ten31f.mission.entities.Entity;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated;
@@ -16,6 +17,17 @@ public class SecurityStage extends Stage {
 	private enum Phase {
 		ADDBUTTON, DISPLAYSEQUENCE, LISTEN, RESULT, CELEBRATE;
 	}
+
+	private static final String[] VISABLE_ENTITIES = { EntityNames.STARFIELD, EntityNames.PROFESSOR,
+			EntityNames.BUTTON_SECURITY_01, EntityNames.BUTTON_SECURITY_02, EntityNames.BUTTON_SECURITY_03,
+			EntityNames.BUTTON_SECURITY_04, EntityNames.BUTTON_SECURITY_05, EntityNames.BUTTON_SECURITY_06,
+			EntityNames.BUTTON_SECURITY_07, EntityNames.BUTTON_SECURITY_08, EntityNames.BUTTON_SECURITY_09,
+			EntityNames.BUTTON_SUBSYSTEM_01, EntityNames.BUTTON_SUBSYSTEM_02, EntityNames.BUTTON_SUBSYSTEM_03,
+			EntityNames.BUTTON_SUBSYSTEM_04, EntityNames.BUTTON_SUBSYSTEM_05, EntityNames.BUTTON_SUBSYSTEM_06,
+			EntityNames.TOGGLE_PYRO_01, EntityNames.BUTTON_PYRO_01, EntityNames.TOGGLE_PYRO_02,
+			EntityNames.BUTTON_PYRO_02, EntityNames.TOGGLE_PYRO_03, EntityNames.BUTTON_PYRO_03,
+			EntityNames.LAUNCH_BUTTON, EntityNames.SUB_PANEL_01, EntityNames.SUB_PANEL_02, EntityNames.SUB_PANEL_03,
+			EntityNames.SUB_PANEL_04 };
 
 	private static final String[] BUTTON_KEYS = { EntityNames.BUTTON_SECURITY_01, EntityNames.BUTTON_SECURITY_02,
 			EntityNames.BUTTON_SECURITY_03, EntityNames.BUTTON_SECURITY_04, EntityNames.BUTTON_SECURITY_05,
@@ -74,6 +86,16 @@ public class SecurityStage extends Stage {
 			setCurrentPhase(Phase.ADDBUTTON);
 			break;
 
+		}
+	}
+
+	@Override
+	public void pack() {
+		getVisibleEntityCollection().removeAllEntites();
+
+		for (String key : VISABLE_ENTITIES) {
+			Entity entity = getHiddenEntityCollection().removeEntity(key);
+			getVisibleEntityCollection().addEntity(key, entity);
 		}
 	}
 
@@ -141,7 +163,6 @@ public class SecurityStage extends Stage {
 	}
 
 	private void celebrate() {
-		// TODO: professor should celebrate and animate buttons than move on
 		setComplete(true);
 	}
 

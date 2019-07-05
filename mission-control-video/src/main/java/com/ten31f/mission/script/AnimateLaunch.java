@@ -34,6 +34,12 @@ public class AnimateLaunch extends Stage {
 
 	}
 
+	@Override
+	public void pack() {
+		// TODO Auto-generated method stub
+
+	}
+
 	private void setComplete(boolean complete) {
 		this.complete = complete;
 	}

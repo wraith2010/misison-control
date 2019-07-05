@@ -33,8 +33,18 @@ public class EntityCollection {
 		getEntities().put(key, entity);
 	}
 
+	public Entity removeEntity(String key) {
+		return getEntities().remove(key);
+	}
+
 	public Entity getEntity(String key) {
 		return getEntities().get(key);
+	}
+
+	public void removeAllEntites() {
+
+		getEntities().clear();
+
 	}
 
 }
