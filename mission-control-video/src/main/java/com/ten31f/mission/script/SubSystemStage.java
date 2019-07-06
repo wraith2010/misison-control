@@ -42,6 +42,8 @@ public class SubSystemStage extends Stage {
 
 	@Override
 	public void init() {
+		pack(SecurityStage.VISABLE_ENTITIES);
+
 		int x = (int) (getPanel().getXCenter() - (getPanel().getWidth() / 4d * 0.5));
 		int y = getPanel().getYCenter() - 300;
 
@@ -60,11 +62,6 @@ public class SubSystemStage extends Stage {
 				promptNextButton();
 			}
 		}
-	}
-
-	@Override
-	public void pack() {
-
 	}
 
 	private void promptNextButton() {

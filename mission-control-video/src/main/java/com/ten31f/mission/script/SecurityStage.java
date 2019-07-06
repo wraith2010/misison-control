@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import com.ten31f.mission.Panel;
-import com.ten31f.mission.entities.Entity;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated;
@@ -18,7 +17,7 @@ public class SecurityStage extends Stage {
 		ADDBUTTON, DISPLAYSEQUENCE, LISTEN, RESULT, CELEBRATE;
 	}
 
-	private static final String[] VISABLE_ENTITIES = { EntityNames.STARFIELD, EntityNames.PROFESSOR,
+	public static final String[] VISABLE_ENTITIES = { EntityNames.STARFIELD, EntityNames.PROFESSOR,
 			EntityNames.BUTTON_SECURITY_01, EntityNames.BUTTON_SECURITY_02, EntityNames.BUTTON_SECURITY_03,
 			EntityNames.BUTTON_SECURITY_04, EntityNames.BUTTON_SECURITY_05, EntityNames.BUTTON_SECURITY_06,
 			EntityNames.BUTTON_SECURITY_07, EntityNames.BUTTON_SECURITY_08, EntityNames.BUTTON_SECURITY_09,
@@ -89,16 +88,6 @@ public class SecurityStage extends Stage {
 		}
 	}
 
-	@Override
-	public void pack() {
-		getVisibleEntityCollection().removeAllEntites();
-
-		for (String key : VISABLE_ENTITIES) {
-			Entity entity = getHiddenEntityCollection().removeEntity(key);
-			getVisibleEntityCollection().addEntity(key, entity);
-		}
-	}
-
 	private void addNextButton() {
 		do {
 
@@ -158,7 +147,9 @@ public class SecurityStage extends Stage {
 	}
 
 	private void result() {
-		getProfessor().setDialog("Good Job! Next Sequence");
+		if (getSequence().size() < maxSequenceLenght) {
+			getProfessor().setDialog("Good Job! Next Sequence");
+		}
 		setCurrentPhase(Phase.ADDBUTTON);
 	}
 
@@ -168,6 +159,7 @@ public class SecurityStage extends Stage {
 
 	@Override
 	public void init() {
+		pack(VISABLE_ENTITIES);
 		setComplete(false);
 
 		int x = (int) (getPanel().getXCenter() - (getPanel().getWidth() / 4d * 1.5));

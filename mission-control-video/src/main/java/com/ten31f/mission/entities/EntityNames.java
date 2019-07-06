@@ -40,4 +40,6 @@ public class EntityNames {
 	public static final String MPC_LOGO = "MPCLOGO";
 
 	public static final String STARFIELD = "STARFIELD";
+	
+	public static final String FLAME = "FLAME";
 }

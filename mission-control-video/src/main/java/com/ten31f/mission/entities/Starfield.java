@@ -9,6 +9,12 @@ import com.ten31f.mission.gfx.Screen;
 
 public class Starfield extends Entity {
 
+	public enum Animation {
+		TWINKLE, FLY;
+	}
+
+	private Animation animation = null;
+
 	private static final Random random = new Random(System.nanoTime());
 
 	private int screenWidth = 0;
@@ -19,37 +25,53 @@ public class Starfield extends Entity {
 		super(x, y);
 		setScreenWidth(screenWidth);
 		setScreenHeight(screenHeight);
+		setAnimation(Animation.TWINKLE);
 
-		for (int index = 0; index < 40; index++) {
+		generateStars();
+	}
+	
+	public void generateStars() {
+		
+		generateStars(15, 1);
+		generateStars(10, 2);
+		generateStars(4, 4);
+	}
+
+	private void generateStars(int count, int scale) {
+		
+		getStars().clear();
+		
+		for (int index = 0; index < count; index++) {
 
 			int starX = random.nextInt(getScreenWidth());
-			int starY = random.nextInt(getScreenHeight() / 2);
+			int starY = random.nextInt(getScreenHeight()) - (getScreenHeight() / 2);
 
-			getStars().add(new Star(starX, starY, 1));
+			getStars().add(new Star(starX, starY, scale));
 		}
-
-		for (int index = 0; index < 15; index++) {
-
-			int starX = random.nextInt(getScreenWidth());
-			int starY = random.nextInt(getScreenHeight() / 2);
-
-			getStars().add(new Star(starX, starY, 2));
-		}
-
-		for (int index = 0; index < 5; index++) {
-
-			int starX = random.nextInt(getScreenWidth());
-			int starY = random.nextInt(getScreenHeight() / 2);
-
-			getStars().add(new Star(starX, starY, 4));
-		}
-
 	}
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
+		switch (getAnimation()) {
+		case FLY:
+			animateFly();
+			break;
+		case TWINKLE:
+			break;
+		default:
+			break;
 
+		}
+	}
+
+	private void animateFly() {
+		for (Star star : getStars()) {
+			star.setY(star.getY() + star.getScale());
+			if (star.getY() > getScreenHeight()) {
+				star.setY(-star.getScale());
+				star.setX(random.nextInt(getScreenWidth()));
+			}
+		}
 	}
 
 	@Override
@@ -84,6 +106,14 @@ public class Starfield extends Entity {
 
 	private List<Star> getStars() {
 		return stars;
+	}
+
+	public Animation getAnimation() {
+		return animation;
+	}
+
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
 	}
 
 	public class Star {
@@ -121,6 +151,5 @@ public class Starfield extends Entity {
 		public void setScale(int scale) {
 			this.scale = scale;
 		}
-
 	}
 }

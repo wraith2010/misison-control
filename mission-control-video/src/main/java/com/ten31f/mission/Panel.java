@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
+import com.ten31f.mission.entities.Flame;
 import com.ten31f.mission.entities.Illuminated;
 import com.ten31f.mission.entities.MPCLogo;
 import com.ten31f.mission.entities.Professor;
@@ -107,7 +108,7 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 
 		// Sub Panel 1 Security
 		int subPanel1XCenter = (int) (getXCenter() - (getWidth() / 4d * 1.5));
-		int subPanel1yCenter = (int) (getYCenter() + (getHeight() / 4d * 0.5));
+		int subPanel1yCenter = (int) (getYCenter() + (getHeight() / 4d * 1.0));
 
 		getHiddenEntityCollection().addEntity(EntityNames.SUB_PANEL_01,
 				new SubPanel(subPanel1XCenter, subPanel1yCenter, "SECURITY"));
@@ -137,7 +138,7 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 
 		// sub panel 2 primers
 		int subPanel2XCenter = (int) (getXCenter() - ((getWidth() / 4d) * 0.5));
-		int subPanel2YCenter = (int) (getYCenter() + ((getHeight() / 4d) * 0.5));
+		int subPanel2YCenter = (int) (getYCenter() + ((getHeight() / 4d) * 1.0));
 
 		getHiddenEntityCollection().addEntity(EntityNames.SUB_PANEL_02,
 				new SubPanel(subPanel2XCenter, subPanel2YCenter, "SUB SYSTEMS"));
@@ -167,7 +168,7 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 
 		// sub panel 3 pyro
 		int subPanel3XCenter = (int) (getXCenter() + (getWidth() / 4d * 0.5));
-		int subPanel3YCenter = (int) (getYCenter() + (getHeight() / 4d * 0.5));
+		int subPanel3YCenter = (int) (getYCenter() + (getHeight() / 4d * 1.0));
 
 		getHiddenEntityCollection().addEntity(EntityNames.SUB_PANEL_03,
 				new SubPanel(subPanel3XCenter, subPanel3YCenter, "PYROTECHNICS"));
@@ -194,7 +195,7 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 
 		// sub panel 4 big button
 		int subPanel4XCenter = (int) (getXCenter() + (getWidth() / 4d * 1.5));
-		int subPanel4YCenter = (int) (getYCenter() + (getHeight() / 4d * 0.5));
+		int subPanel4YCenter = (int) (getYCenter() + (getHeight() / 4d * 1.0));
 
 		getHiddenEntityCollection().addEntity(EntityNames.SUB_PANEL_04,
 				new SubPanel(subPanel4XCenter, subPanel4YCenter, "LAUNCH"));
@@ -205,7 +206,8 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 		getHiddenEntityCollection().addEntity(EntityNames.LAUNCH_BUTTON, roundButton10);
 
 		getHiddenEntityCollection().addEntity(EntityNames.PROFESSOR, new Professor(getXCenter(), getYCenter() - 300));
-		getHiddenEntityCollection().addEntity(EntityNames.ROCKET, new Rocket(getXCenter(), getYCenter() - 150));
+		getHiddenEntityCollection().addEntity(EntityNames.ROCKET, new Rocket(getXCenter(), getYCenter()));
+		getHiddenEntityCollection().addEntity(EntityNames.FLAME, new Flame(getXCenter(), getYCenter()+100));
 		getHiddenEntityCollection().addEntity(EntityNames.STARFIELD,
 				new Starfield(getXCenter(), getYCenter(), getWidth(), getHeight()));
 
@@ -226,7 +228,7 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 		launchStage.setNextStage(animateLaunch);
 		animateLaunch.setNextStage(introStage);
 
-		setActiveStage(introStage);
+		setActiveStage(launchStage);
 
 		addMouseListener(this);
 	}
@@ -416,7 +418,6 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 	}
 
 	public void setActiveStage(Stage activeStage) {
-		activeStage.pack();
 		activeStage.init();
 		this.activeStage = activeStage;
 	}

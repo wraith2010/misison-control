@@ -42,9 +42,6 @@ public class EntityCollection {
 	}
 
 	public void removeAllEntites() {
-
 		getEntities().clear();
-
 	}
-
 }

@@ -30,6 +30,7 @@ public class LaunchStage extends Stage {
 
 	@Override
 	public void init() {
+		pack(SecurityStage.VISABLE_ENTITIES);
 		int x = (int) (getPanel().getXCenter() + (getPanel().getWidth() / 4d * 1.5));
 		int y = getPanel().getYCenter() - 300;
 
@@ -51,8 +52,5 @@ public class LaunchStage extends Stage {
 
 	}
 
-	@Override
-	public void pack() {
 
-	}
 }

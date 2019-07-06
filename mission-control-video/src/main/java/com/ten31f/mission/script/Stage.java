@@ -3,6 +3,7 @@ package com.ten31f.mission.script;
 import java.awt.event.MouseEvent;
 
 import com.ten31f.mission.Panel;
+import com.ten31f.mission.entities.Entity;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Professor;
@@ -57,6 +58,15 @@ public abstract class Stage {
 		this.hiddenEntityCollection = hiddenEntityCollection;
 	}
 
+	protected void pack(String[] visiableEntities) {
+		getVisibleEntityCollection().removeAllEntites();
+
+		for (String key : visiableEntities) {
+			Entity entity = getHiddenEntityCollection().getEntity(key);
+			getVisibleEntityCollection().addEntity(key, entity);
+		}
+	}
+
 	abstract public boolean isComplete();
 
 	abstract public void tick();
@@ -64,6 +74,5 @@ public abstract class Stage {
 	abstract public void init();
 
 	abstract public void mouseClick(MouseEvent mouseEvent);
-	
-	abstract public void pack();
+
 }
