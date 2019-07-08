@@ -1,5 +1,6 @@
 package com.ten31f.mission.entities;
 
+import com.ten31f.mission.audio.SoundEffect;
 import com.ten31f.mission.gfx.Colours;
 import com.ten31f.mission.gfx.Font;
 import com.ten31f.mission.gfx.Screen;
@@ -11,8 +12,8 @@ public class Toggle extends Button {
 
 	private String name = null;
 
-	public Toggle(String name, int x, int y, int ledON, int ledOFF) {
-		super(x, y, ledON, ledOFF);
+	public Toggle(String name, int x, int y, int ledON, int ledOFF, SoundEffect soundEffect) {
+		super(x, y, ledON, ledOFF, soundEffect);
 		setName(name);
 		setScale(2);
 	}
@@ -80,6 +81,7 @@ public class Toggle extends Button {
 			case NOTDEPRESSED:
 				setButtonState(ButtonState.DEPRESSED);
 				setLedState(LEDState.HIGH);
+				getSoundEffect().play();
 				break;
 			default:
 				break;

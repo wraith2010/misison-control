@@ -1,5 +1,6 @@
 package com.ten31f.mission.entities;
 
+import com.ten31f.mission.audio.SoundEffect;
 import com.ten31f.mission.gfx.Colours;
 import com.ten31f.mission.gfx.Font;
 import com.ten31f.mission.gfx.Screen;
@@ -9,8 +10,8 @@ public class SquareButton extends Button {
 	private static int WIDTH = 10;
 	private static int HEIGHT = 7;
 
-	public SquareButton(String name, int x, int y, int ledON, int ledOFF) {
-		super(x, y, ledON, ledOFF);
+	public SquareButton(String name, int x, int y, int ledON, int ledOFF, SoundEffect soundEffect) {
+		super(x, y, ledON, ledOFF, soundEffect);
 		setName(name);
 		setScale(1);
 	}
@@ -82,6 +83,9 @@ public class SquareButton extends Button {
 		if (Math.abs(getX() - x) < (WIDTH * 8 / 2) && Math.abs(getY() - y) < (HEIGHT * 8 / 2)) {
 			setButtonState(ButtonState.DEPRESSED);
 			setButtonPressTick(20);
+			if(getSoundEffect() != null) {
+				getSoundEffect().play();
+			}
 			return true;
 		}
 

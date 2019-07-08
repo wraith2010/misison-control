@@ -11,8 +11,10 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public enum SoundEffect {
 
-	FOOTSTEP("audio/footstep01.wav"),
-	BLIP("audio/blip01.wav");
+	FOOTSTEP("audio/footstep01.wav"), BLIP("audio/blip01.wav"), COMMS("audio/comms.wav"),
+	LIFESUPPORT("audio/life-support.wav"), WATERSYSTEM("audio/waterSystem.wav"), TANG("audio/tang.wav"),
+	CHARGE("audio/charge.wav"), FUELPUMP("audio/fuelPump.wav"), ROCKET1("audio/rumble1.wav"),
+	ROCKET2("audio/rumble2.wav"), MOONTHEME("audio/duckTalesMusic-nes-moonTheme.wav"), MAINLOOP("audio/mainLoop.wav");
 
 	// Nested class for specifying volume
 	public static enum Volume {
@@ -45,13 +47,15 @@ public enum SoundEffect {
 	}
 
 	// Play or Re-play the sound effect from the beginning, by rewinding.
-	public void play() {
+	public Clip play() {
 		if (volume != Volume.MUTE) {
 			if (clip.isRunning())
 				clip.stop(); // Stop the player if it is still running
 			clip.setFramePosition(0); // rewind to the beginning
 			clip.start(); // Start playing
 		}
+
+		return clip;
 	}
 
 	// Optional static method to pre-load all the sound files.

@@ -45,9 +45,7 @@ public class SubSystemStage extends Stage {
 		pack(SecurityStage.VISABLE_ENTITIES);
 
 		int x = (int) (getPanel().getXCenter() - (getPanel().getWidth() / 4d * 0.5));
-		int y = getPanel().getYCenter() - 300;
-
-		getProfessor().moveToXY(x, y);
+		getProfessor().moveToXY(x, getProfessor().getY());
 		getProfessor().setDialog(INSTRUCTIONS);
 
 		promptNextButton();

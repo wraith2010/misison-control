@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Random;
 
 import com.ten31f.mission.Panel;
+import com.ten31f.mission.entities.Button.ButtonState;
+import com.ten31f.mission.entities.Entity;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated;
 import com.ten31f.mission.entities.Illuminated.LEDState;
+import com.ten31f.mission.entities.Toggle;
 
 public class SecurityStage extends Stage {
 
@@ -99,7 +102,7 @@ public class SecurityStage extends Stage {
 
 			do {
 				nextSelection = BUTTON_KEYS[random.nextInt(BUTTON_KEYS.length)];
-			} while (nextSelection.equals(lastSelection));
+			} while (getSequence().contains(nextSelection));
 
 			getSequence().add(nextSelection);
 		} while (getSequence().size() < initialSequenceLenght);
@@ -159,18 +162,36 @@ public class SecurityStage extends Stage {
 
 	@Override
 	public void init() {
+
 		pack(VISABLE_ENTITIES);
 		setComplete(false);
+		reset();
 
 		int x = (int) (getPanel().getXCenter() - (getPanel().getWidth() / 4d * 1.5));
-		int y = getPanel().getYCenter() - 300;
-
-		getProfessor().moveToXY(x, y);
+		getProfessor().moveToXY(x, getProfessor().getY());
 
 		getProfessor().setDialog(INSTRUCTIONS);
 
 		setSequence(new ArrayList<>());
 		setCurrentPhase(Phase.ADDBUTTON);
+	}
+
+	private void reset() {
+		for (String key : VISABLE_ENTITIES) {
+
+			Entity entity = getHiddenEntityCollection().getEntity(key);
+
+			if (entity instanceof Illuminated) {
+				Illuminated illuminated = (Illuminated) entity;
+				illuminated.setLedState(LEDState.LOW);
+			}
+
+			if (entity instanceof Toggle) {
+				Toggle toggle = (Toggle) entity;
+				toggle.setButtonState(ButtonState.NOTDEPRESSED);
+			}
+		}
+
 	}
 
 	@Override

@@ -12,13 +12,16 @@ import java.awt.image.DataBufferInt;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 
+import com.ten31f.mission.audio.SoundEffect;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Flame;
 import com.ten31f.mission.entities.Illuminated;
 import com.ten31f.mission.entities.MPCLogo;
+import com.ten31f.mission.entities.MTMLogo;
 import com.ten31f.mission.entities.Professor;
 import com.ten31f.mission.entities.Rocket;
 import com.ten31f.mission.entities.RoundButton;
@@ -47,7 +50,7 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 	public static final String BUTTON_NAME_BUTTON02 = "LIFE\nSUPPORT";
 	public static final String BUTTON_NAME_BUTTON03 = "ENVIRONMENT\nControl";
 	public static final String BUTTON_NAME_BUTTON04 = "WATER";
-	public static final String BUTTON_NAME_BUTTON05 = "WASTE";
+	public static final String BUTTON_NAME_BUTTON05 = "TWITCH\nFEED";
 	public static final String BUTTON_NAME_BUTTON06 = "TANG";
 	public static final String BUTTON_NAME_BUTTON07 = "FUEL\nPUMP";
 	public static final String BUTTON_NAME_BUTTON08 = "SOLID\nBOOSTER";
@@ -62,6 +65,7 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 
 	public boolean running = false;
 	public int tickCount = 0;
+	private Clip mainLoop = null;
 
 	private BufferedImage image = new BufferedImage((int) DIMENSION.getWidth(), (int) DIMENSION.getHeight(),
 			BufferedImage.TYPE_INT_RGB);
@@ -102,8 +106,6 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 		setScreen(new Screen((int) DIMENSION.getWidth(), (int) DIMENSION.getHeight(),
 				new SpriteSheet("/sprite_sheet.png")));
 
-		getHiddenEntityCollection().addEntity(EntityNames.MPC_LOGO, new MPCLogo(getXCenter(), getYCenter()));
-
 		int buttonShift = 100;
 
 		// Sub Panel 1 Security
@@ -115,26 +117,26 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_01,
 				new RoundButton(subPanel1XCenter - buttonShift, subPanel1yCenter - buttonShift, Illuminated.BLUE_ON,
-						Illuminated.BLUE_OFF));
+						Illuminated.BLUE_OFF, null));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_02, new RoundButton(subPanel1XCenter,
-				subPanel1yCenter - buttonShift, Illuminated.YELLOW_ON, Illuminated.YELLOW_OFF));
+				subPanel1yCenter - buttonShift, Illuminated.YELLOW_ON, Illuminated.YELLOW_OFF, null));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_03,
 				new RoundButton(subPanel1XCenter + buttonShift, subPanel1yCenter - buttonShift, Illuminated.BLUE_ON,
-						Illuminated.BLUE_OFF));
+						Illuminated.BLUE_OFF, null));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_04, new RoundButton(
-				subPanel1XCenter - buttonShift, subPanel1yCenter, Illuminated.GREEN_ON, Illuminated.GREEN_OFF));
+				subPanel1XCenter - buttonShift, subPanel1yCenter, Illuminated.GREEN_ON, Illuminated.GREEN_OFF, null));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_05,
-				new RoundButton(subPanel1XCenter, subPanel1yCenter, Illuminated.WHITE_ON, Illuminated.WHITE_OFF));
+				new RoundButton(subPanel1XCenter, subPanel1yCenter, Illuminated.WHITE_ON, Illuminated.WHITE_OFF, null));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_06, new RoundButton(
-				subPanel1XCenter + buttonShift, subPanel1yCenter, Illuminated.GREEN_ON, Illuminated.GREEN_OFF));
+				subPanel1XCenter + buttonShift, subPanel1yCenter, Illuminated.GREEN_ON, Illuminated.GREEN_OFF, null));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_07,
 				new RoundButton(subPanel1XCenter - buttonShift, subPanel1yCenter + buttonShift, Illuminated.RED_ON,
-						Illuminated.RED_OFF));
+						Illuminated.RED_OFF, null));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_08, new RoundButton(subPanel1XCenter,
-				subPanel1yCenter + buttonShift, Illuminated.YELLOW_ON, Illuminated.YELLOW_OFF));
+				subPanel1yCenter + buttonShift, Illuminated.YELLOW_ON, Illuminated.YELLOW_OFF, null));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_09,
 				new RoundButton(subPanel1XCenter + buttonShift, subPanel1yCenter + buttonShift, Illuminated.RED_ON,
-						Illuminated.RED_OFF));
+						Illuminated.RED_OFF, null));
 
 		// sub panel 2 primers
 		int subPanel2XCenter = (int) (getXCenter() - ((getWidth() / 4d) * 0.5));
@@ -145,26 +147,26 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SUBSYSTEM_01,
 				new SquareButton(BUTTON_NAME_BUTTON01, subPanel2XCenter - buttonShift,
-						subPanel2YCenter - (buttonShift / 2), Illuminated.WHITE_SQUARE_ON,
-						Illuminated.WHITE_SQUARE_OFF));
+						subPanel2YCenter - (buttonShift / 2), Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF,
+						SoundEffect.COMMS));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SUBSYSTEM_02,
 				new SquareButton(BUTTON_NAME_BUTTON02, subPanel2XCenter, subPanel2YCenter - (buttonShift / 2),
-						Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF));
+						Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF, SoundEffect.LIFESUPPORT));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SUBSYSTEM_03,
 				new SquareButton(BUTTON_NAME_BUTTON03, subPanel2XCenter + buttonShift,
-						subPanel2YCenter - (buttonShift / 2), Illuminated.WHITE_SQUARE_ON,
-						Illuminated.WHITE_SQUARE_OFF));
+						subPanel2YCenter - (buttonShift / 2), Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF,
+						null));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SUBSYSTEM_04,
 				new SquareButton(BUTTON_NAME_BUTTON04, subPanel2XCenter - buttonShift,
-						subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SQUARE_ON,
-						Illuminated.WHITE_SQUARE_OFF));
+						subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF,
+						SoundEffect.WATERSYSTEM));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SUBSYSTEM_05,
 				new SquareButton(BUTTON_NAME_BUTTON05, subPanel2XCenter, subPanel2YCenter + (buttonShift / 2),
-						Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF));
+						Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF, null));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SUBSYSTEM_06,
 				new SquareButton(BUTTON_NAME_BUTTON06, subPanel2XCenter + buttonShift,
-						subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SQUARE_ON,
-						Illuminated.WHITE_SQUARE_OFF));
+						subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF,
+						SoundEffect.TANG));
 
 		// sub panel 3 pyro
 		int subPanel3XCenter = (int) (getXCenter() + (getWidth() / 4d * 0.5));
@@ -175,23 +177,24 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_PYRO_01,
 				new SquareButton(BUTTON_NAME_BUTTON07, subPanel3XCenter - buttonShift,
-						subPanel3YCenter - (buttonShift / 2), Illuminated.WHITE_SQUARE_ON,
-						Illuminated.WHITE_SQUARE_OFF));
+						subPanel3YCenter - (buttonShift / 2), Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF,
+						SoundEffect.FUELPUMP));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_PYRO_02,
 				new SquareButton(BUTTON_NAME_BUTTON08, subPanel3XCenter, subPanel3YCenter - (buttonShift / 2),
-						Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF));
+						Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF, SoundEffect.ROCKET1));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_PYRO_03,
 				new SquareButton(BUTTON_NAME_BUTTON09, subPanel3XCenter + buttonShift,
-						subPanel3YCenter - (buttonShift / 2), Illuminated.WHITE_SQUARE_ON,
-						Illuminated.WHITE_SQUARE_OFF));
+						subPanel3YCenter - (buttonShift / 2), Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF,
+						SoundEffect.ROCKET2));
 		getHiddenEntityCollection().addEntity(EntityNames.TOGGLE_PYRO_01,
 				new Toggle(BUTTON_NAME_TOGGLE01, subPanel3XCenter - buttonShift, subPanel3YCenter + (buttonShift / 2),
-						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF));
-		getHiddenEntityCollection().addEntity(EntityNames.TOGGLE_PYRO_02, new Toggle(BUTTON_NAME_TOGGLE02,
-				subPanel3XCenter, subPanel3YCenter + (buttonShift / 2), Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF));
+						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF, SoundEffect.CHARGE));
+		getHiddenEntityCollection().addEntity(EntityNames.TOGGLE_PYRO_02,
+				new Toggle(BUTTON_NAME_TOGGLE02, subPanel3XCenter, subPanel3YCenter + (buttonShift / 2),
+						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF, SoundEffect.CHARGE));
 		getHiddenEntityCollection().addEntity(EntityNames.TOGGLE_PYRO_03,
 				new Toggle(BUTTON_NAME_TOGGLE03, subPanel3XCenter + buttonShift, subPanel3YCenter + (buttonShift / 2),
-						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF));
+						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF, SoundEffect.CHARGE));
 
 		// sub panel 4 big button
 		int subPanel4XCenter = (int) (getXCenter() + (getWidth() / 4d * 1.5));
@@ -201,15 +204,18 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 				new SubPanel(subPanel4XCenter, subPanel4YCenter, "LAUNCH"));
 
 		RoundButton roundButton10 = new RoundButton(subPanel4XCenter, subPanel4YCenter, Illuminated.LARGE_RED_ON,
-				Illuminated.LARGE_RED_OFF);
+				Illuminated.LARGE_RED_OFF, null);
 		roundButton10.setScale(3);
 		getHiddenEntityCollection().addEntity(EntityNames.LAUNCH_BUTTON, roundButton10);
 
-		getHiddenEntityCollection().addEntity(EntityNames.PROFESSOR, new Professor(getXCenter(), getYCenter() - 300));
+		getHiddenEntityCollection().addEntity(EntityNames.PROFESSOR, new Professor(getXCenter(), getYCenter() - 100));
 		getHiddenEntityCollection().addEntity(EntityNames.ROCKET, new Rocket(getXCenter(), getYCenter()));
-		getHiddenEntityCollection().addEntity(EntityNames.FLAME, new Flame(getXCenter(), getYCenter()+100));
+		getHiddenEntityCollection().addEntity(EntityNames.FLAME, new Flame(getXCenter(), getYCenter() + 100));
 		getHiddenEntityCollection().addEntity(EntityNames.STARFIELD,
 				new Starfield(getXCenter(), getYCenter(), getWidth(), getHeight()));
+
+		getHiddenEntityCollection().addEntity(EntityNames.MPC_LOGO, new MPCLogo(getXCenter(), getYCenter()));
+		getHiddenEntityCollection().addEntity(EntityNames.MTM_LOGO, new MTMLogo(getXCenter(), getYCenter()));
 
 		IntroStage introStage = new IntroStage(this, getVisiableEntityCollection(), getHiddenEntityCollection());
 		SecurityStage securityStage = new SecurityStage(this, getVisiableEntityCollection(),
@@ -228,7 +234,7 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 		launchStage.setNextStage(animateLaunch);
 		animateLaunch.setNextStage(introStage);
 
-		setActiveStage(launchStage);
+		setActiveStage(introStage);
 
 		addMouseListener(this);
 	}
@@ -463,5 +469,13 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 
+	}
+
+	public Clip getMainLoop() {
+		return mainLoop;
+	}
+
+	public void setMainLoop(Clip mainLoop) {
+		this.mainLoop = mainLoop;
 	}
 }

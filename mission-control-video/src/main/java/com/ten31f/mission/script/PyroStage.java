@@ -2,6 +2,8 @@ package com.ten31f.mission.script;
 
 import java.awt.event.MouseEvent;
 
+import javax.sound.sampled.Clip;
+
 import com.ten31f.mission.Panel;
 import com.ten31f.mission.entities.Button;
 import com.ten31f.mission.entities.Button.ButtonState;
@@ -34,6 +36,11 @@ public class PyroStage extends Stage {
 			}
 		}
 
+		Clip mainLoop = getPanel().getMainLoop();
+		if (mainLoop != null && mainLoop.isRunning()) {
+			mainLoop.stop();
+		}
+
 		return true;
 	}
 
@@ -47,9 +54,7 @@ public class PyroStage extends Stage {
 		pack(SecurityStage.VISABLE_ENTITIES);
 
 		int x = (int) (getPanel().getXCenter() + (getPanel().getWidth() / 4d * 0.5));
-		int y = getPanel().getYCenter() - 300;
-
-		getProfessor().moveToXY(x, y);
+		getProfessor().moveToXY(x, getProfessor().getY());
 
 		getProfessor().setDialog(INSTRUCTIONS);
 		promptNextButton();

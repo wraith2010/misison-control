@@ -29,23 +29,19 @@ public class Starfield extends Entity {
 
 		generateStars();
 	}
-	
+
 	public void generateStars() {
-		
-		generateStars(15, 1);
+		getStars().clear();
+
+		generateStars(100, 1);
 		generateStars(10, 2);
 		generateStars(4, 4);
 	}
 
 	private void generateStars(int count, int scale) {
-		
-		getStars().clear();
-		
 		for (int index = 0; index < count; index++) {
-
 			int starX = random.nextInt(getScreenWidth());
 			int starY = random.nextInt(getScreenHeight()) - (getScreenHeight() / 2);
-
 			getStars().add(new Star(starX, starY, scale));
 		}
 	}
@@ -57,6 +53,7 @@ public class Starfield extends Entity {
 			animateFly();
 			break;
 		case TWINKLE:
+			animateTwinkle();
 			break;
 		default:
 			break;
@@ -72,6 +69,19 @@ public class Starfield extends Entity {
 				star.setX(random.nextInt(getScreenWidth()));
 			}
 		}
+	}
+
+	private void animateTwinkle() {
+		if (random.nextInt(8) != 0)
+			return;
+
+		Star star1 = getStars().get(random.nextInt(getStars().size()));
+		Star star2 = getStars().get(random.nextInt(getStars().size()));
+
+		int scale = star1.getScale();
+		star1.setScale(star2.getScale());
+		star2.setScale(scale);
+
 	}
 
 	@Override

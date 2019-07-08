@@ -1,5 +1,6 @@
 package com.ten31f.mission.entities;
 
+import com.ten31f.mission.audio.SoundEffect;
 import com.ten31f.mission.gfx.Screen;
 
 public class RoundButton extends Button {
@@ -10,8 +11,8 @@ public class RoundButton extends Button {
 	private int buttonPressTick = 0;
 	
 
-	public RoundButton(int x, int y, int ledON, int ledOFF) {
-		super(x, y, ledON, ledOFF);
+	public RoundButton(int x, int y, int ledON, int ledOFF, SoundEffect soundEffect) {
+		super(x, y, ledON, ledOFF, soundEffect);
 		setScale(1);
 	}
 

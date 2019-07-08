@@ -67,6 +67,14 @@ public abstract class Stage {
 		}
 	}
 
+	protected void hide(String entityName) {
+		getVisibleEntityCollection().removeEntity(entityName);
+	}
+
+	protected void reveal(String entityName) {
+		getVisibleEntityCollection().addEntity(entityName, getHiddenEntityCollection().getEntity(entityName));
+	}
+
 	abstract public boolean isComplete();
 
 	abstract public void tick();

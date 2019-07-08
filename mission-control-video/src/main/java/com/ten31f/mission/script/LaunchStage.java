@@ -32,9 +32,7 @@ public class LaunchStage extends Stage {
 	public void init() {
 		pack(SecurityStage.VISABLE_ENTITIES);
 		int x = (int) (getPanel().getXCenter() + (getPanel().getWidth() / 4d * 1.5));
-		int y = getPanel().getYCenter() - 300;
-
-		getProfessor().moveToXY(x, y);
+		getProfessor().moveToXY(x, getProfessor().getY());
 
 		getProfessor().setDialog(INSTRUCTIONS);
 
@@ -51,6 +49,5 @@ public class LaunchStage extends Stage {
 		}
 
 	}
-
 
 }
