@@ -16,7 +16,6 @@ public class MPCLogo extends Entity {
 
 	@Override
 	public void tick() {
-
 	}
 
 	@Override
@@ -26,7 +25,6 @@ public class MPCLogo extends Entity {
 
 	@Override
 	public boolean withIN(int x, int y) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

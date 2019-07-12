@@ -31,11 +31,11 @@ public class AppLauncher extends Applet {
 	}
 
 	public static void main(String[] args) {
-		panel.setMinimumSize(panel.DIMENSION);
-		panel.setMaximumSize(panel.DIMENSION);
-		panel.setPreferredSize(panel.DIMENSION);
+		panel.setMinimumSize(Panel.DIMENSION);
+		panel.setMaximumSize(Panel.DIMENSION);
+		panel.setPreferredSize(Panel.DIMENSION);
 
-		panel.setjFrame(new JFrame(panel.NAME));
+		panel.setjFrame(new JFrame(Panel.NAME));
 
 		panel.getjFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
 		panel.getjFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

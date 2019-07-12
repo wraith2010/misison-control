@@ -30,10 +30,10 @@ public class AnimateLaunch extends Stage {
 
 	@Override
 	public boolean isComplete() {
-		if (music == null)
+		if (getMusic() == null)
 			return false;
 
-		if (music.isRunning())
+		if (getMusic().isRunning())
 			return false;
 
 		setMusic(null);
@@ -48,7 +48,7 @@ public class AnimateLaunch extends Stage {
 
 		setTickCount(getTickCount() + 1);
 
-		if (getTickCount() % 20 == 0 && getCountDown() > 0 && professor.isIdle()) {
+		if (getTickCount() % 60 == 0 && getCountDown() > 0 && professor.isIdle()) {
 			setCountDown(getCountDown() - 1);
 			professor.setDialog(Integer.toString(getCountDown()));
 		} else if (getCountDown() <= 0) {

@@ -93,13 +93,7 @@ public class SecurityStage extends Stage {
 
 	private void addNextButton() {
 		do {
-
-			String lastSelection = null;
 			String nextSelection = null;
-
-			if (!getSequence().isEmpty())
-				lastSelection = getSequence().get(getSequence().size() - 1);
-
 			do {
 				nextSelection = BUTTON_KEYS[random.nextInt(BUTTON_KEYS.length)];
 			} while (getSequence().contains(nextSelection));
@@ -166,6 +160,8 @@ public class SecurityStage extends Stage {
 		pack(VISABLE_ENTITIES);
 		setComplete(false);
 		reset();
+
+		getProfessor().setX((int) (getPanel().getXCenter() - (getPanel().getWidth() / 4d * 1.0)));
 
 		int x = (int) (getPanel().getXCenter() - (getPanel().getWidth() / 4d * 1.5));
 		getProfessor().moveToXY(x, getProfessor().getY());
