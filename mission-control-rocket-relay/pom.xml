@@ -65,12 +65,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.pi4j</groupId>
-			<artifactId>pi4j-gpio-extension</artifactId>
-			<version>1.2</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
@@ -82,6 +76,20 @@
 			<version>1.2.17</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>3.3.7</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -91,7 +99,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>com.ten31f.mission.SpringBootWebApplication</mainClass>
-					<excludeDevtools>false</excludeDevtools>
+					<excludeDevtools>true</excludeDevtools>
+					<executable>true</executable>
 				</configuration>
 			</plugin>
 		</plugins>

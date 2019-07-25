@@ -15,7 +15,7 @@ public class PINControllerOffBoard implements IPINController {
 	}
 
 	private void establishPins() {
-		IPINController.PIN_NAMES.forEach(pinName -> getPinIndex().put(pinName, PinState.LOW));
+		//IPINController.PIN_NAMES.forEach(pinName -> getPinIndex().put(pinName, PinState.LOW));
 	}
 
 	@Override
@@ -35,6 +35,12 @@ public class PINControllerOffBoard implements IPINController {
 
 	@Override
 	public void pulse(String pinName, int duration) {
+
+		PinState pinState = getPinIndex().get(pinName);
+		if (pinState == null)
+			System.out.println("Not found");
+		else
+			System.out.println(pinName + " : " + pinState);
 
 	}
 
