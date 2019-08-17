@@ -1,5 +1,6 @@
 package com.ten31f.mission.entities;
 
+import com.ten31f.mission.PINControllerOnBoard;
 import com.ten31f.mission.audio.SoundEffect;
 import com.ten31f.mission.gfx.Colours;
 import com.ten31f.mission.gfx.Font;
@@ -12,8 +13,9 @@ public class Toggle extends Button {
 
 	private String name = null;
 
-	public Toggle(String name, int x, int y, int ledON, int ledOFF, SoundEffect soundEffect) {
-		super(x, y, ledON, ledOFF, soundEffect);
+	public Toggle(String name, int x, int y, int ledON, int ledOFF, SoundEffect soundEffect,
+			PINControllerOnBoard pinControllerOnBoard) {
+		super(x, y, ledON, ledOFF, soundEffect, null, pinControllerOnBoard);
 		setName(name);
 		setScale(2);
 	}

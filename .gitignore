@@ -23,3 +23,7 @@
 /mission-control-video/*.gitignore
 /mission-control-video/*.project
 /mission-control-video/target
+/mission-control-main-board/.classpath
+/mission-control-main-board/.project
+/mission-control-main-board/.settings
+/mission-control-main-board/target

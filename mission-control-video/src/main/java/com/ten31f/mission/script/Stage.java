@@ -2,6 +2,7 @@ package com.ten31f.mission.script;
 
 import java.awt.event.MouseEvent;
 
+import com.ten31f.mission.PINControllerOnBoard;
 import com.ten31f.mission.Panel;
 import com.ten31f.mission.entities.Entity;
 import com.ten31f.mission.entities.EntityCollection;
@@ -82,5 +83,9 @@ public abstract class Stage {
 	abstract public void init();
 
 	abstract public void mouseClick(MouseEvent mouseEvent);
+
+	abstract public void establishPins();
+
+	abstract public void wipePins();
 
 }

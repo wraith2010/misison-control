@@ -1,5 +1,6 @@
 package com.ten31f.mission.entities;
 
+import com.ten31f.mission.PINControllerOnBoard;
 import com.ten31f.mission.audio.SoundEffect;
 import com.ten31f.mission.gfx.Screen;
 
@@ -9,10 +10,10 @@ public class RoundButton extends Button {
 	private static int HEIGHT = 7;
 
 	private int buttonPressTick = 0;
-	
 
-	public RoundButton(int x, int y, int ledON, int ledOFF, SoundEffect soundEffect) {
-		super(x, y, ledON, ledOFF, soundEffect);
+	public RoundButton(int x, int y, int ledON, int ledOFF, SoundEffect soundEffect, String outputPinName,
+			PINControllerOnBoard pinControllerOnBoard) {
+		super(x, y, ledON, ledOFF, soundEffect, outputPinName, pinControllerOnBoard);
 		setScale(1);
 	}
 
@@ -71,8 +72,6 @@ public class RoundButton extends Button {
 		return false;
 	}
 
-	
-	
 	private int getButtonPressTick() {
 		return buttonPressTick;
 	}

@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 @SuppressWarnings({ "serial" })
 public class AppLauncher extends Applet {
 
+	private static PINControllerOnBoard pinControllerOnBoard = new PINControllerOnBoard();
 	private static Panel panel = new Panel();
 	public static final boolean DEBUG = false;
 
@@ -31,6 +32,8 @@ public class AppLauncher extends Applet {
 	}
 
 	public static void main(String[] args) {
+		
+		panel.setPinControllerOnBoard(pinControllerOnBoard);
 		panel.setMinimumSize(Panel.DIMENSION);
 		panel.setMaximumSize(Panel.DIMENSION);
 		panel.setPreferredSize(Panel.DIMENSION);
@@ -51,6 +54,14 @@ public class AppLauncher extends Applet {
 		panel.debug = DEBUG;
 
 		panel.start();
+		while(true) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

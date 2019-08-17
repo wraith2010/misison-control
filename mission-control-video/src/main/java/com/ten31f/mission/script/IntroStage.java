@@ -27,7 +27,7 @@ public class IntroStage extends Stage {
 	private static final int TARGET_MTM_COLOR_2 = 3;
 	private static final int TARGET_MTM_COLOR_3 = 531;
 	private static final int TARGET_MTM_COLOR_4 = 500;
-	
+
 	private static final String[] VISABLE_ENTITIES = { EntityNames.STARFIELD, EntityNames.MPC_LOGO };
 
 	private int fade = 0;
@@ -63,6 +63,17 @@ public class IntroStage extends Stage {
 			break;
 
 		}
+	}
+
+	@Override
+	public void establishPins() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void wipePins() {
+		// TODO Auto-generated method stub
 
 	}
 

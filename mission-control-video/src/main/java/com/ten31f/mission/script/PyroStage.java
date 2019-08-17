@@ -91,6 +91,18 @@ public class PyroStage extends Stage {
 
 	}
 
+	@Override
+	public void establishPins() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void wipePins() {
+		// TODO Auto-generated method stub
+
+	}
+
 	private void promptNextButton() {
 
 		for (String key : BUTTON_KEYS) {

@@ -68,6 +68,18 @@ public class AnimateLaunch extends Stage {
 		setCountDown(10);
 		setMusic(SoundEffect.MOONTHEME.play());
 	}
+	
+	@Override
+	public void establishPins() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void wipePins() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public void mouseClick(MouseEvent mouseEvent) {

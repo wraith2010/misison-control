@@ -2,6 +2,8 @@ package com.ten31f.mission.script;
 
 import java.awt.event.MouseEvent;
 
+import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
+import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 import com.ten31f.mission.Panel;
 import com.ten31f.mission.entities.Button;
 import com.ten31f.mission.entities.Entity;
@@ -10,7 +12,7 @@ import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated;
 import com.ten31f.mission.entities.Illuminated.LEDState;
 
-public class SubSystemStage extends Stage {
+public class SubSystemStage extends Stage implements GpioPinListenerDigital {
 
 	private static final String INSTRUCTIONS = "Now we need to boot the various systems on the Ship";
 
@@ -62,6 +64,18 @@ public class SubSystemStage extends Stage {
 		}
 	}
 
+	@Override
+	public void establishPins() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void wipePins() {
+		// TODO Auto-generated method stub
+
+	}
+
 	private void promptNextButton() {
 
 		for (String key : BUTTON_KEYS) {
@@ -71,6 +85,12 @@ public class SubSystemStage extends Stage {
 				return;
 			}
 		}
+
+	}
+
+	@Override
+	public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
+		// TODO Auto-generated method stub
 
 	}
 }

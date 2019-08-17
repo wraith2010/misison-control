@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.pi4j.gpio.extension.mcp.MCP23017GpioProvider;
+import com.pi4j.gpio.extension.mcp.MCP23017Pin;
+import com.pi4j.io.gpio.GpioPin;
+import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
+import com.pi4j.io.gpio.event.GpioPinListenerDigital;
+import com.ten31f.mission.PINControllerOnBoard;
 import com.ten31f.mission.Panel;
 import com.ten31f.mission.entities.Button.ButtonState;
 import com.ten31f.mission.entities.Entity;
@@ -14,7 +21,7 @@ import com.ten31f.mission.entities.Illuminated;
 import com.ten31f.mission.entities.Illuminated.LEDState;
 import com.ten31f.mission.entities.Toggle;
 
-public class SecurityStage extends Stage {
+public class SecurityStage extends Stage implements GpioPinListenerDigital {
 
 	private enum Phase {
 		ADDBUTTON, DISPLAYSEQUENCE, LISTEN, RESULT, CELEBRATE;
@@ -132,7 +139,6 @@ public class SecurityStage extends Stage {
 			setCurrentPhase(Phase.RESULT);
 			setPause(30);
 			setSquenceIndex(-1);
-
 		}
 
 	}
@@ -198,16 +204,156 @@ public class SecurityStage extends Stage {
 
 		for (String key : BUTTON_KEYS) {
 			if (getVisibleEntityCollection().getEntity(key).withIN(mouseEvent.getX(), mouseEvent.getY())) {
-				if (getSequence().get(getSquenceIndex()).equals(key)) {
-					getProfessor().setDialog("Correct");
-					setSquenceIndex(getSquenceIndex() + 1);
-				} else {
-					getProfessor().setDialog("Watch Again");
-					setSquenceIndex(-1);
-					setCurrentPhase(Phase.DISPLAYSEQUENCE);
-				}
+				testInput(key);
 			}
 		}
+	}
+
+	private void testInput(String key) {
+
+		if (getSequence().get(getSquenceIndex()).equals(key)) {
+			getProfessor().setDialog("Correct");
+			setSquenceIndex(getSquenceIndex() + 1);
+		} else {
+			getProfessor().setDialog("Watch Again");
+			setSquenceIndex(-1);
+			setCurrentPhase(Phase.DISPLAYSEQUENCE);
+		}
+
+	}
+
+	@Override
+	public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
+
+		System.out.println(String.format(" --> GPIO PIN STATE CHANGE(%s): %s = %s", event.getPin().getPin(),
+				event.getPin().getName(), event.getState()));
+
+		if (!Phase.LISTEN.equals(getCurrentPhase()) || !PinState.LOW.equals(event.getState()))
+			return;
+
+		GpioPin gpioPin = event.getPin();
+
+		switch (gpioPin.getName()) {
+
+		case PINControllerOnBoard.PIN_IN_NAME_SIMON_GREEN01:
+			testInput(EntityNames.BUTTON_SECURITY_04);
+			break;
+		case PINControllerOnBoard.PIN_IN_NAME_SIMON_GREEN02:
+			testInput(EntityNames.BUTTON_SECURITY_06);
+			break;
+		case PINControllerOnBoard.PIN_IN_NAME_SIMON_WHITE:
+			testInput(EntityNames.BUTTON_SECURITY_05);
+			break;
+		case PINControllerOnBoard.PIN_IN_NAME_SIMON_BLUE01:
+			testInput(EntityNames.BUTTON_SECURITY_01);
+			break;
+		case PINControllerOnBoard.PIN_IN_NAME_SIMON_BLUE02:
+			testInput(EntityNames.BUTTON_SECURITY_03);
+			break;
+		case PINControllerOnBoard.PIN_IN_NAME_SIMON_RED01:
+			testInput(EntityNames.BUTTON_SECURITY_07);
+			break;
+		case PINControllerOnBoard.PIN_IN_NAME_SIMON_RED02:
+			testInput(EntityNames.BUTTON_SECURITY_09);
+			break;
+		case PINControllerOnBoard.PIN_IN_NAME_SIMON_YELLOW01:
+			testInput(EntityNames.BUTTON_SECURITY_02);
+			break;
+		case PINControllerOnBoard.PIN_IN_NAME_SIMON_YELLOW02:
+			testInput(EntityNames.BUTTON_SECURITY_08);
+			break;
+
+		default:
+		}
+
+	}
+
+	@Override
+	public void establishPins() {
+
+		System.out.println("establish pins");
+
+		PINControllerOnBoard pinControllerOnBoard = getPanel().getPinControllerOnBoard();
+//
+//		MCP23017GpioProvider mcp23017GpioProvider01 = getPanel().getPinControllerOnBoard().getMco23017GpioProvider01();
+//		MCP23017GpioProvider mcp23017GpioProvider02 = getPanel().getPinControllerOnBoard().getMco23017GpioProvider02();
+
+//		pinControllerOnBoard.establishOuputPin(MCP23017Pin.GPIO_A0, PINControllerOnBoard.PIN_OUT_NAME_SIMON_GREEN01,
+//				mcp23017GpioProvider01);
+//		pinControllerOnBoard.establishOuputPin(MCP23017Pin.GPIO_A5, PINControllerOnBoard.PIN_OUT_NAME_SIMON_BLUE01,
+//				mcp23017GpioProvider01);
+//		pinControllerOnBoard.establishOuputPin(MCP23017Pin.GPIO_B0, PINControllerOnBoard.PIN_OUT_NAME_SIMON_YELLOW01,
+//				mcp23017GpioProvider01);
+//		pinControllerOnBoard.establishOuputPin(MCP23017Pin.GPIO_B1, PINControllerOnBoard.PIN_OUT_NAME_SIMON_GREEN02,
+//				mcp23017GpioProvider01);
+//		pinControllerOnBoard.establishOuputPin(MCP23017Pin.GPIO_B2, PINControllerOnBoard.PIN_OUT_NAME_SIMON_WHITE,
+//				mcp23017GpioProvider01);
+//		pinControllerOnBoard.establishOuputPin(MCP23017Pin.GPIO_B3, PINControllerOnBoard.PIN_OUT_NAME_SIMON_RED02,
+//				mcp23017GpioProvider01);
+//		pinControllerOnBoard.establishOuputPin(MCP23017Pin.GPIO_B4, PINControllerOnBoard.PIN_OUT_NAME_SIMON_RED01,
+//				mcp23017GpioProvider01);
+//		pinControllerOnBoard.establishOuputPin(MCP23017Pin.GPIO_B5, PINControllerOnBoard.PIN_OUT_NAME_SIMON_YELLOW02,
+//				mcp23017GpioProvider01);
+//		pinControllerOnBoard.establishOuputPin(MCP23017Pin.GPIO_B6, PINControllerOnBoard.PIN_OUT_NAME_SIMON_BLUE02,
+//				mcp23017GpioProvider01);
+
+//		pinControllerOnBoard.establishInputPin(MCP23017Pin.GPIO_A0, PINControllerOnBoard.PIN_IN_NAME_SIMON_GREEN01,
+//				mcp23017GpioProvider02,
+//				pinControllerOnBoard.getOutputPin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_GREEN01));
+//		pinControllerOnBoard.establishInputPin(MCP23017Pin.GPIO_A1, PINControllerOnBoard.PIN_IN_NAME_SIMON_GREEN02,
+//				mcp23017GpioProvider02,
+//				pinControllerOnBoard.getOutputPin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_GREEN02));
+//		pinControllerOnBoard.establishInputPin(MCP23017Pin.GPIO_A2, PINControllerOnBoard.PIN_IN_NAME_SIMON_WHITE,
+//				mcp23017GpioProvider02,
+//				pinControllerOnBoard.getOutputPin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_WHITE));
+//		pinControllerOnBoard.establishInputPin(MCP23017Pin.GPIO_A3, PINControllerOnBoard.PIN_IN_NAME_SIMON_YELLOW02,
+//				mcp23017GpioProvider02,
+//				pinControllerOnBoard.getOutputPin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_YELLOW02));
+//		pinControllerOnBoard.establishInputPin(MCP23017Pin.GPIO_A4, PINControllerOnBoard.PIN_IN_NAME_SIMON_RED02,
+//				mcp23017GpioProvider02,
+//				pinControllerOnBoard.getOutputPin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_RED02));
+//		pinControllerOnBoard.establishInputPin(MCP23017Pin.GPIO_A5, PINControllerOnBoard.PIN_IN_NAME_SIMON_YELLOW01,
+//				mcp23017GpioProvider02,
+//				pinControllerOnBoard.getOutputPin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_YELLOW01));
+//		pinControllerOnBoard.establishInputPin(MCP23017Pin.GPIO_A6, PINControllerOnBoard.PIN_IN_NAME_SIMON_BLUE02,
+//				mcp23017GpioProvider02,
+//				pinControllerOnBoard.getOutputPin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_BLUE02));
+//		pinControllerOnBoard.establishInputPin(MCP23017Pin.GPIO_A7, PINControllerOnBoard.PIN_IN_NAME_SIMON_BLUE01,
+//				mcp23017GpioProvider02,
+//				pinControllerOnBoard.getOutputPin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_BLUE01));
+//		pinControllerOnBoard.establishInputPin(MCP23017Pin.GPIO_B0, PINControllerOnBoard.PIN_IN_NAME_SIMON_RED01,
+//				mcp23017GpioProvider02,
+//				pinControllerOnBoard.getOutputPin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_RED01));
+
+		pinControllerOnBoard.addGpioPinListener(this);
+	}
+
+	@Override
+	public void wipePins() {
+		PINControllerOnBoard pinControllerOnBoard = getPanel().getPinControllerOnBoard();
+
+		pinControllerOnBoard.removeGpioPinListener(this);
+
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_GREEN01);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_BLUE01);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_YELLOW01);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_GREEN02);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_WHITE);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_RED02);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_RED01);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_YELLOW02);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_OUT_NAME_SIMON_BLUE02);
+//
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_IN_NAME_SIMON_GREEN01);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_IN_NAME_SIMON_GREEN02);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_IN_NAME_SIMON_WHITE);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_IN_NAME_SIMON_YELLOW02);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_IN_NAME_SIMON_RED02);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_IN_NAME_SIMON_YELLOW01);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_IN_NAME_SIMON_BLUE02);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_IN_NAME_SIMON_BLUE01);
+//		pinControllerOnBoard.removePin(PINControllerOnBoard.PIN_IN_NAME_SIMON_RED01);
+
 	}
 
 	private void setSequence(List<String> sequence) {
