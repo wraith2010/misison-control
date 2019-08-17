@@ -211,13 +211,16 @@ public class PixelPanel extends Canvas implements Runnable, MouseListener {
 						getPinControllerOnBoard()));
 		getHiddenEntityCollection().addEntity(EntityNames.TOGGLE_PYRO_01,
 				new Toggle(BUTTON_NAME_TOGGLE01, subPanel3XCenter - buttonShift, subPanel3YCenter + (buttonShift / 2),
-						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF, SoundEffect.CHARGE, getPinControllerOnBoard()));
+						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF, SoundEffect.CHARGE,
+						PINControllerOnBoard.PIN_OUT_NAME_PYRO_FUEL_PUMP_SWITCH, getPinControllerOnBoard()));
 		getHiddenEntityCollection().addEntity(EntityNames.TOGGLE_PYRO_02,
 				new Toggle(BUTTON_NAME_TOGGLE02, subPanel3XCenter, subPanel3YCenter + (buttonShift / 2),
-						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF, SoundEffect.CHARGE, getPinControllerOnBoard()));
+						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF, SoundEffect.CHARGE,
+						PINControllerOnBoard.PIN_OUT_NAME_PYRO_SOLID_BOOSTER_SWITCH, getPinControllerOnBoard()));
 		getHiddenEntityCollection().addEntity(EntityNames.TOGGLE_PYRO_03,
 				new Toggle(BUTTON_NAME_TOGGLE03, subPanel3XCenter + buttonShift, subPanel3YCenter + (buttonShift / 2),
-						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF, SoundEffect.CHARGE, getPinControllerOnBoard()));
+						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF, SoundEffect.CHARGE,
+						PINControllerOnBoard.PIN_OUT_NAME_PYRO_MAIN_ENGINE_SWITCH, getPinControllerOnBoard()));
 
 		// sub panel 4 big button
 		int subPanel4XCenter = (int) (getXCenter() + (getWidth() / 4d * 1.5));

@@ -2,6 +2,7 @@ package com.ten31f.mission.script;
 
 import java.awt.event.MouseEvent;
 
+import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 import com.ten31f.mission.PixelPanel;
@@ -66,14 +67,17 @@ public class SubSystemStage extends Stage implements GpioPinListenerDigital {
 
 	@Override
 	public void establishPins() {
-		// TODO Auto-generated method stub
-
+		getPanel().getPinControllerOnBoard().addGpioPinListener(this);
 	}
 
 	@Override
 	public void wipePins() {
-		// TODO Auto-generated method stub
+		getPanel().getPinControllerOnBoard().removeGpioPinListener(this);
 
+		for (String key : BUTTON_KEYS) {
+			Entity entity = getVisibleEntityCollection().getEntity(key);
+			((Illuminated) entity).setLedState(LEDState.LOW);
+		}
 	}
 
 	private void promptNextButton() {
@@ -90,7 +94,25 @@ public class SubSystemStage extends Stage implements GpioPinListenerDigital {
 
 	@Override
 	public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-		// TODO Auto-generated method stub
 
+		System.out.println(String.format(" --> GPIO PIN STATE CHANGE(%s): %s = %s", event.getPin().getPin(),
+				event.getPin().getName(), event.getState()));
+
+		if (!PinState.LOW.equals(event.getState()))
+			return;
+
+		String pinName = event.getPin().getName().replace("_IN", "_OUT");
+
+		for (String key : BUTTON_KEYS) {
+			Entity entity = getVisibleEntityCollection().getEntity(key);
+
+			System.out.println(String.format("%s == %s : %s", pinName, ((Illuminated) entity).getOutputPinName(),
+					((Illuminated) entity).getOutputPinName().equals(pinName)));
+
+			if (((Illuminated) entity).getOutputPinName().equals(pinName)) {
+				((Illuminated) entity).toggle();
+				promptNextButton();
+			}
+		}
 	}
 }

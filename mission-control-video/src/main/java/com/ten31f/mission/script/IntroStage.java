@@ -34,7 +34,8 @@ public class IntroStage extends Stage {
 	private Phase currentPhase = null;
 	private boolean complete;
 
-	public IntroStage(PixelPanel panel, EntityCollection visibleEntityCollection, EntityCollection hiddenEntityCollection) {
+	public IntroStage(PixelPanel panel, EntityCollection visibleEntityCollection,
+			EntityCollection hiddenEntityCollection) {
 		super(panel, visibleEntityCollection, hiddenEntityCollection);
 	}
 
@@ -67,13 +68,11 @@ public class IntroStage extends Stage {
 
 	@Override
 	public void establishPins() {
-		// TODO Auto-generated method stub
-
+		getPanel().getPinControllerOnBoard().reset();
 	}
 
 	@Override
 	public void wipePins() {
-		// TODO Auto-generated method stub
 
 	}
 

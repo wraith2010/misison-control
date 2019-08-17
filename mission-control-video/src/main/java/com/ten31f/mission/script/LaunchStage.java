@@ -2,6 +2,9 @@ package com.ten31f.mission.script;
 
 import java.awt.event.MouseEvent;
 
+import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
+import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 import com.ten31f.mission.PixelPanel;
 import com.ten31f.mission.entities.Entity;
 import com.ten31f.mission.entities.EntityCollection;
@@ -9,11 +12,12 @@ import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated;
 import com.ten31f.mission.entities.Illuminated.LEDState;
 
-public class LaunchStage extends Stage {
+public class LaunchStage extends Stage implements GpioPinListenerDigital {
 
 	private static final String INSTRUCTIONS = "Mission is GO!";
 
-	public LaunchStage(PixelPanel panel, EntityCollection visibleEntityCollection, EntityCollection hiddenEntityCollection) {
+	public LaunchStage(PixelPanel panel, EntityCollection visibleEntityCollection,
+			EntityCollection hiddenEntityCollection) {
 		super(panel, visibleEntityCollection, hiddenEntityCollection);
 	}
 
@@ -52,13 +56,29 @@ public class LaunchStage extends Stage {
 
 	@Override
 	public void establishPins() {
-		// TODO Auto-generated method stub
-
+		getPanel().getPinControllerOnBoard().addGpioPinListener(this);
 	}
 
 	@Override
 	public void wipePins() {
-		// TODO Auto-generated method stub
+		getPanel().getPinControllerOnBoard().removeGpioPinListener(this);
+	}
+
+	@Override
+	public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
+		System.out.println(String.format(" --> GPIO PIN STATE CHANGE(%s): %s = %s", event.getPin().getPin(),
+				event.getPin().getName(), event.getState()));
+
+		if (!PinState.LOW.equals(event.getState()))
+			return;
+
+		String pinName = event.getPin().getName().replace("_IN", "_OUT");
+
+		Entity entity = getVisibleEntityCollection().getEntity(EntityNames.LAUNCH_BUTTON);
+
+		if (pinName.equals(((Illuminated) entity).getOutputPinName())) {
+			((Illuminated) entity).toggle();
+		}
 
 	}
 

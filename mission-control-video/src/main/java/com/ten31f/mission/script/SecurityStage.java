@@ -268,18 +268,12 @@ public class SecurityStage extends Stage implements GpioPinListenerDigital {
 
 	@Override
 	public void establishPins() {
-
-		PINControllerOnBoard pinControllerOnBoard = getPanel().getPinControllerOnBoard();
-
-		pinControllerOnBoard.addGpioPinListener(this);
+		getPanel().getPinControllerOnBoard().addGpioPinListener(this);
 	}
 
 	@Override
 	public void wipePins() {
-		
-		PINControllerOnBoard pinControllerOnBoard = getPanel().getPinControllerOnBoard();
-
-		pinControllerOnBoard.removeGpioPinListener(this);
+		getPanel().getPinControllerOnBoard().removeGpioPinListener(this);
 	}
 
 	private void setSequence(List<String> sequence) {

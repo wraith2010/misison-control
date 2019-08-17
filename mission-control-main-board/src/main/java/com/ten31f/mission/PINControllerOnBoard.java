@@ -133,33 +133,34 @@ public class PINControllerOnBoard {
 
 		setOutputPins(new HashMap<String, GpioPinDigitalOutput>());
 
-		establishOuputPin(MCP23017Pin.GPIO_A0, PIN_OUT_NAME_SIMON_GREEN01, getMco23017GpioProvider01());
-		establishOuputPin(MCP23017Pin.GPIO_A5, PIN_OUT_NAME_SIMON_BLUE01, getMco23017GpioProvider01());
-		establishOuputPin(MCP23017Pin.GPIO_B0, PIN_OUT_NAME_SIMON_YELLOW01, getMco23017GpioProvider01());
-		establishOuputPin(MCP23017Pin.GPIO_B1, PIN_OUT_NAME_SIMON_GREEN02, getMco23017GpioProvider01());
-		establishOuputPin(MCP23017Pin.GPIO_B2, PIN_OUT_NAME_SIMON_WHITE, getMco23017GpioProvider01());
-		establishOuputPin(MCP23017Pin.GPIO_B3, PIN_OUT_NAME_SIMON_RED02, getMco23017GpioProvider01());
-		establishOuputPin(MCP23017Pin.GPIO_B4, PIN_OUT_NAME_SIMON_RED01, getMco23017GpioProvider01());
-		establishOuputPin(MCP23017Pin.GPIO_B5, PIN_OUT_NAME_SIMON_YELLOW02, getMco23017GpioProvider01());
-		establishOuputPin(MCP23017Pin.GPIO_B6, PIN_OUT_NAME_SIMON_BLUE02, getMco23017GpioProvider01());
+		GpioPinDigitalOutput pinGreen01 = establishOuputPin(MCP23017Pin.GPIO_A0, PIN_OUT_NAME_SIMON_GREEN01,
+				getMco23017GpioProvider01());
+		GpioPinDigitalOutput pinBlue01 = establishOuputPin(MCP23017Pin.GPIO_A5, PIN_OUT_NAME_SIMON_BLUE01,
+				getMco23017GpioProvider01());
+		GpioPinDigitalOutput pinYellow01 = establishOuputPin(MCP23017Pin.GPIO_B0, PIN_OUT_NAME_SIMON_YELLOW01,
+				getMco23017GpioProvider01());
+		GpioPinDigitalOutput pinGreen02 = establishOuputPin(MCP23017Pin.GPIO_B1, PIN_OUT_NAME_SIMON_GREEN02,
+				getMco23017GpioProvider01());
+		GpioPinDigitalOutput pinWhite = establishOuputPin(MCP23017Pin.GPIO_B2, PIN_OUT_NAME_SIMON_WHITE,
+				getMco23017GpioProvider01());
+		GpioPinDigitalOutput pinRed02 = establishOuputPin(MCP23017Pin.GPIO_B3, PIN_OUT_NAME_SIMON_RED02,
+				getMco23017GpioProvider01());
+		GpioPinDigitalOutput pinRed01 = establishOuputPin(MCP23017Pin.GPIO_B4, PIN_OUT_NAME_SIMON_RED01,
+				getMco23017GpioProvider01());
+		GpioPinDigitalOutput pinYellow02 = establishOuputPin(MCP23017Pin.GPIO_B5, PIN_OUT_NAME_SIMON_YELLOW02,
+				getMco23017GpioProvider01());
+		GpioPinDigitalOutput pinBlue02 = establishOuputPin(MCP23017Pin.GPIO_B6, PIN_OUT_NAME_SIMON_BLUE02,
+				getMco23017GpioProvider01());
 
-		establishInputPin(MCP23017Pin.GPIO_A0, PIN_IN_NAME_SIMON_GREEN01, getMco23017GpioProvider02(),
-				getOutputPin(PIN_OUT_NAME_SIMON_GREEN01));
-		establishInputPin(MCP23017Pin.GPIO_A1, PIN_IN_NAME_SIMON_GREEN02, getMco23017GpioProvider02(),
-				getOutputPin(PIN_OUT_NAME_SIMON_GREEN02));
-		establishInputPin(MCP23017Pin.GPIO_A2, PIN_IN_NAME_SIMON_WHITE, getMco23017GpioProvider02(),
-				getOutputPin(PIN_OUT_NAME_SIMON_WHITE));
-		establishInputPin(MCP23017Pin.GPIO_A3, PIN_IN_NAME_SIMON_YELLOW02, getMco23017GpioProvider02(),
-				getOutputPin(PIN_OUT_NAME_SIMON_YELLOW02));
-		establishInputPin(MCP23017Pin.GPIO_A4, PIN_IN_NAME_SIMON_RED02, getMco23017GpioProvider02(),
-				getOutputPin(PIN_OUT_NAME_SIMON_RED02));
-		establishInputPin(MCP23017Pin.GPIO_A5, PIN_IN_NAME_SIMON_YELLOW01, getMco23017GpioProvider02(),
-				getOutputPin(PIN_OUT_NAME_SIMON_YELLOW01));
-		establishInputPin(MCP23017Pin.GPIO_A6, PIN_IN_NAME_SIMON_BLUE02, getMco23017GpioProvider02(),
-				getOutputPin(PIN_OUT_NAME_SIMON_BLUE02));
-		establishInputPin(MCP23017Pin.GPIO_A7, PIN_IN_NAME_SIMON_BLUE01, getMco23017GpioProvider02(),
-				getOutputPin(PIN_OUT_NAME_SIMON_BLUE01));
-		establishInputPin(MCP23017Pin.GPIO_B0, PIN_IN_NAME_SIMON_RED01, getMco23017GpioProvider02());
+		establishInputPin(MCP23017Pin.GPIO_A0, PIN_IN_NAME_SIMON_GREEN01, getMco23017GpioProvider02(), pinGreen01);
+		establishInputPin(MCP23017Pin.GPIO_A1, PIN_IN_NAME_SIMON_GREEN02, getMco23017GpioProvider02(), pinGreen02);
+		establishInputPin(MCP23017Pin.GPIO_A2, PIN_IN_NAME_SIMON_WHITE, getMco23017GpioProvider02(), pinWhite);
+		establishInputPin(MCP23017Pin.GPIO_A3, PIN_IN_NAME_SIMON_YELLOW02, getMco23017GpioProvider02(), pinYellow02);
+		establishInputPin(MCP23017Pin.GPIO_A4, PIN_IN_NAME_SIMON_RED02, getMco23017GpioProvider02(), pinRed02);
+		establishInputPin(MCP23017Pin.GPIO_A5, PIN_IN_NAME_SIMON_YELLOW01, getMco23017GpioProvider02(), pinYellow01);
+		establishInputPin(MCP23017Pin.GPIO_A6, PIN_IN_NAME_SIMON_BLUE02, getMco23017GpioProvider02(), pinBlue02);
+		establishInputPin(MCP23017Pin.GPIO_A7, PIN_IN_NAME_SIMON_BLUE01, getMco23017GpioProvider02(), pinBlue01);
+		establishInputPin(MCP23017Pin.GPIO_B0, PIN_IN_NAME_SIMON_RED01, getMco23017GpioProvider02(), pinRed01);
 
 		establishOuputPin(MCP23017Pin.GPIO_B4, PIN_OUT_NAME_LAUNCH, getMco23017GpioProvider03());
 
@@ -199,7 +200,7 @@ public class PINControllerOnBoard {
 		establishInputPin(MCP23017Pin.GPIO_B3, PIN_IN_NAME_LAUNCH, getMco23017GpioProvider03());
 	}
 
-	public void establishOuputPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider) {
+	public GpioPinDigitalOutput establishOuputPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider) {
 
 		if (getOutputPins() == null) {
 			setOutputPins(new HashMap<>());
@@ -210,6 +211,7 @@ public class PINControllerOnBoard {
 		gpioPinDigitalOutput.setShutdownOptions(true, PinState.LOW);
 		getOutputPins().put(gpioPinDigitalOutput.getName(), gpioPinDigitalOutput);
 
+		return gpioPinDigitalOutput;
 	}
 
 	public void establishInputPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider) {
@@ -329,6 +331,12 @@ public class PINControllerOnBoard {
 
 	public void removeGpioPinListener(GpioPinListenerDigital gpioPinListenerDigital) {
 		getInputPins().values().forEach(pin -> pin.removeListener(gpioPinListenerDigital));
+	}
+
+	public void reset() {
+		if (getOutputPins() == null)
+			return;
+		getOutputPins().values().forEach(pin -> pin.setState(PinState.LOW));
 	}
 
 }

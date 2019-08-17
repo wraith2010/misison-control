@@ -4,6 +4,9 @@ import java.awt.event.MouseEvent;
 
 import javax.sound.sampled.Clip;
 
+import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
+import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 import com.ten31f.mission.PixelPanel;
 import com.ten31f.mission.entities.Button;
 import com.ten31f.mission.entities.Button.ButtonState;
@@ -12,8 +15,9 @@ import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated;
 import com.ten31f.mission.entities.Illuminated.LEDState;
+import com.ten31f.mission.entities.Toggle;
 
-public class PyroStage extends Stage {
+public class PyroStage extends Stage implements GpioPinListenerDigital {
 
 	public static final String NAME = "Pyrotechics Stage";
 
@@ -23,7 +27,8 @@ public class PyroStage extends Stage {
 			EntityNames.TOGGLE_PYRO_02, EntityNames.BUTTON_PYRO_02, EntityNames.TOGGLE_PYRO_03,
 			EntityNames.BUTTON_PYRO_03 };
 
-	public PyroStage(PixelPanel panel, EntityCollection visibleEntityCollection, EntityCollection hiddenEntityCollection) {
+	public PyroStage(PixelPanel panel, EntityCollection visibleEntityCollection,
+			EntityCollection hiddenEntityCollection) {
 		super(panel, visibleEntityCollection, hiddenEntityCollection);
 	}
 
@@ -93,14 +98,17 @@ public class PyroStage extends Stage {
 
 	@Override
 	public void establishPins() {
-		// TODO Auto-generated method stub
-
+		getPanel().getPinControllerOnBoard().addGpioPinListener(this);
 	}
 
 	@Override
 	public void wipePins() {
-		// TODO Auto-generated method stub
+		getPanel().getPinControllerOnBoard().removeGpioPinListener(this);
 
+		for (String key : BUTTON_KEYS) {
+			Entity entity = getVisibleEntityCollection().getEntity(key);
+			((Illuminated) entity).setLedState(LEDState.LOW);
+		}
 	}
 
 	private void promptNextButton() {
@@ -117,5 +125,64 @@ public class PyroStage extends Stage {
 
 	private boolean isDepressed(String key) {
 		return ButtonState.DEPRESSED.equals(((Button) getVisibleEntityCollection().getEntity(key)).getButtonState());
+	}
+
+	@Override
+	public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
+
+		System.out.println(String.format(" --> GPIO PIN STATE CHANGE(%s): %s = %s", event.getPin().getPin(),
+				event.getPin().getName(), event.getState()));
+
+		String pinName = event.getPin().getName().replace("_IN", "_OUT");
+
+		for (String key : BUTTON_KEYS) {
+			Entity entity = getVisibleEntityCollection().getEntity(key);
+
+			if (((Illuminated) entity).getOutputPinName().equals(pinName)) {
+				switch (key) {
+				case EntityNames.BUTTON_PYRO_01:
+					if (!PinState.LOW.equals(event.getState()))
+						return;
+					if (isDepressed(EntityNames.TOGGLE_PYRO_01))
+						((Illuminated) entity).toggle();
+					break;
+				case EntityNames.BUTTON_PYRO_02:
+					if (!PinState.LOW.equals(event.getState()))
+						return;
+					if (isDepressed(EntityNames.TOGGLE_PYRO_02))
+						((Illuminated) entity).toggle();
+					break;
+				case EntityNames.BUTTON_PYRO_03:
+					if (!PinState.LOW.equals(event.getState()))
+						return;
+					if (isDepressed(EntityNames.TOGGLE_PYRO_03))
+						((Illuminated) entity).toggle();
+					break;
+				case EntityNames.TOGGLE_PYRO_01:
+					if (event.getState().equals(PinState.LOW))
+						((Toggle) entity).depress();
+					else
+						((Toggle) entity).unDepress();
+					break;
+				case EntityNames.TOGGLE_PYRO_02:
+					if (event.getState().equals(PinState.LOW))
+						((Toggle) entity).depress();
+					else
+						((Toggle) entity).unDepress();
+					break;
+				case EntityNames.TOGGLE_PYRO_03:
+					if (event.getState().equals(PinState.LOW))
+						((Toggle) entity).depress();
+					else
+						((Toggle) entity).unDepress();
+					break;
+				default:
+				}
+
+				promptNextButton();
+			}
+
+		}
+
 	}
 }
