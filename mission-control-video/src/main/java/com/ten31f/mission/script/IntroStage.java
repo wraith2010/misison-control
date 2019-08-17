@@ -2,7 +2,7 @@ package com.ten31f.mission.script;
 
 import java.awt.event.MouseEvent;
 
-import com.ten31f.mission.Panel;
+import com.ten31f.mission.PixelPanel;
 import com.ten31f.mission.audio.SoundEffect;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
@@ -34,7 +34,7 @@ public class IntroStage extends Stage {
 	private Phase currentPhase = null;
 	private boolean complete;
 
-	public IntroStage(Panel panel, EntityCollection visibleEntityCollection, EntityCollection hiddenEntityCollection) {
+	public IntroStage(PixelPanel panel, EntityCollection visibleEntityCollection, EntityCollection hiddenEntityCollection) {
 		super(panel, visibleEntityCollection, hiddenEntityCollection);
 	}
 

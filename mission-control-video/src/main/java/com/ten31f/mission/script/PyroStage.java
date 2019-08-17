@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 
 import javax.sound.sampled.Clip;
 
-import com.ten31f.mission.Panel;
+import com.ten31f.mission.PixelPanel;
 import com.ten31f.mission.entities.Button;
 import com.ten31f.mission.entities.Button.ButtonState;
 import com.ten31f.mission.entities.Entity;
@@ -23,7 +23,7 @@ public class PyroStage extends Stage {
 			EntityNames.TOGGLE_PYRO_02, EntityNames.BUTTON_PYRO_02, EntityNames.TOGGLE_PYRO_03,
 			EntityNames.BUTTON_PYRO_03 };
 
-	public PyroStage(Panel panel, EntityCollection visibleEntityCollection, EntityCollection hiddenEntityCollection) {
+	public PyroStage(PixelPanel panel, EntityCollection visibleEntityCollection, EntityCollection hiddenEntityCollection) {
 		super(panel, visibleEntityCollection, hiddenEntityCollection);
 	}
 

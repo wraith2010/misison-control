@@ -69,24 +69,28 @@ public abstract class Illuminated extends Entity {
 		return ledState;
 	}
 
+	public GpioPinDigitalOutput getOuputPin() {
+		return getPinControllerOnBoard().getOutputPin(getOutputPinName());		
+	}
+
 	public void setLedState(LEDState ledState) {
 		this.ledState = ledState;
 
-//		GpioPinDigitalOutput gpioPinDigitalOutput = getPinControllerOnBoard().getOutputPin(getOutputPinName());
-//		if (gpioPinDigitalOutput != null) {
-//			switch (ledState) {
-//			case HIGH:
-//				gpioPinDigitalOutput.setState(PinState.HIGH);
-//				break;
-//			case LOW:
-//				gpioPinDigitalOutput.setState(PinState.LOW);
-//				break;
-//			case PROMPT:
-//				break;
-//			default:
-//				break;
-//			}
-//		}
+		GpioPinDigitalOutput gpioPinDigitalOutput = getOuputPin();
+		if (gpioPinDigitalOutput != null) {
+			switch (ledState) {
+			case HIGH:
+				gpioPinDigitalOutput.setState(PinState.HIGH);
+				break;
+			case LOW:
+				gpioPinDigitalOutput.setState(PinState.LOW);
+				break;
+			case PROMPT:
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 	public void toggle() {
@@ -99,9 +103,12 @@ public abstract class Illuminated extends Entity {
 
 	protected void setPrompt(boolean prompt) {
 		this.prompt = prompt;
-		GpioPinDigitalOutput gpioPinDigitalOutput = getPinControllerOnBoard().getOutputPin(getOutputPinName());
-		if (gpioPinDigitalOutput != null) {
-			gpioPinDigitalOutput.setState(prompt);
+		if (prompt && LEDState.PROMPT.equals(getLedState())) {
+
+			GpioPinDigitalOutput gpioPinDigitalOutput = getOuputPin();
+			if (gpioPinDigitalOutput != null) {
+				gpioPinDigitalOutput.pulse(500);
+			}
 		}
 	}
 

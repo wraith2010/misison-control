@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 
 import javax.sound.sampled.Clip;
 
-import com.ten31f.mission.Panel;
+import com.ten31f.mission.PixelPanel;
 import com.ten31f.mission.audio.SoundEffect;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
@@ -23,7 +23,7 @@ public class AnimateLaunch extends Stage {
 
 	private Clip music = null;
 
-	public AnimateLaunch(Panel panel, EntityCollection visibleEntityCollection,
+	public AnimateLaunch(PixelPanel panel, EntityCollection visibleEntityCollection,
 			EntityCollection hiddenEntityCollection) {
 		super(panel, visibleEntityCollection, hiddenEntityCollection);
 	}

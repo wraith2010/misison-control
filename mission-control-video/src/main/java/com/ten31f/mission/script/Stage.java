@@ -2,8 +2,7 @@ package com.ten31f.mission.script;
 
 import java.awt.event.MouseEvent;
 
-import com.ten31f.mission.PINControllerOnBoard;
-import com.ten31f.mission.Panel;
+import com.ten31f.mission.PixelPanel;
 import com.ten31f.mission.entities.Entity;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
@@ -12,12 +11,12 @@ import com.ten31f.mission.entities.Professor;
 public abstract class Stage {
 
 	private Stage nextStage;
-	private Panel panel = null;
+	private PixelPanel panel = null;
 
 	private EntityCollection visibleEntityCollection = null;
 	private EntityCollection hiddenEntityCollection = null;
 
-	public Stage(Panel panel, EntityCollection visibleEntityCollection, EntityCollection hiddenEntityCollection) {
+	public Stage(PixelPanel panel, EntityCollection visibleEntityCollection, EntityCollection hiddenEntityCollection) {
 		setPanel(panel);
 		setVisibleEntityCollection(visibleEntityCollection);
 		setHiddenEntityCollection(hiddenEntityCollection);
@@ -35,11 +34,11 @@ public abstract class Stage {
 		return (Professor) getVisibleEntityCollection().getEntity(EntityNames.PROFESSOR);
 	}
 
-	protected void setPanel(Panel panel) {
+	protected void setPanel(PixelPanel panel) {
 		this.panel = panel;
 	}
 
-	protected Panel getPanel() {
+	protected PixelPanel getPanel() {
 		return panel;
 	}
 

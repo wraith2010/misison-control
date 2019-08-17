@@ -92,8 +92,7 @@ public class PINControllerOnBoard {
 	private Map<String, GpioPinDigitalInput> inputPins = null;
 
 	public PINControllerOnBoard() {
-		System.out.println("New Board");
-		
+
 		setGpioController(GpioFactory.getInstance());
 
 		try {
@@ -162,53 +161,42 @@ public class PINControllerOnBoard {
 				getOutputPin(PIN_OUT_NAME_SIMON_BLUE01));
 		establishInputPin(MCP23017Pin.GPIO_B0, PIN_IN_NAME_SIMON_RED01, getMco23017GpioProvider02());
 
-//		establishOuputPin(MCP23017Pin.GPIO_B4, PIN_OUT_NAME_LAUNCH, getMco23017GpioProvider03());
-//
-//		establishOuputPin(MCP23017Pin.GPIO_A1, PIN_OUT_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL,
-//				getMco23017GpioProvider01());
-//		establishOuputPin(MCP23017Pin.GPIO_A2, PIN_OUT_NAME_SUB_SYSTEM_TANG, getMco23017GpioProvider01());
-//		establishOuputPin(MCP23017Pin.GPIO_A3, PIN_OUT_NAME_SUB_SYSTEM_LIFE_SUPPORT, getMco23017GpioProvider01());
-//		establishOuputPin(MCP23017Pin.GPIO_A4, PIN_OUT_NAME_SUB_SYSTEM_WATER, getMco23017GpioProvider01());
-//		establishOuputPin(MCP23017Pin.GPIO_A6, PIN_OUT_NAME_SUB_SYSTEM_COMMS, getMco23017GpioProvider01());
-//		establishOuputPin(MCP23017Pin.GPIO_A7, PIN_OUT_NAME_SUB_SYSTEM_TWITCH_FEED, getMco23017GpioProvider01());
-//
-//		try {
-//			Thread.sleep(3000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		establishOuputPin(MCP23017Pin.GPIO_B5, PIN_OUT_NAME_PYRO_FUEL_PUMP, getMco23017GpioProvider03());
-//		establishOuputPin(MCP23017Pin.GPIO_B6, PIN_OUT_NAME_PYRO_SOLID_BOOSTER, getMco23017GpioProvider03());
-//		establishOuputPin(MCP23017Pin.GPIO_B7, PIN_OUT_NAME_PYRO_MAIN_ENGINE, getMco23017GpioProvider03());
-//
-//
-//		establishInputPin(MCP23017Pin.GPIO_B1, PIN_IN_NAME_SUB_SYSTEM_TWITCH_FEED, getMco23017GpioProvider02());
-//		establishInputPin(MCP23017Pin.GPIO_B2, PIN_IN_NAME_SUB_SYSTEM_COMMS, getMco23017GpioProvider02());
-//		establishInputPin(MCP23017Pin.GPIO_B3, PIN_IN_NAME_SUB_SYSTEM_WATER, getMco23017GpioProvider02());
-//		establishInputPin(MCP23017Pin.GPIO_B4, PIN_IN_NAME_SUB_SYSTEM_LIFE_SUPPORT, getMco23017GpioProvider02());
-//		establishInputPin(MCP23017Pin.GPIO_B5, PIN_IN_NAME_SUB_SYSTEM_TANG, getMco23017GpioProvider02());
-//		establishInputPin(MCP23017Pin.GPIO_B6, PIN_IN_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL,
-//				getMco23017GpioProvider02());
-//
-		// establishOuputPin(MCP23017Pin.GPIO_A0, PIN_OUT_NAME_PYRO_FUEL_PUMP_SWITCH,
-		// getMco23017GpioProvider03());
-		// establishOuputPin(MCP23017Pin.GPIO_A1,
-		// PIN_OUT_NAME_PYRO_SOLID_BOOSTER_SWITCH, getMco23017GpioProvider03());
-		// establishOuputPin(MCP23017Pin.GPIO_A2, PIN_OUT_NAME_PYRO_MAIN_ENGINE_SWITCH,
-		// getMco23017GpioProvider03());
-//
-//		establishInputPin(MCP23017Pin.GPIO_A5, PIN_IN_NAME_PYRO_MAIN_ENGINE, getMco23017GpioProvider03());
-//		establishInputSwitchPin(MCP23017Pin.GPIO_A6, PIN_IN_NAME_PYRO_SOLID_BOOSTER_SWITCH,
-//				getMco23017GpioProvider03());
-//		establishInputPin(MCP23017Pin.GPIO_A7, PIN_IN_NAME_PYRO_FUEL_PUMP, getMco23017GpioProvider03());
-//
-//		establishInputSwitchPin(MCP23017Pin.GPIO_B0, PIN_IN_NAME_PYRO_FUEL_PUMP_SWITCH, getMco23017GpioProvider03());
-//		establishInputPin(MCP23017Pin.GPIO_B1, PIN_IN_NAME_PYRO_SOLID_BOOSTER, getMco23017GpioProvider03());
-//		establishInputSwitchPin(MCP23017Pin.GPIO_B2, PIN_IN_NAME_PYRO_MAIN_ENGINE_SWITCH, getMco23017GpioProvider03());
-//
-//		establishInputPin(MCP23017Pin.GPIO_B3, PIN_IN_NAME_LAUNCH, getMco23017GpioProvider03());
+		establishOuputPin(MCP23017Pin.GPIO_B4, PIN_OUT_NAME_LAUNCH, getMco23017GpioProvider03());
+
+		establishOuputPin(MCP23017Pin.GPIO_A1, PIN_OUT_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL,
+				getMco23017GpioProvider01());
+		establishOuputPin(MCP23017Pin.GPIO_A2, PIN_OUT_NAME_SUB_SYSTEM_TANG, getMco23017GpioProvider01());
+		establishOuputPin(MCP23017Pin.GPIO_A3, PIN_OUT_NAME_SUB_SYSTEM_LIFE_SUPPORT, getMco23017GpioProvider01());
+		establishOuputPin(MCP23017Pin.GPIO_A4, PIN_OUT_NAME_SUB_SYSTEM_WATER, getMco23017GpioProvider01());
+		establishOuputPin(MCP23017Pin.GPIO_A6, PIN_OUT_NAME_SUB_SYSTEM_COMMS, getMco23017GpioProvider01());
+		establishOuputPin(MCP23017Pin.GPIO_A7, PIN_OUT_NAME_SUB_SYSTEM_TWITCH_FEED, getMco23017GpioProvider01());
+
+		establishOuputPin(MCP23017Pin.GPIO_B5, PIN_OUT_NAME_PYRO_FUEL_PUMP, getMco23017GpioProvider03());
+		establishOuputPin(MCP23017Pin.GPIO_B6, PIN_OUT_NAME_PYRO_SOLID_BOOSTER, getMco23017GpioProvider03());
+		establishOuputPin(MCP23017Pin.GPIO_B7, PIN_OUT_NAME_PYRO_MAIN_ENGINE, getMco23017GpioProvider03());
+
+		establishInputPin(MCP23017Pin.GPIO_B1, PIN_IN_NAME_SUB_SYSTEM_TWITCH_FEED, getMco23017GpioProvider02());
+		establishInputPin(MCP23017Pin.GPIO_B2, PIN_IN_NAME_SUB_SYSTEM_COMMS, getMco23017GpioProvider02());
+		establishInputPin(MCP23017Pin.GPIO_B3, PIN_IN_NAME_SUB_SYSTEM_WATER, getMco23017GpioProvider02());
+		establishInputPin(MCP23017Pin.GPIO_B4, PIN_IN_NAME_SUB_SYSTEM_LIFE_SUPPORT, getMco23017GpioProvider02());
+		establishInputPin(MCP23017Pin.GPIO_B5, PIN_IN_NAME_SUB_SYSTEM_TANG, getMco23017GpioProvider02());
+		establishInputPin(MCP23017Pin.GPIO_B6, PIN_IN_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL,
+				getMco23017GpioProvider02());
+
+		establishOuputPin(MCP23017Pin.GPIO_A0, PIN_OUT_NAME_PYRO_FUEL_PUMP_SWITCH, getMco23017GpioProvider03());
+		establishOuputPin(MCP23017Pin.GPIO_A1, PIN_OUT_NAME_PYRO_SOLID_BOOSTER_SWITCH, getMco23017GpioProvider03());
+		establishOuputPin(MCP23017Pin.GPIO_A2, PIN_OUT_NAME_PYRO_MAIN_ENGINE_SWITCH, getMco23017GpioProvider03());
+
+		establishInputPin(MCP23017Pin.GPIO_A5, PIN_IN_NAME_PYRO_MAIN_ENGINE, getMco23017GpioProvider03());
+		establishInputSwitchPin(MCP23017Pin.GPIO_A6, PIN_IN_NAME_PYRO_SOLID_BOOSTER_SWITCH,
+				getMco23017GpioProvider03());
+		establishInputPin(MCP23017Pin.GPIO_A7, PIN_IN_NAME_PYRO_FUEL_PUMP, getMco23017GpioProvider03());
+
+		establishInputSwitchPin(MCP23017Pin.GPIO_B0, PIN_IN_NAME_PYRO_FUEL_PUMP_SWITCH, getMco23017GpioProvider03());
+		establishInputPin(MCP23017Pin.GPIO_B1, PIN_IN_NAME_PYRO_SOLID_BOOSTER, getMco23017GpioProvider03());
+		establishInputSwitchPin(MCP23017Pin.GPIO_B2, PIN_IN_NAME_PYRO_MAIN_ENGINE_SWITCH, getMco23017GpioProvider03());
+
+		establishInputPin(MCP23017Pin.GPIO_B3, PIN_IN_NAME_LAUNCH, getMco23017GpioProvider03());
 	}
 
 	public void establishOuputPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider) {

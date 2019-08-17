@@ -5,9 +5,9 @@ import java.awt.event.WindowListener;
 
 public class WindowHandler implements WindowListener {
 
-	private Panel panel;
+	private PixelPanel panel;
 
-	public WindowHandler(Panel panel) {
+	public WindowHandler(PixelPanel panel) {
 		setPanel(panel);
 		getPanel().getjFrame().addWindowListener(this);
 	}
@@ -41,11 +41,11 @@ public class WindowHandler implements WindowListener {
 	public void windowOpened(WindowEvent event) {
 	}
 
-	private void setPanel(Panel panel) {
+	private void setPanel(PixelPanel panel) {
 		this.panel = panel;
 	}
 
-	public Panel getPanel() {
+	public PixelPanel getPanel() {
 		return panel;
 	}
 

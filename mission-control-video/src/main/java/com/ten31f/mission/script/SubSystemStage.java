@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
-import com.ten31f.mission.Panel;
+import com.ten31f.mission.PixelPanel;
 import com.ten31f.mission.entities.Button;
 import com.ten31f.mission.entities.Entity;
 import com.ten31f.mission.entities.EntityCollection;
@@ -20,7 +20,7 @@ public class SubSystemStage extends Stage implements GpioPinListenerDigital {
 			EntityNames.BUTTON_SUBSYSTEM_03, EntityNames.BUTTON_SUBSYSTEM_04, EntityNames.BUTTON_SUBSYSTEM_05,
 			EntityNames.BUTTON_SUBSYSTEM_06 };
 
-	public SubSystemStage(Panel panel, EntityCollection visibleEntityCollection,
+	public SubSystemStage(PixelPanel panel, EntityCollection visibleEntityCollection,
 			EntityCollection hiddenEntityCollection) {
 		super(panel, visibleEntityCollection, hiddenEntityCollection);
 	}

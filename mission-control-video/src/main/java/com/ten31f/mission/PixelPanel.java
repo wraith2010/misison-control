@@ -39,8 +39,9 @@ import com.ten31f.mission.script.SecurityStage;
 import com.ten31f.mission.script.Stage;
 import com.ten31f.mission.script.SubSystemStage;
 
-public class Panel extends Canvas implements Runnable, MouseListener {
+public class PixelPanel extends Canvas implements Runnable, MouseListener {
 
+	private static PINControllerOnBoard pinControllerOnBoard = null;
 	public static final Dimension DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final String NAME = "Misison Control";
 
@@ -77,7 +78,6 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 	public WindowHandler windowHandler;
 	private EntityCollection visiableEntityCollection = null;
 	private EntityCollection hiddenEntityCollection = null;
-	private PINControllerOnBoard pinControllerOnBoard = null;
 
 	public boolean debug = true;
 	public boolean isApplet = false;
@@ -85,10 +85,10 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 	private Stage activeStage = null;
 	private List<Stage> stages = null;
 
-	public Panel() {
+	public PixelPanel() {
 		setStages(new ArrayList<>());
 		setVisiableEntityCollection(new EntityCollection());
-		setHiddenEntityCollection(new EntityCollection());		
+		setHiddenEntityCollection(new EntityCollection());
 	}
 
 	public void init() {
@@ -319,7 +319,6 @@ public class Panel extends Canvas implements Runnable, MouseListener {
 
 			if (System.currentTimeMillis() - lastTimer >= 1000) {
 				lastTimer += 1000;
-				debug(DebugLevel.INFO, ticks + " ticks, " + frames + " frames");
 				frames = 0;
 				ticks = 0;
 			}

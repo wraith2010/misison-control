@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 public class AppLauncher extends Applet {
 
 	private static PINControllerOnBoard pinControllerOnBoard = new PINControllerOnBoard();
-	private static Panel panel = new Panel();
+	private static PixelPanel panel = new PixelPanel();
 	public static final boolean DEBUG = false;
 
 	@Override
@@ -32,13 +32,13 @@ public class AppLauncher extends Applet {
 	}
 
 	public static void main(String[] args) {
-		
-		panel.setPinControllerOnBoard(pinControllerOnBoard);
-		panel.setMinimumSize(Panel.DIMENSION);
-		panel.setMaximumSize(Panel.DIMENSION);
-		panel.setPreferredSize(Panel.DIMENSION);
 
-		panel.setjFrame(new JFrame(Panel.NAME));
+		panel.setPinControllerOnBoard(pinControllerOnBoard);
+		panel.setMinimumSize(PixelPanel.DIMENSION);
+		panel.setMaximumSize(PixelPanel.DIMENSION);
+		panel.setPreferredSize(PixelPanel.DIMENSION);
+
+		panel.setjFrame(new JFrame(PixelPanel.NAME));
 
 		panel.getjFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
 		panel.getjFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,7 +54,7 @@ public class AppLauncher extends Applet {
 		panel.debug = DEBUG;
 
 		panel.start();
-		while(true) {
+		while (true) {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {

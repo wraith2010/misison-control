@@ -2,7 +2,7 @@ package com.ten31f.mission.script;
 
 import java.awt.event.MouseEvent;
 
-import com.ten31f.mission.Panel;
+import com.ten31f.mission.PixelPanel;
 import com.ten31f.mission.entities.Entity;
 import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
@@ -13,7 +13,7 @@ public class LaunchStage extends Stage {
 
 	private static final String INSTRUCTIONS = "Mission is GO!";
 
-	public LaunchStage(Panel panel, EntityCollection visibleEntityCollection, EntityCollection hiddenEntityCollection) {
+	public LaunchStage(PixelPanel panel, EntityCollection visibleEntityCollection, EntityCollection hiddenEntityCollection) {
 		super(panel, visibleEntityCollection, hiddenEntityCollection);
 	}
 
