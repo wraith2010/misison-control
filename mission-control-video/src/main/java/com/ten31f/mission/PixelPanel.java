@@ -31,6 +31,7 @@ import com.ten31f.mission.entities.SubPanel;
 import com.ten31f.mission.entities.Toggle;
 import com.ten31f.mission.gfx.Screen;
 import com.ten31f.mission.gfx.SpriteSheet;
+import com.ten31f.mission.pin.IPINController;
 import com.ten31f.mission.script.AnimateLaunch;
 import com.ten31f.mission.script.IntroStage;
 import com.ten31f.mission.script.LaunchStage;
@@ -41,7 +42,7 @@ import com.ten31f.mission.script.SubSystemStage;
 
 public class PixelPanel extends Canvas implements Runnable, MouseListener {
 
-	private static PINControllerOnBoard pinControllerOnBoard = null;
+	private static IPINController pinController = null;
 	public static final Dimension DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final String NAME = "Misison Control";
 
@@ -118,39 +119,31 @@ public class PixelPanel extends Canvas implements Runnable, MouseListener {
 
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_01,
 				new RoundButton(subPanel1XCenter - buttonShift, subPanel1yCenter - buttonShift, Illuminated.BLUE_ON,
-						Illuminated.BLUE_OFF, null, PINControllerOnBoard.PIN_OUT_NAME_SIMON_BLUE01,
-						getPinControllerOnBoard()));
+						Illuminated.BLUE_OFF, null, IPINController.PIN_OUT_NAME_SIMON_BLUE01, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_02,
 				new RoundButton(subPanel1XCenter, subPanel1yCenter - buttonShift, Illuminated.YELLOW_ON,
-						Illuminated.YELLOW_OFF, null, PINControllerOnBoard.PIN_OUT_NAME_SIMON_YELLOW01,
-						getPinControllerOnBoard()));
+						Illuminated.YELLOW_OFF, null, IPINController.PIN_OUT_NAME_SIMON_YELLOW01, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_03,
 				new RoundButton(subPanel1XCenter + buttonShift, subPanel1yCenter - buttonShift, Illuminated.BLUE_ON,
-						Illuminated.BLUE_OFF, null, PINControllerOnBoard.PIN_OUT_NAME_SIMON_BLUE02,
-						getPinControllerOnBoard()));
+						Illuminated.BLUE_OFF, null, IPINController.PIN_OUT_NAME_SIMON_BLUE02, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_04,
 				new RoundButton(subPanel1XCenter - buttonShift, subPanel1yCenter, Illuminated.GREEN_ON,
-						Illuminated.GREEN_OFF, null, PINControllerOnBoard.PIN_OUT_NAME_SIMON_GREEN01,
-						getPinControllerOnBoard()));
+						Illuminated.GREEN_OFF, null, IPINController.PIN_OUT_NAME_SIMON_GREEN01, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_05,
 				new RoundButton(subPanel1XCenter, subPanel1yCenter, Illuminated.WHITE_ON, Illuminated.WHITE_OFF, null,
-						PINControllerOnBoard.PIN_OUT_NAME_SIMON_WHITE, getPinControllerOnBoard()));
+						IPINController.PIN_OUT_NAME_SIMON_WHITE, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_06,
 				new RoundButton(subPanel1XCenter + buttonShift, subPanel1yCenter, Illuminated.GREEN_ON,
-						Illuminated.GREEN_OFF, null, PINControllerOnBoard.PIN_OUT_NAME_SIMON_GREEN02,
-						getPinControllerOnBoard()));
+						Illuminated.GREEN_OFF, null, IPINController.PIN_OUT_NAME_SIMON_GREEN02, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_07,
 				new RoundButton(subPanel1XCenter - buttonShift, subPanel1yCenter + buttonShift, Illuminated.RED_ON,
-						Illuminated.RED_OFF, null, PINControllerOnBoard.PIN_OUT_NAME_SIMON_RED01,
-						getPinControllerOnBoard()));
+						Illuminated.RED_OFF, null, IPINController.PIN_OUT_NAME_SIMON_RED01, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_08,
 				new RoundButton(subPanel1XCenter, subPanel1yCenter + buttonShift, Illuminated.YELLOW_ON,
-						Illuminated.YELLOW_OFF, null, PINControllerOnBoard.PIN_OUT_NAME_SIMON_YELLOW02,
-						getPinControllerOnBoard()));
+						Illuminated.YELLOW_OFF, null, IPINController.PIN_OUT_NAME_SIMON_YELLOW02, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SECURITY_09,
 				new RoundButton(subPanel1XCenter + buttonShift, subPanel1yCenter + buttonShift, Illuminated.RED_ON,
-						Illuminated.RED_OFF, null, PINControllerOnBoard.PIN_OUT_NAME_SIMON_RED02,
-						getPinControllerOnBoard()));
+						Illuminated.RED_OFF, null, IPINController.PIN_OUT_NAME_SIMON_RED02, getPinController()));
 
 		// sub panel 2 primers
 		int subPanel2XCenter = (int) (getXCenter() - ((getWidth() / 4d) * 0.5));
@@ -162,31 +155,27 @@ public class PixelPanel extends Canvas implements Runnable, MouseListener {
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SUBSYSTEM_01,
 				new SquareButton(BUTTON_NAME_BUTTON01, subPanel2XCenter - buttonShift,
 						subPanel2YCenter - (buttonShift / 2), Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF,
-						SoundEffect.COMMS, PINControllerOnBoard.PIN_OUT_NAME_SUB_SYSTEM_COMMS,
-						getPinControllerOnBoard()));
+						SoundEffect.COMMS, IPINController.PIN_OUT_NAME_SUB_SYSTEM_COMMS, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SUBSYSTEM_02,
 				new SquareButton(BUTTON_NAME_BUTTON02, subPanel2XCenter, subPanel2YCenter - (buttonShift / 2),
 						Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF, SoundEffect.LIFESUPPORT,
-						PINControllerOnBoard.PIN_OUT_NAME_SUB_SYSTEM_LIFE_SUPPORT, getPinControllerOnBoard()));
+						IPINController.PIN_OUT_NAME_SUB_SYSTEM_LIFE_SUPPORT, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SUBSYSTEM_03,
 				new SquareButton(BUTTON_NAME_BUTTON03, subPanel2XCenter + buttonShift,
 						subPanel2YCenter - (buttonShift / 2), Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF,
-						null, PINControllerOnBoard.PIN_OUT_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL,
-						getPinControllerOnBoard()));
+						null, IPINController.PIN_OUT_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SUBSYSTEM_04,
 				new SquareButton(BUTTON_NAME_BUTTON04, subPanel2XCenter - buttonShift,
 						subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF,
-						SoundEffect.WATERSYSTEM, PINControllerOnBoard.PIN_OUT_NAME_SUB_SYSTEM_WATER,
-						getPinControllerOnBoard()));
+						SoundEffect.WATERSYSTEM, IPINController.PIN_OUT_NAME_SUB_SYSTEM_WATER, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SUBSYSTEM_05,
 				new SquareButton(BUTTON_NAME_BUTTON05, subPanel2XCenter, subPanel2YCenter + (buttonShift / 2),
 						Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF, null,
-						PINControllerOnBoard.PIN_OUT_NAME_SUB_SYSTEM_TWITCH_FEED, getPinControllerOnBoard()));
+						IPINController.PIN_OUT_NAME_SUB_SYSTEM_TWITCH_FEED, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_SUBSYSTEM_06,
 				new SquareButton(BUTTON_NAME_BUTTON06, subPanel2XCenter + buttonShift,
 						subPanel2YCenter + (buttonShift / 2), Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF,
-						SoundEffect.TANG, PINControllerOnBoard.PIN_OUT_NAME_SUB_SYSTEM_TANG,
-						getPinControllerOnBoard()));
+						SoundEffect.TANG, IPINController.PIN_OUT_NAME_SUB_SYSTEM_TANG, getPinController()));
 
 		// sub panel 3 pyro
 		int subPanel3XCenter = (int) (getXCenter() + (getWidth() / 4d * 0.5));
@@ -198,29 +187,27 @@ public class PixelPanel extends Canvas implements Runnable, MouseListener {
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_PYRO_01,
 				new SquareButton(BUTTON_NAME_BUTTON07, subPanel3XCenter - buttonShift,
 						subPanel3YCenter - (buttonShift / 2), Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF,
-						SoundEffect.FUELPUMP, PINControllerOnBoard.PIN_OUT_NAME_PYRO_FUEL_PUMP,
-						getPinControllerOnBoard()));
+						SoundEffect.FUELPUMP, IPINController.PIN_OUT_NAME_PYRO_FUEL_PUMP, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_PYRO_02,
 				new SquareButton(BUTTON_NAME_BUTTON08, subPanel3XCenter, subPanel3YCenter - (buttonShift / 2),
 						Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF, SoundEffect.ROCKET1,
-						PINControllerOnBoard.PIN_OUT_NAME_PYRO_SOLID_BOOSTER, getPinControllerOnBoard()));
+						IPINController.PIN_OUT_NAME_PYRO_SOLID_BOOSTER, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.BUTTON_PYRO_03,
 				new SquareButton(BUTTON_NAME_BUTTON09, subPanel3XCenter + buttonShift,
 						subPanel3YCenter - (buttonShift / 2), Illuminated.WHITE_SQUARE_ON, Illuminated.WHITE_SQUARE_OFF,
-						SoundEffect.ROCKET2, PINControllerOnBoard.PIN_OUT_NAME_PYRO_MAIN_ENGINE,
-						getPinControllerOnBoard()));
+						SoundEffect.ROCKET2, IPINController.PIN_OUT_NAME_PYRO_MAIN_ENGINE, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.TOGGLE_PYRO_01,
 				new Toggle(BUTTON_NAME_TOGGLE01, subPanel3XCenter - buttonShift, subPanel3YCenter + (buttonShift / 2),
 						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF, SoundEffect.CHARGE,
-						PINControllerOnBoard.PIN_OUT_NAME_PYRO_FUEL_PUMP_SWITCH, getPinControllerOnBoard()));
+						IPINController.PIN_OUT_NAME_PYRO_FUEL_PUMP_SWITCH, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.TOGGLE_PYRO_02,
 				new Toggle(BUTTON_NAME_TOGGLE02, subPanel3XCenter, subPanel3YCenter + (buttonShift / 2),
 						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF, SoundEffect.CHARGE,
-						PINControllerOnBoard.PIN_OUT_NAME_PYRO_SOLID_BOOSTER_SWITCH, getPinControllerOnBoard()));
+						IPINController.PIN_OUT_NAME_PYRO_SOLID_BOOSTER_SWITCH, getPinController()));
 		getHiddenEntityCollection().addEntity(EntityNames.TOGGLE_PYRO_03,
 				new Toggle(BUTTON_NAME_TOGGLE03, subPanel3XCenter + buttonShift, subPanel3YCenter + (buttonShift / 2),
 						Illuminated.TOGLE_ON, Illuminated.TOGLE_OFF, SoundEffect.CHARGE,
-						PINControllerOnBoard.PIN_OUT_NAME_PYRO_MAIN_ENGINE_SWITCH, getPinControllerOnBoard()));
+						IPINController.PIN_OUT_NAME_PYRO_MAIN_ENGINE_SWITCH, getPinController()));
 
 		// sub panel 4 big button
 		int subPanel4XCenter = (int) (getXCenter() + (getWidth() / 4d * 1.5));
@@ -230,7 +217,7 @@ public class PixelPanel extends Canvas implements Runnable, MouseListener {
 				new SubPanel(subPanel4XCenter, subPanel4YCenter, "LAUNCH"));
 
 		RoundButton roundButton10 = new RoundButton(subPanel4XCenter, subPanel4YCenter, Illuminated.LARGE_RED_ON,
-				Illuminated.LARGE_RED_OFF, null, PINControllerOnBoard.PIN_OUT_NAME_LAUNCH, getPinControllerOnBoard());
+				Illuminated.LARGE_RED_OFF, null, IPINController.PIN_OUT_NAME_LAUNCH, getPinController());
 		roundButton10.setScale(3);
 		getHiddenEntityCollection().addEntity(EntityNames.LAUNCH_BUTTON, roundButton10);
 
@@ -506,11 +493,11 @@ public class PixelPanel extends Canvas implements Runnable, MouseListener {
 		this.mainLoop = mainLoop;
 	}
 
-	public PINControllerOnBoard getPinControllerOnBoard() {
-		return pinControllerOnBoard;
+	public IPINController getPinController() {
+		return pinController;
 	}
 
-	public void setPinControllerOnBoard(PINControllerOnBoard pinControllerOnBoard) {
-		this.pinControllerOnBoard = pinControllerOnBoard;
+	public void setPinController(IPINController pinController) {
+		PixelPanel.pinController = pinController;
 	}
 }

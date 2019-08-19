@@ -1,4 +1,4 @@
-package com.ten31f.mission;
+package com.ten31f.mission.pin;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,70 +18,7 @@ import com.pi4j.io.gpio.trigger.GpioPulseStateTrigger;
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
 
-public class PINControllerOnBoard {
-
-	public static final String PIN_OUT_NAME_SIMON_GREEN01 = "SIMON_GREEN_01_OUT";
-	public static final String PIN_OUT_NAME_SIMON_GREEN02 = "SIMON_GREEN_02_OUT";
-	public static final String PIN_OUT_NAME_SIMON_WHITE = "SIMON_WHITE_OUT";
-	public static final String PIN_OUT_NAME_SIMON_BLUE01 = "SIMON_BLUE_01_OUT";
-	public static final String PIN_OUT_NAME_SIMON_BLUE02 = "SIMON_BLUE_02_OUT";
-	public static final String PIN_OUT_NAME_SIMON_RED01 = "SIMON_RED_01_OUT";
-	public static final String PIN_OUT_NAME_SIMON_RED02 = "SIMON_RED_02_OUT";
-	public static final String PIN_OUT_NAME_SIMON_YELLOW01 = "SIMON_YELLOW_01_OUT";
-	public static final String PIN_OUT_NAME_SIMON_YELLOW02 = "SIMON_YELLOW_02_OUT";
-
-	public static final String PIN_OUT_NAME_SUB_SYSTEM_COMMS = "SUB_SYSTEM_COMMS_OUT";
-	public static final String PIN_OUT_NAME_SUB_SYSTEM_LIFE_SUPPORT = "SUB_SYSTEM_LIFE_SUPPORT_OUT";
-	public static final String PIN_OUT_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL = "SUB_ENVIRONMENTAL_CONTROL_OUT";
-	public static final String PIN_OUT_NAME_SUB_SYSTEM_WATER = "SUB_WATER_OUT";
-	public static final String PIN_OUT_NAME_SUB_SYSTEM_TWITCH_FEED = "SUB_TWITCH_FEED_OUT";
-	public static final String PIN_OUT_NAME_SUB_SYSTEM_TANG = "SUB_SYSTEM_TANG_OUT";
-
-	public static final String PIN_IN_NAME_SIMON_GREEN01 = "SIMON_GREEN_01_IN";
-	public static final String PIN_IN_NAME_SIMON_GREEN02 = "SIMON_GREEN_02_IN";
-	public static final String PIN_IN_NAME_SIMON_WHITE = "SIMON_WHITE_IN";
-	public static final String PIN_IN_NAME_SIMON_BLUE01 = "SIMON_BLUE_01_IN";
-	public static final String PIN_IN_NAME_SIMON_BLUE02 = "SIMON_BLUE_02_IN";
-	public static final String PIN_IN_NAME_SIMON_RED01 = "SIMON_RED_01_IN";
-	public static final String PIN_IN_NAME_SIMON_RED02 = "SIMON_RED_02_IN";
-	public static final String PIN_IN_NAME_SIMON_YELLOW01 = "SIMON_YELLOW_01_IN";
-	public static final String PIN_IN_NAME_SIMON_YELLOW02 = "SIMON_YELLOW_02_IN";
-
-	public static final String PIN_IN_NAME_SUB_SYSTEM_COMMS = "SUB_SYSTEM_COMMS_IN";
-	public static final String PIN_IN_NAME_SUB_SYSTEM_LIFE_SUPPORT = "SUB_SYSTEM_LIFE_SUPPORT_IN";
-	public static final String PIN_IN_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL = "SUB_ENVIRONMENTAL_CONTROL_IN";
-	public static final String PIN_IN_NAME_SUB_SYSTEM_WATER = "SUB_WATER_IN";
-	public static final String PIN_IN_NAME_SUB_SYSTEM_TWITCH_FEED = "SUB_TWITCH_FEED_IN";
-	public static final String PIN_IN_NAME_SUB_SYSTEM_TANG = "SUB_SYSTEM_TANG_IN";
-
-	public static final String PIN_OUT_NAME_PYRO_FUEL_PUMP = "PYRO_FUEL_PUMP_OUT";
-	public static final String PIN_OUT_NAME_PYRO_SOLID_BOOSTER = "PYRO_SOLID_BOOSTER_OUT";
-	public static final String PIN_OUT_NAME_PYRO_MAIN_ENGINE = "PYRO_MAIN_ENGINE_OUT";
-	public static final String PIN_OUT_NAME_PYRO_FUEL_PUMP_SWITCH = "PYRO_FUEL_PUMP_SWITCH_OUT";
-	public static final String PIN_OUT_NAME_PYRO_SOLID_BOOSTER_SWITCH = "PYRO_SOLID_BOOSTER_SWITCH_OUT";
-	public static final String PIN_OUT_NAME_PYRO_MAIN_ENGINE_SWITCH = "PYRO_MAIN_ENGINE_SWITCH_OUT";
-
-	public static final String PIN_IN_NAME_PYRO_FUEL_PUMP = "PYRO_FUEL_PUMP_IN";
-	public static final String PIN_IN_NAME_PYRO_SOLID_BOOSTER = "PYRO_SOLID_BOOSTER_IN";
-	public static final String PIN_IN_NAME_PYRO_MAIN_ENGINE = "PYRO_MAIN_ENGINE_IN";
-	public static final String PIN_IN_NAME_PYRO_FUEL_PUMP_SWITCH = "PYRO_FUEL_PUMP_SWITCH_IN";
-	public static final String PIN_IN_NAME_PYRO_SOLID_BOOSTER_SWITCH = "PYRO_SOLID_BOOSTER_SWITCH_IN";
-	public static final String PIN_IN_NAME_PYRO_MAIN_ENGINE_SWITCH = "PYRO_MAIN_ENGINE_SWITCH_IN";
-
-	public static final String PIN_IN_NAME_LAUNCH = "LAUNCH_IN";
-	public static final String PIN_OUT_NAME_LAUNCH = "LAUNCH_OUT";
-
-	public static final String[] SIMON_OUT_PINS = { PIN_OUT_NAME_SIMON_GREEN01, PIN_OUT_NAME_SIMON_GREEN02,
-			PIN_OUT_NAME_SIMON_WHITE, PIN_OUT_NAME_SIMON_BLUE01, PIN_OUT_NAME_SIMON_BLUE02, PIN_OUT_NAME_SIMON_RED01,
-			PIN_OUT_NAME_SIMON_RED02, PIN_OUT_NAME_SIMON_YELLOW01, PIN_OUT_NAME_SIMON_YELLOW02 };
-
-	public static final String[] SUBSYTEM_OUT_PINS = { PIN_OUT_NAME_SUB_SYSTEM_COMMS,
-			PIN_OUT_NAME_SUB_SYSTEM_LIFE_SUPPORT, PIN_OUT_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL,
-			PIN_OUT_NAME_SUB_SYSTEM_WATER, PIN_OUT_NAME_SUB_SYSTEM_TWITCH_FEED, PIN_OUT_NAME_SUB_SYSTEM_TANG };
-
-	public static final String[] PYRO_OUT_PINS = { PIN_OUT_NAME_PYRO_FUEL_PUMP, PIN_OUT_NAME_PYRO_SOLID_BOOSTER,
-			PIN_OUT_NAME_PYRO_MAIN_ENGINE, PIN_OUT_NAME_PYRO_FUEL_PUMP_SWITCH, PIN_OUT_NAME_PYRO_SOLID_BOOSTER_SWITCH,
-			PIN_OUT_NAME_PYRO_MAIN_ENGINE_SWITCH };
+public class PINControllerOnBoard implements IPINController {
 
 	private GpioController gpioController = null;
 	private MCP23017GpioProvider mco23017GpioProvider01 = null;
@@ -200,6 +137,7 @@ public class PINControllerOnBoard {
 		establishInputPin(MCP23017Pin.GPIO_B3, PIN_IN_NAME_LAUNCH, getMco23017GpioProvider03());
 	}
 
+	@Override
 	public GpioPinDigitalOutput establishOuputPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider) {
 
 		if (getOutputPins() == null) {
@@ -214,6 +152,7 @@ public class PINControllerOnBoard {
 		return gpioPinDigitalOutput;
 	}
 
+	@Override
 	public void establishInputPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider) {
 
 		if (getInputPins() == null) {
@@ -228,6 +167,7 @@ public class PINControllerOnBoard {
 
 	}
 
+	@Override
 	public void removePin(String pinName) {
 
 		GpioPinDigitalOutput gpioPinDigitalOutput = getOutputPin(pinName);
@@ -242,6 +182,7 @@ public class PINControllerOnBoard {
 
 	}
 
+	@Override
 	public void establishInputPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider,
 			GpioPinDigitalOutput gpioPinDigitalOutput) {
 
@@ -271,68 +212,84 @@ public class PINControllerOnBoard {
 		getInputPins().put(gpioPinDigitalInput.getName(), gpioPinDigitalInput);
 	}
 
+	@Override
 	public GpioController getGpioController() {
 		return gpioController;
 	}
 
+	@Override
 	public void setGpioController(GpioController gpioController) {
 		this.gpioController = gpioController;
 	}
 
+	@Override
 	public MCP23017GpioProvider getMco23017GpioProvider01() {
 		return mco23017GpioProvider01;
 	}
 
+	@Override
 	public void setMco23017GpioProvider01(MCP23017GpioProvider mco23017GpioProvider01) {
 		this.mco23017GpioProvider01 = mco23017GpioProvider01;
 	}
 
+	@Override
 	public MCP23017GpioProvider getMco23017GpioProvider02() {
 		return mco23017GpioProvider02;
 	}
 
+	@Override
 	public void setMco23017GpioProvider02(MCP23017GpioProvider mco23017GpioProvider02) {
 		this.mco23017GpioProvider02 = mco23017GpioProvider02;
 	}
 
+	@Override
 	public MCP23017GpioProvider getMco23017GpioProvider03() {
 		return mco23017GpioProvider03;
 	}
 
+	@Override
 	public void setMco23017GpioProvider03(MCP23017GpioProvider mco23017GpioProvider03) {
 		this.mco23017GpioProvider03 = mco23017GpioProvider03;
 	}
 
+	@Override
 	public void setOutputPins(Map<String, GpioPinDigitalOutput> outputPins) {
 		this.outputPins = outputPins;
 	}
 
+	@Override
 	public Map<String, GpioPinDigitalOutput> getOutputPins() {
 		return outputPins;
 	}
 
+	@Override
 	public GpioPinDigitalOutput getOutputPin(String pinName) {
 		if (getOutputPins() == null)
 			return null;
 		return getOutputPins().get(pinName);
 	}
 
+	@Override
 	public Map<String, GpioPinDigitalInput> getInputPins() {
 		return inputPins;
 	}
 
+	@Override
 	public void setInputPins(Map<String, GpioPinDigitalInput> inputPins) {
 		this.inputPins = inputPins;
 	}
 
+	@Override
 	public void addGpioPinListener(GpioPinListenerDigital gpioPinListenerDigital) {
 		getInputPins().values().forEach(pin -> pin.addListener(gpioPinListenerDigital));
 	}
 
+	@Override
 	public void removeGpioPinListener(GpioPinListenerDigital gpioPinListenerDigital) {
 		getInputPins().values().forEach(pin -> pin.removeListener(gpioPinListenerDigital));
 	}
 
+	@Override
 	public void reset() {
 		if (getOutputPins() == null)
 			return;

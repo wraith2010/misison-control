@@ -2,8 +2,8 @@ package com.ten31f.mission.entities;
 
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinState;
-import com.ten31f.mission.PINControllerOnBoard;
 import com.ten31f.mission.gfx.Colours;
+import com.ten31f.mission.pin.IPINController;
 
 public abstract class Illuminated extends Entity {
 
@@ -35,7 +35,7 @@ public abstract class Illuminated extends Entity {
 	private int ledOFF = -1;
 
 	public Illuminated(int x, int y, int ledON, int ledOFF, String outputPinName,
-			PINControllerOnBoard pinControllerOnBoard) {
+			IPINController pinControllerOnBoard) {
 		super(x, y);
 		setLedON(ledON);
 		setLedOFF(ledOFF);
@@ -47,7 +47,7 @@ public abstract class Illuminated extends Entity {
 	private int promptTickCout = 0;
 	private boolean prompt = false;
 	private String outputPinName = null;
-	private PINControllerOnBoard pinControllerOnBoard = null;
+	private IPINController pinControllerOnBoard = null;
 
 	public int getLedON() {
 		return ledON;
@@ -128,11 +128,11 @@ public abstract class Illuminated extends Entity {
 		this.outputPinName = outputPinName;
 	}
 
-	public PINControllerOnBoard getPinControllerOnBoard() {
+	public IPINController getPinControllerOnBoard() {
 		return pinControllerOnBoard;
 	}
 
-	public void setPinControllerOnBoard(PINControllerOnBoard pinControllerOnBoard) {
+	public void setPinControllerOnBoard(IPINController pinControllerOnBoard) {
 		this.pinControllerOnBoard = pinControllerOnBoard;
 	}
 }

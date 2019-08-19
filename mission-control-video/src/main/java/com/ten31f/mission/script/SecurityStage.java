@@ -9,7 +9,6 @@ import com.pi4j.io.gpio.GpioPin;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
-import com.ten31f.mission.PINControllerOnBoard;
 import com.ten31f.mission.PixelPanel;
 import com.ten31f.mission.entities.Button.ButtonState;
 import com.ten31f.mission.entities.Entity;
@@ -18,6 +17,7 @@ import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated;
 import com.ten31f.mission.entities.Illuminated.LEDState;
 import com.ten31f.mission.entities.Toggle;
+import com.ten31f.mission.pin.IPINController;
 
 public class SecurityStage extends Stage implements GpioPinListenerDigital {
 
@@ -233,31 +233,31 @@ public class SecurityStage extends Stage implements GpioPinListenerDigital {
 
 		switch (gpioPin.getName()) {
 
-		case PINControllerOnBoard.PIN_IN_NAME_SIMON_GREEN01:
+		case IPINController.PIN_IN_NAME_SIMON_GREEN01:
 			testInput(EntityNames.BUTTON_SECURITY_04);
 			break;
-		case PINControllerOnBoard.PIN_IN_NAME_SIMON_GREEN02:
+		case IPINController.PIN_IN_NAME_SIMON_GREEN02:
 			testInput(EntityNames.BUTTON_SECURITY_06);
 			break;
-		case PINControllerOnBoard.PIN_IN_NAME_SIMON_WHITE:
+		case IPINController.PIN_IN_NAME_SIMON_WHITE:
 			testInput(EntityNames.BUTTON_SECURITY_05);
 			break;
-		case PINControllerOnBoard.PIN_IN_NAME_SIMON_BLUE01:
+		case IPINController.PIN_IN_NAME_SIMON_BLUE01:
 			testInput(EntityNames.BUTTON_SECURITY_01);
 			break;
-		case PINControllerOnBoard.PIN_IN_NAME_SIMON_BLUE02:
+		case IPINController.PIN_IN_NAME_SIMON_BLUE02:
 			testInput(EntityNames.BUTTON_SECURITY_03);
 			break;
-		case PINControllerOnBoard.PIN_IN_NAME_SIMON_RED01:
+		case IPINController.PIN_IN_NAME_SIMON_RED01:
 			testInput(EntityNames.BUTTON_SECURITY_07);
 			break;
-		case PINControllerOnBoard.PIN_IN_NAME_SIMON_RED02:
+		case IPINController.PIN_IN_NAME_SIMON_RED02:
 			testInput(EntityNames.BUTTON_SECURITY_09);
 			break;
-		case PINControllerOnBoard.PIN_IN_NAME_SIMON_YELLOW01:
+		case IPINController.PIN_IN_NAME_SIMON_YELLOW01:
 			testInput(EntityNames.BUTTON_SECURITY_02);
 			break;
-		case PINControllerOnBoard.PIN_IN_NAME_SIMON_YELLOW02:
+		case IPINController.PIN_IN_NAME_SIMON_YELLOW02:
 			testInput(EntityNames.BUTTON_SECURITY_08);
 			break;
 
@@ -268,12 +268,12 @@ public class SecurityStage extends Stage implements GpioPinListenerDigital {
 
 	@Override
 	public void establishPins() {
-		getPanel().getPinControllerOnBoard().addGpioPinListener(this);
+		getPanel().getPinController().addGpioPinListener(this);
 	}
 
 	@Override
 	public void wipePins() {
-		getPanel().getPinControllerOnBoard().removeGpioPinListener(this);
+		getPanel().getPinController().removeGpioPinListener(this);
 	}
 
 	private void setSequence(List<String> sequence) {

@@ -98,12 +98,12 @@ public class PyroStage extends Stage implements GpioPinListenerDigital {
 
 	@Override
 	public void establishPins() {
-		getPanel().getPinControllerOnBoard().addGpioPinListener(this);
+		getPanel().getPinController().addGpioPinListener(this);
 	}
 
 	@Override
 	public void wipePins() {
-		getPanel().getPinControllerOnBoard().removeGpioPinListener(this);
+		getPanel().getPinController().removeGpioPinListener(this);
 
 		for (String key : BUTTON_KEYS) {
 			Entity entity = getVisibleEntityCollection().getEntity(key);

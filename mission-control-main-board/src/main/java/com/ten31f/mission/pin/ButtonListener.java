@@ -1,4 +1,4 @@
-package com.ten31f.mission;
+package com.ten31f.mission.pin;
 
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
@@ -6,9 +6,9 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 public class ButtonListener implements GpioPinListenerDigital {
 
-	private PINControllerOnBoard pinControllerOnBoard = null;
+	private IPINController pinControllerOnBoard = null;
 
-	public ButtonListener(PINControllerOnBoard pinControllerOnBoard) {
+	public ButtonListener(IPINController pinControllerOnBoard) {
 		setPinControllerOnBoard(pinControllerOnBoard);
 	}
 
@@ -43,11 +43,11 @@ public class ButtonListener implements GpioPinListenerDigital {
 
 	}
 
-	private PINControllerOnBoard getPinControllerOnBoard() {
+	private IPINController getPinControllerOnBoard() {
 		return pinControllerOnBoard;
 	}
 
-	private void setPinControllerOnBoard(PINControllerOnBoard pinControllerOnBoard) {
+	private void setPinControllerOnBoard(IPINController pinControllerOnBoard) {
 		this.pinControllerOnBoard = pinControllerOnBoard;
 	}
 

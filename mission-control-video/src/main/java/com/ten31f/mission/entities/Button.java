@@ -2,8 +2,8 @@ package com.ten31f.mission.entities;
 
 import java.util.Random;
 
-import com.ten31f.mission.PINControllerOnBoard;
 import com.ten31f.mission.audio.SoundEffect;
+import com.ten31f.mission.pin.IPINController;
 
 public abstract class Button extends Illuminated {
 
@@ -17,7 +17,7 @@ public abstract class Button extends Illuminated {
 	private SoundEffect soundEffect = null;
 
 	public Button(int x, int y, int ledON, int ledOFF, SoundEffect soundEffect, String outputPinName,
-			PINControllerOnBoard pinControllerOnBoard) {
+			IPINController pinControllerOnBoard) {
 		super(x, y, ledON, ledOFF, outputPinName, pinControllerOnBoard);
 		setSoundEffect(soundEffect);
 	}

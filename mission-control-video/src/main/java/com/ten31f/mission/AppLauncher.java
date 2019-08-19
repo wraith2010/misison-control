@@ -5,10 +5,13 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+import com.ten31f.mission.pin.IPINController;
+import com.ten31f.mission.pin.PINControllerOnBoard;
+import com.ten31f.mission.pin.PINControllerOffBoard;
+
 @SuppressWarnings({ "serial" })
 public class AppLauncher extends Applet {
 
-	private static PINControllerOnBoard pinControllerOnBoard = new PINControllerOnBoard();
 	private static PixelPanel panel = new PixelPanel();
 	public static final boolean DEBUG = false;
 
@@ -33,7 +36,15 @@ public class AppLauncher extends Applet {
 
 	public static void main(String[] args) {
 
-		panel.setPinControllerOnBoard(pinControllerOnBoard);
+		IPINController pinController = null;
+
+		try {
+			pinController = new PINControllerOnBoard();
+		} catch (IllegalArgumentException | UnsatisfiedLinkError exception) {
+			pinController = new PINControllerOffBoard();
+		}
+
+		panel.setPinController(pinController);
 		panel.setMinimumSize(PixelPanel.DIMENSION);
 		panel.setMaximumSize(PixelPanel.DIMENSION);
 		panel.setPreferredSize(PixelPanel.DIMENSION);

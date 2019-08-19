@@ -4,6 +4,8 @@ import java.io.Console;
 import java.io.IOException;
 
 import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
+import com.ten31f.mission.pin.IPINController;
+import com.ten31f.mission.pin.PINControllerOnBoard;
 
 public class App {
 
@@ -11,7 +13,7 @@ public class App {
 
 		System.out.println("<--Pi4J--> GPIO Control Example ... started.");
 
-		PINControllerOnBoard pinControllerOnBoard = new PINControllerOnBoard();
+		IPINController pinControllerOnBoard = new PINControllerOnBoard();
 
 		while (true) {
 

@@ -68,7 +68,7 @@ public class IntroStage extends Stage {
 
 	@Override
 	public void establishPins() {
-		getPanel().getPinControllerOnBoard().reset();
+		getPanel().getPinController().reset();
 	}
 
 	@Override
