@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.pi4j.gpio.extension.mcp.MCP23017GpioProvider;
+import com.pi4j.gpio.extension.mcp.MCP23017Pin;
 import com.pi4j.io.gpio.GpioPin;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
@@ -268,12 +271,79 @@ public class SecurityStage extends Stage implements GpioPinListenerDigital {
 
 	@Override
 	public void establishPins() {
-		getPanel().getPinController().addGpioPinListener(this);
+
+		IPINController pinController = getPanel().getPinController();
+
+		pinController.addGpioPinListener(this);
+
+		MCP23017GpioProvider mcp23017GpioProvider01 = getPanel().getPinController().getMco23017GpioProvider01();
+		MCP23017GpioProvider mcp23017GpioProvider02 = getPanel().getPinController().getMco23017GpioProvider02();
+
+		GpioPinDigitalOutput pinGreen01 = pinController.establishOuputPin(MCP23017Pin.GPIO_A0,
+				IPINController.PIN_OUT_NAME_SIMON_GREEN01, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinBlue01 = pinController.establishOuputPin(MCP23017Pin.GPIO_A5,
+				IPINController.PIN_OUT_NAME_SIMON_BLUE01, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinYellow01 = pinController.establishOuputPin(MCP23017Pin.GPIO_B0,
+				IPINController.PIN_OUT_NAME_SIMON_YELLOW01, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinGreen02 = pinController.establishOuputPin(MCP23017Pin.GPIO_B1,
+				IPINController.PIN_OUT_NAME_SIMON_GREEN02, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinWhite = pinController.establishOuputPin(MCP23017Pin.GPIO_B2,
+				IPINController.PIN_OUT_NAME_SIMON_WHITE, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinRed02 = pinController.establishOuputPin(MCP23017Pin.GPIO_B3,
+				IPINController.PIN_OUT_NAME_SIMON_RED02, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinRed01 = pinController.establishOuputPin(MCP23017Pin.GPIO_B4,
+				IPINController.PIN_OUT_NAME_SIMON_RED01, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinYellow02 = pinController.establishOuputPin(MCP23017Pin.GPIO_B5,
+				IPINController.PIN_OUT_NAME_SIMON_YELLOW02, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinBlue02 = pinController.establishOuputPin(MCP23017Pin.GPIO_B6,
+				IPINController.PIN_OUT_NAME_SIMON_BLUE02, mcp23017GpioProvider01);
+
+		pinController.establishInputPin(MCP23017Pin.GPIO_A0, IPINController.PIN_IN_NAME_SIMON_GREEN01,
+				mcp23017GpioProvider02, pinGreen01);
+		pinController.establishInputPin(MCP23017Pin.GPIO_A1, IPINController.PIN_IN_NAME_SIMON_GREEN02,
+				mcp23017GpioProvider02, pinGreen02);
+		pinController.establishInputPin(MCP23017Pin.GPIO_A2, IPINController.PIN_IN_NAME_SIMON_WHITE,
+				mcp23017GpioProvider02, pinWhite);
+		pinController.establishInputPin(MCP23017Pin.GPIO_A3, IPINController.PIN_IN_NAME_SIMON_YELLOW02,
+				mcp23017GpioProvider02, pinYellow02);
+		pinController.establishInputPin(MCP23017Pin.GPIO_A4, IPINController.PIN_IN_NAME_SIMON_RED02,
+				mcp23017GpioProvider02, pinRed02);
+		pinController.establishInputPin(MCP23017Pin.GPIO_A5, IPINController.PIN_IN_NAME_SIMON_YELLOW01,
+				mcp23017GpioProvider02, pinYellow01);
+		pinController.establishInputPin(MCP23017Pin.GPIO_A6, IPINController.PIN_IN_NAME_SIMON_BLUE02,
+				mcp23017GpioProvider02, pinBlue02);
+		pinController.establishInputPin(MCP23017Pin.GPIO_A7, IPINController.PIN_IN_NAME_SIMON_BLUE01,
+				mcp23017GpioProvider02, pinBlue01);
+		pinController.establishInputPin(MCP23017Pin.GPIO_B0, IPINController.PIN_IN_NAME_SIMON_RED01,
+				mcp23017GpioProvider02, pinRed01);
 	}
 
 	@Override
 	public void wipePins() {
-		getPanel().getPinController().removeGpioPinListener(this);
+
+		IPINController pinController = getPanel().getPinController();
+
+		pinController.removeGpioPinListener(this);
+
+		pinController.removePin(IPINController.PIN_OUT_NAME_SIMON_GREEN01);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SIMON_BLUE01);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SIMON_YELLOW01);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SIMON_GREEN02);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SIMON_WHITE);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SIMON_RED02);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SIMON_RED01);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SIMON_YELLOW02);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SIMON_BLUE02);
+
+		pinController.removePin(IPINController.PIN_IN_NAME_SIMON_GREEN01);
+		pinController.removePin(IPINController.PIN_IN_NAME_SIMON_GREEN02);
+		pinController.removePin(IPINController.PIN_IN_NAME_SIMON_WHITE);
+		pinController.removePin(IPINController.PIN_IN_NAME_SIMON_YELLOW02);
+		pinController.removePin(IPINController.PIN_IN_NAME_SIMON_RED02);
+		pinController.removePin(IPINController.PIN_IN_NAME_SIMON_YELLOW01);
+		pinController.removePin(IPINController.PIN_IN_NAME_SIMON_BLUE02);
+		pinController.removePin(IPINController.PIN_IN_NAME_SIMON_BLUE01);
+		pinController.removePin(IPINController.PIN_IN_NAME_SIMON_RED01);
 	}
 
 	private void setSequence(List<String> sequence) {

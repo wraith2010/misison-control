@@ -35,7 +35,6 @@ import com.ten31f.mission.pin.IPINController;
 import com.ten31f.mission.script.AnimateLaunch;
 import com.ten31f.mission.script.IntroStage;
 import com.ten31f.mission.script.LaunchStage;
-import com.ten31f.mission.script.PyroStage;
 import com.ten31f.mission.script.SecurityStage;
 import com.ten31f.mission.script.Stage;
 import com.ten31f.mission.script.SubSystemStage;
@@ -235,15 +234,15 @@ public class PixelPanel extends Canvas implements Runnable, MouseListener {
 				getHiddenEntityCollection());
 		SubSystemStage subSystemStage = new SubSystemStage(this, getVisiableEntityCollection(),
 				getHiddenEntityCollection());
-		PyroStage pyroStage = new PyroStage(this, getVisiableEntityCollection(), getHiddenEntityCollection());
+		//PyroStage pyroStage = new PyroStage(this, getVisiableEntityCollection(), getHiddenEntityCollection());
 		LaunchStage launchStage = new LaunchStage(this, getVisiableEntityCollection(), getHiddenEntityCollection());
 		AnimateLaunch animateLaunch = new AnimateLaunch(this, getVisiableEntityCollection(),
 				getHiddenEntityCollection());
 
 		introStage.setNextStage(securityStage);
 		securityStage.setNextStage(subSystemStage);
-		subSystemStage.setNextStage(pyroStage);
-		pyroStage.setNextStage(launchStage);
+		subSystemStage.setNextStage(launchStage);
+		//pyroStage.setNextStage(launchStage);
 		launchStage.setNextStage(animateLaunch);
 		animateLaunch.setNextStage(introStage);
 

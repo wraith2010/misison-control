@@ -2,6 +2,8 @@ package com.ten31f.mission.script;
 
 import java.awt.event.MouseEvent;
 
+import com.pi4j.gpio.extension.mcp.MCP23017GpioProvider;
+import com.pi4j.gpio.extension.mcp.MCP23017Pin;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
@@ -11,6 +13,7 @@ import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated;
 import com.ten31f.mission.entities.Illuminated.LEDState;
+import com.ten31f.mission.pin.IPINController;
 
 public class LaunchStage extends Stage implements GpioPinListenerDigital {
 
@@ -56,12 +59,25 @@ public class LaunchStage extends Stage implements GpioPinListenerDigital {
 
 	@Override
 	public void establishPins() {
-		getPanel().getPinController().addGpioPinListener(this);
+		IPINController pinController = getPanel().getPinController();
+
+		pinController.addGpioPinListener(this);
+
+		MCP23017GpioProvider mcp23017GpioProvider03 = pinController.getMco23017GpioProvider03();
+
+		pinController.establishOuputPin(MCP23017Pin.GPIO_B4, IPINController.PIN_OUT_NAME_LAUNCH,
+				mcp23017GpioProvider03);
+		pinController.establishInputPin(MCP23017Pin.GPIO_B3, IPINController.PIN_IN_NAME_LAUNCH, mcp23017GpioProvider03);
 	}
 
 	@Override
 	public void wipePins() {
-		getPanel().getPinController().removeGpioPinListener(this);
+		IPINController pinController = getPanel().getPinController();
+
+		pinController.removeGpioPinListener(this);
+
+		pinController.removePin(IPINController.PIN_OUT_NAME_LAUNCH);
+		pinController.removePin(IPINController.PIN_IN_NAME_LAUNCH);
 	}
 
 	@Override

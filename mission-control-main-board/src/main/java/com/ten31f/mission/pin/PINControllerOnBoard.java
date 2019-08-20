@@ -63,7 +63,7 @@ public class PINControllerOnBoard implements IPINController {
 			e.printStackTrace();
 		}
 
-		establishPins();
+		// establishPins();
 	}
 
 	private void establishPins() {
@@ -99,8 +99,6 @@ public class PINControllerOnBoard implements IPINController {
 		establishInputPin(MCP23017Pin.GPIO_A7, PIN_IN_NAME_SIMON_BLUE01, getMco23017GpioProvider02(), pinBlue01);
 		establishInputPin(MCP23017Pin.GPIO_B0, PIN_IN_NAME_SIMON_RED01, getMco23017GpioProvider02(), pinRed01);
 
-		establishOuputPin(MCP23017Pin.GPIO_B4, PIN_OUT_NAME_LAUNCH, getMco23017GpioProvider03());
-
 		establishOuputPin(MCP23017Pin.GPIO_A1, PIN_OUT_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL,
 				getMco23017GpioProvider01());
 		establishOuputPin(MCP23017Pin.GPIO_A2, PIN_OUT_NAME_SUB_SYSTEM_TANG, getMco23017GpioProvider01());
@@ -134,7 +132,9 @@ public class PINControllerOnBoard implements IPINController {
 		establishInputPin(MCP23017Pin.GPIO_B1, PIN_IN_NAME_PYRO_SOLID_BOOSTER, getMco23017GpioProvider03());
 		establishInputSwitchPin(MCP23017Pin.GPIO_B2, PIN_IN_NAME_PYRO_MAIN_ENGINE_SWITCH, getMco23017GpioProvider03());
 
+		establishOuputPin(MCP23017Pin.GPIO_B4, PIN_OUT_NAME_LAUNCH, getMco23017GpioProvider03());
 		establishInputPin(MCP23017Pin.GPIO_B3, PIN_IN_NAME_LAUNCH, getMco23017GpioProvider03());
+
 	}
 
 	@Override
@@ -198,7 +198,7 @@ public class PINControllerOnBoard implements IPINController {
 		getInputPins().put(gpioPinDigitalInput.getName(), gpioPinDigitalInput);
 	}
 
-	private void establishInputSwitchPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider) {
+	public void establishInputSwitchPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider) {
 
 		if (getInputPins() == null) {
 			setInputPins(new HashMap<>());

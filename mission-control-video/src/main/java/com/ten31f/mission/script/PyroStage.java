@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 
 import javax.sound.sampled.Clip;
 
+import com.pi4j.gpio.extension.mcp.MCP23017GpioProvider;
+import com.pi4j.gpio.extension.mcp.MCP23017Pin;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
@@ -15,6 +17,7 @@ import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated;
 import com.ten31f.mission.entities.Illuminated.LEDState;
+import com.ten31f.mission.pin.IPINController;
 import com.ten31f.mission.entities.Toggle;
 
 public class PyroStage extends Stage implements GpioPinListenerDigital {
@@ -98,17 +101,64 @@ public class PyroStage extends Stage implements GpioPinListenerDigital {
 
 	@Override
 	public void establishPins() {
-		getPanel().getPinController().addGpioPinListener(this);
+		IPINController pinController = getPanel().getPinController();
+
+		pinController.addGpioPinListener(this);
+
+		MCP23017GpioProvider mcp23017GpioProvider03 = pinController.getMco23017GpioProvider03();
+
+		pinController.establishOuputPin(MCP23017Pin.GPIO_B5, IPINController.PIN_OUT_NAME_PYRO_FUEL_PUMP,
+				mcp23017GpioProvider03);
+		pinController.establishOuputPin(MCP23017Pin.GPIO_B6, IPINController.PIN_OUT_NAME_PYRO_SOLID_BOOSTER,
+				mcp23017GpioProvider03);
+		pinController.establishOuputPin(MCP23017Pin.GPIO_B7, IPINController.PIN_OUT_NAME_PYRO_MAIN_ENGINE,
+				mcp23017GpioProvider03);
+
+		pinController.establishOuputPin(MCP23017Pin.GPIO_A0, IPINController.PIN_OUT_NAME_PYRO_FUEL_PUMP_SWITCH,
+				mcp23017GpioProvider03);
+		pinController.establishOuputPin(MCP23017Pin.GPIO_A1, IPINController.PIN_OUT_NAME_PYRO_SOLID_BOOSTER_SWITCH,
+				mcp23017GpioProvider03);
+		pinController.establishOuputPin(MCP23017Pin.GPIO_A2, IPINController.PIN_OUT_NAME_PYRO_MAIN_ENGINE_SWITCH,
+				mcp23017GpioProvider03);
+
+		pinController.establishInputPin(MCP23017Pin.GPIO_A5, IPINController.PIN_IN_NAME_PYRO_MAIN_ENGINE,
+				mcp23017GpioProvider03);
+		pinController.establishInputSwitchPin(MCP23017Pin.GPIO_A6, IPINController.PIN_IN_NAME_PYRO_SOLID_BOOSTER_SWITCH,
+				mcp23017GpioProvider03);
+		pinController.establishInputPin(MCP23017Pin.GPIO_A7, IPINController.PIN_IN_NAME_PYRO_FUEL_PUMP,
+				mcp23017GpioProvider03);
+
+		pinController.establishInputSwitchPin(MCP23017Pin.GPIO_B0, IPINController.PIN_IN_NAME_PYRO_FUEL_PUMP_SWITCH,
+				mcp23017GpioProvider03);
+		pinController.establishInputPin(MCP23017Pin.GPIO_B1, IPINController.PIN_IN_NAME_PYRO_SOLID_BOOSTER,
+				mcp23017GpioProvider03);
+		pinController.establishInputSwitchPin(MCP23017Pin.GPIO_B2, IPINController.PIN_IN_NAME_PYRO_MAIN_ENGINE_SWITCH,
+				mcp23017GpioProvider03);
+
 	}
 
 	@Override
 	public void wipePins() {
-		getPanel().getPinController().removeGpioPinListener(this);
+		IPINController pinController = getPanel().getPinController();
+
+		pinController.removeGpioPinListener(this);
 
 		for (String key : BUTTON_KEYS) {
 			Entity entity = getVisibleEntityCollection().getEntity(key);
 			((Illuminated) entity).setLedState(LEDState.LOW);
 		}
+
+		pinController.removePin(IPINController.PIN_OUT_NAME_PYRO_FUEL_PUMP);
+		pinController.removePin(IPINController.PIN_OUT_NAME_PYRO_SOLID_BOOSTER);
+		pinController.removePin(IPINController.PIN_OUT_NAME_PYRO_MAIN_ENGINE);
+
+		pinController.removePin(IPINController.PIN_IN_NAME_PYRO_MAIN_ENGINE);
+		pinController.removePin(IPINController.PIN_IN_NAME_PYRO_SOLID_BOOSTER);
+		pinController.removePin(IPINController.PIN_IN_NAME_PYRO_FUEL_PUMP);
+
+		pinController.removePin(IPINController.PIN_IN_NAME_PYRO_FUEL_PUMP_SWITCH);
+		pinController.removePin(IPINController.PIN_IN_NAME_PYRO_SOLID_BOOSTER_SWITCH);
+		pinController.removePin(IPINController.PIN_IN_NAME_PYRO_MAIN_ENGINE_SWITCH);
 	}
 
 	private void promptNextButton() {

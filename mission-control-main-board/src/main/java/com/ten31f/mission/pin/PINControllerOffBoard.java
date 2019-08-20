@@ -20,20 +20,20 @@ public class PINControllerOffBoard implements IPINController {
 	@Override
 	public void establishInputPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void removePin(String pinName) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void establishInputPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider,
 			GpioPinDigitalOutput gpioPinDigitalOutput) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class PINControllerOffBoard implements IPINController {
 	@Override
 	public void setGpioController(GpioController gpioController) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class PINControllerOffBoard implements IPINController {
 	@Override
 	public void setMco23017GpioProvider01(MCP23017GpioProvider mco23017GpioProvider01) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class PINControllerOffBoard implements IPINController {
 	@Override
 	public void setMco23017GpioProvider02(MCP23017GpioProvider mco23017GpioProvider02) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -81,13 +81,13 @@ public class PINControllerOffBoard implements IPINController {
 	@Override
 	public void setMco23017GpioProvider03(MCP23017GpioProvider mco23017GpioProvider03) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setOutputPins(Map<String, GpioPinDigitalOutput> outputPins) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -111,25 +111,30 @@ public class PINControllerOffBoard implements IPINController {
 	@Override
 	public void setInputPins(Map<String, GpioPinDigitalInput> inputPins) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void addGpioPinListener(GpioPinListenerDigital gpioPinListenerDigital) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void removeGpioPinListener(GpioPinListenerDigital gpioPinListenerDigital) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	@Override
+	public void establishInputSwitchPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider) {
+		// TODO Auto-generated method stub
+
+	}
 }

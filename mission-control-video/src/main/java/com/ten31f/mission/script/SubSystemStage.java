@@ -2,6 +2,9 @@ package com.ten31f.mission.script;
 
 import java.awt.event.MouseEvent;
 
+import com.pi4j.gpio.extension.mcp.MCP23017GpioProvider;
+import com.pi4j.gpio.extension.mcp.MCP23017Pin;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
@@ -12,6 +15,7 @@ import com.ten31f.mission.entities.EntityCollection;
 import com.ten31f.mission.entities.EntityNames;
 import com.ten31f.mission.entities.Illuminated;
 import com.ten31f.mission.entities.Illuminated.LEDState;
+import com.ten31f.mission.pin.IPINController;
 
 public class SubSystemStage extends Stage implements GpioPinListenerDigital {
 
@@ -67,17 +71,67 @@ public class SubSystemStage extends Stage implements GpioPinListenerDigital {
 
 	@Override
 	public void establishPins() {
-		getPanel().getPinController().addGpioPinListener(this);
+		IPINController pinController = getPanel().getPinController();
+
+		pinController.addGpioPinListener(this);
+
+		MCP23017GpioProvider mcp23017GpioProvider01 = getPanel().getPinController().getMco23017GpioProvider01();
+		MCP23017GpioProvider mcp23017GpioProvider02 = getPanel().getPinController().getMco23017GpioProvider02();
+
+		GpioPinDigitalOutput pinECOut = pinController.establishOuputPin(MCP23017Pin.GPIO_A1,
+				IPINController.PIN_OUT_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinTANGOut = pinController.establishOuputPin(MCP23017Pin.GPIO_A2,
+				IPINController.PIN_OUT_NAME_SUB_SYSTEM_TANG, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinLSOut = pinController.establishOuputPin(MCP23017Pin.GPIO_A3,
+				IPINController.PIN_OUT_NAME_SUB_SYSTEM_LIFE_SUPPORT, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinWOut = pinController.establishOuputPin(MCP23017Pin.GPIO_A4,
+				IPINController.PIN_OUT_NAME_SUB_SYSTEM_WATER, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinCOMMOut = pinController.establishOuputPin(MCP23017Pin.GPIO_A6,
+				IPINController.PIN_OUT_NAME_SUB_SYSTEM_COMMS, mcp23017GpioProvider01);
+		GpioPinDigitalOutput pinTFOut = pinController.establishOuputPin(MCP23017Pin.GPIO_A7,
+				IPINController.PIN_OUT_NAME_SUB_SYSTEM_TWITCH_FEED, mcp23017GpioProvider01);
+
+		pinController.establishInputPin(MCP23017Pin.GPIO_B1, IPINController.PIN_IN_NAME_SUB_SYSTEM_TWITCH_FEED,
+				mcp23017GpioProvider02, pinTFOut);
+		pinController.establishInputPin(MCP23017Pin.GPIO_B2, IPINController.PIN_IN_NAME_SUB_SYSTEM_COMMS,
+				mcp23017GpioProvider02, pinCOMMOut);
+		pinController.establishInputPin(MCP23017Pin.GPIO_B3, IPINController.PIN_IN_NAME_SUB_SYSTEM_WATER,
+				mcp23017GpioProvider02, pinWOut);
+		pinController.establishInputPin(MCP23017Pin.GPIO_B4, IPINController.PIN_IN_NAME_SUB_SYSTEM_LIFE_SUPPORT,
+				mcp23017GpioProvider02, pinLSOut);
+		pinController.establishInputPin(MCP23017Pin.GPIO_B5, IPINController.PIN_IN_NAME_SUB_SYSTEM_TANG,
+				mcp23017GpioProvider02, pinTANGOut);
+		pinController.establishInputPin(MCP23017Pin.GPIO_B6,
+				IPINController.PIN_IN_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL, mcp23017GpioProvider02, pinECOut);
+
 	}
 
 	@Override
 	public void wipePins() {
-		getPanel().getPinController().removeGpioPinListener(this);
+
+		IPINController pinController = getPanel().getPinController();
+
+		pinController.removeGpioPinListener(this);
 
 		for (String key : BUTTON_KEYS) {
 			Entity entity = getVisibleEntityCollection().getEntity(key);
 			((Illuminated) entity).setLedState(LEDState.LOW);
 		}
+
+		pinController.removePin(IPINController.PIN_OUT_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SUB_SYSTEM_TANG);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SUB_SYSTEM_LIFE_SUPPORT);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SUB_SYSTEM_WATER);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SUB_SYSTEM_COMMS);
+		pinController.removePin(IPINController.PIN_OUT_NAME_SUB_SYSTEM_TWITCH_FEED);
+
+		pinController.removePin(IPINController.PIN_IN_NAME_SUB_SYSTEM_TWITCH_FEED);
+		pinController.removePin(IPINController.PIN_IN_NAME_SUB_SYSTEM_COMMS);
+		pinController.removePin(IPINController.PIN_IN_NAME_SUB_SYSTEM_WATER);
+		pinController.removePin(IPINController.PIN_IN_NAME_SUB_SYSTEM_LIFE_SUPPORT);
+		pinController.removePin(IPINController.PIN_IN_NAME_SUB_SYSTEM_TANG);
+		pinController.removePin(IPINController.PIN_IN_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL);
+
 	}
 
 	private void promptNextButton() {

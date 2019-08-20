@@ -45,7 +45,7 @@ public interface IPINController {
 	public static final String[] SUBSYTEM_OUT_PINS = { PIN_OUT_NAME_SUB_SYSTEM_COMMS,
 			PIN_OUT_NAME_SUB_SYSTEM_LIFE_SUPPORT, PIN_OUT_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL,
 			PIN_OUT_NAME_SUB_SYSTEM_WATER, PIN_OUT_NAME_SUB_SYSTEM_TWITCH_FEED, PIN_OUT_NAME_SUB_SYSTEM_TANG };
-	
+
 	public static final String PIN_IN_NAME_SUB_SYSTEM_COMMS = "SUB_SYSTEM_COMMS_IN";
 	public static final String PIN_IN_NAME_SUB_SYSTEM_LIFE_SUPPORT = "SUB_SYSTEM_LIFE_SUPPORT_IN";
 	public static final String PIN_IN_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL = "SUB_ENVIRONMENTAL_CONTROL_IN";
@@ -114,5 +114,7 @@ public interface IPINController {
 	public void removeGpioPinListener(GpioPinListenerDigital gpioPinListenerDigital);
 
 	public void reset();
+
+	public void establishInputSwitchPin(Pin pin, String name, MCP23017GpioProvider mcp23017GpioProvider);
 
 }
