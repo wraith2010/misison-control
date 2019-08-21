@@ -103,7 +103,7 @@ public class PyroStage extends Stage implements GpioPinListenerDigital {
 	public void establishPins() {
 		IPINController pinController = getPanel().getPinController();
 
-		pinController.addGpioPinListener(this);
+		
 
 		MCP23017GpioProvider mcp23017GpioProvider03 = pinController.getMco23017GpioProvider03();
 
@@ -135,6 +135,8 @@ public class PyroStage extends Stage implements GpioPinListenerDigital {
 		pinController.establishInputSwitchPin(MCP23017Pin.GPIO_B2, IPINController.PIN_IN_NAME_PYRO_MAIN_ENGINE_SWITCH,
 				mcp23017GpioProvider03);
 
+		pinController.addGpioPinListener(this);
+		
 	}
 
 	@Override

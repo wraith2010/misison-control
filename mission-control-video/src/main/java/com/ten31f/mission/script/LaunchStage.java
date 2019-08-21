@@ -61,13 +61,15 @@ public class LaunchStage extends Stage implements GpioPinListenerDigital {
 	public void establishPins() {
 		IPINController pinController = getPanel().getPinController();
 
-		pinController.addGpioPinListener(this);
+		
 
 		MCP23017GpioProvider mcp23017GpioProvider03 = pinController.getMco23017GpioProvider03();
 
 		pinController.establishOuputPin(MCP23017Pin.GPIO_B4, IPINController.PIN_OUT_NAME_LAUNCH,
 				mcp23017GpioProvider03);
 		pinController.establishInputPin(MCP23017Pin.GPIO_B3, IPINController.PIN_IN_NAME_LAUNCH, mcp23017GpioProvider03);
+		
+		pinController.addGpioPinListener(this);
 	}
 
 	@Override

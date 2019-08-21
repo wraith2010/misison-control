@@ -274,7 +274,7 @@ public class SecurityStage extends Stage implements GpioPinListenerDigital {
 
 		IPINController pinController = getPanel().getPinController();
 
-		pinController.addGpioPinListener(this);
+		
 
 		MCP23017GpioProvider mcp23017GpioProvider01 = getPanel().getPinController().getMco23017GpioProvider01();
 		MCP23017GpioProvider mcp23017GpioProvider02 = getPanel().getPinController().getMco23017GpioProvider02();
@@ -316,6 +316,8 @@ public class SecurityStage extends Stage implements GpioPinListenerDigital {
 				mcp23017GpioProvider02, pinBlue01);
 		pinController.establishInputPin(MCP23017Pin.GPIO_B0, IPINController.PIN_IN_NAME_SIMON_RED01,
 				mcp23017GpioProvider02, pinRed01);
+		
+		pinController.addGpioPinListener(this);
 	}
 
 	@Override

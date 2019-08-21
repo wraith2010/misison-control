@@ -73,7 +73,7 @@ public class SubSystemStage extends Stage implements GpioPinListenerDigital {
 	public void establishPins() {
 		IPINController pinController = getPanel().getPinController();
 
-		pinController.addGpioPinListener(this);
+		
 
 		MCP23017GpioProvider mcp23017GpioProvider01 = getPanel().getPinController().getMco23017GpioProvider01();
 		MCP23017GpioProvider mcp23017GpioProvider02 = getPanel().getPinController().getMco23017GpioProvider02();
@@ -104,6 +104,7 @@ public class SubSystemStage extends Stage implements GpioPinListenerDigital {
 		pinController.establishInputPin(MCP23017Pin.GPIO_B6,
 				IPINController.PIN_IN_NAME_SUB_SYSTEM_ENVIRONMENTAL_CONTROL, mcp23017GpioProvider02, pinECOut);
 
+		pinController.addGpioPinListener(this);
 	}
 
 	@Override
